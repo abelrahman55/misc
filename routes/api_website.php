@@ -3,19 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\FaqsController;
-use App\Http\Controllers\Api\AboutUsController;
-use App\Http\Controllers\Api\ArticlesController;
-use App\Http\Controllers\Api\BrandController;
-use App\Http\Controllers\Api\ServiceController;
-
 use App\Http\Controllers\Web\FaqsController as WebFaqsController;
-use App\Http\Controllers\Web\BlogController as WebBlogController;;
-use App\Http\Controllers\Web\AboutUsController as WebAboutUsController;
-use App\Http\Controllers\Web\ArticlesController as WebArticlesController;
-use App\Http\Controllers\Web\BrandController as WebBrandController;
-
-use App\Http\Controllers\Web\ServiceController as WebServiceController;
-
+use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -75,3 +64,17 @@ Route::group([
 });
 
 
+
+Route::group([
+    'prefix'=>'specialties',
+],function(){
+    Route::get('get_specialties',[SpecialtiesController::class,'get_specialties']);
+    Route::post('store_new_specialties',[SpecialtiesDashController::class,'store_new_specialty']);
+});
+
+
+Route::group([
+    'prefix'=>'feedback',
+],function(){
+    Route::post('add_feedback',[FeedBackController::class,'add_feedback']);
+});

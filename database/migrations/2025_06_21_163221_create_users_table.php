@@ -68,8 +68,11 @@ return new class extends Migration
             $table->string('about')->nullable();
             $table->string('pronous')->nullable();
             $table->string('qualification')->nullable();
-            $table->string('specialization')->nullable();
+            $table->tinyInteger('specialization_id')->nullable();
             $table->string('experience')->nullable();
+            $table->string('complaints')->nullable();
+            $table->string('doctor_date')->nullable();
+            $table->string('doctor_time')->nullable();
             $table->string('age_group')->nullable();
             $table->string('language')->default('arabic');
             $table->timestamps();

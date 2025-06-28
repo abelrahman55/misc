@@ -23,6 +23,8 @@ public $fillable = [
     'allergies',
     'medications',
     'dnr',
+    'doctor_time',
+    'doctor_date',
     'organ_donation',
     'p_f_name',
     'p_m_name',
@@ -39,6 +41,8 @@ public $fillable = [
     'physical_activity',
     'dietary_preferences',
     'heart_rate',
+    'specialization_id',
+    'complaints',
     'blood_pressure',
     'temperature',
     'respiratory_rate',
@@ -91,6 +95,7 @@ public $fillable = [
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'specialization_id' => 'integer',
         ];
     }
     public function getJWTIdentifier()

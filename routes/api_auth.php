@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CompeleteProviderController;
 use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\PatientAuthController;
 use App\Http\Controllers\Api\PatientDataController;
@@ -18,6 +19,8 @@ Route::group([
 
     ],function(){
         Route::post('complete_data',[PatientDataController::class,'complete_data']);
+        Route::post('compelete_provider',[CompeleteProviderController::class,'compelete_provider']);
+
     });
 
 });
