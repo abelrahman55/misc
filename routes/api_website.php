@@ -3,8 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\FaqsController;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\AboutUsController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\ArticlesController;
+
+use App\Http\Controllers\Api\FeedBackController;
+use App\Http\Controllers\Api\SpecialtiesController;
+use App\Http\Controllers\Web\SpecialtiesDashController;
 use App\Http\Controllers\Web\FaqsController as WebFaqsController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\BlogController as WebBlogController;;
+
+use App\Http\Controllers\Web\BrandController as WebBrandController;
+use App\Http\Controllers\Web\AboutUsController as WebAboutUsController;
+use App\Http\Controllers\Web\ServiceController as WebServiceController;
+use App\Http\Controllers\Web\ArticlesController as WebArticlesController;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -63,9 +77,8 @@ Route::group([
     Route::get('get_Services',[ServiceController::class,'index']);
 });
 
-
-
 Route::group([
+
     'prefix'=>'specialties',
 ],function(){
     Route::get('get_specialties',[SpecialtiesController::class,'get_specialties']);
