@@ -4,26 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Faq extends Model
+class Articles extends Model
 {
-    
-    public $fillable = ['question', 'answer'];
+    public $fillable = ['title', 'description', 'image', 'status'];
     public $casts=[
-        'question'=>'array',
-        'answer'=>'array'
+        'title'=>'array',
+        'description'=>'array'
     ];
 
     public function getTranslatedTitle($local='ar'){
         $lang=request()->header('lang','ar');
-        return $this->question[$lang]??"";
+        return $this->title[$lang]??"";
     }
-
     public function getTranslatedDescription($local='ar'){
         $lang=request()->header('lang','ar');
-        return $this->answer[$lang]??"";
-    }
-    public function scopeActive($query){
-        return $query->where('status',1);
+        return $this->description[$lang]??"";
     }
 
+     public function scopeActive($query){
+        return $query->where('status',1);
+    }
 }
