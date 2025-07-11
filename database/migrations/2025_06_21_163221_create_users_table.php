@@ -57,9 +57,11 @@ return new class extends Migration
             $table->enum('gender',['male','female'])->nullable();
             $table->string('street_name')->nullable();
             $table->string('town')->nullable();
+            $table->bigInteger('parent_id')->nullable();
+
             $table->tinyInteger('active')->default(0);
             $table->tinyInteger('ban')->default(0);
-            $table->string('country')->nullable();
+            $table->string('country_id')->nullable();
             $table->enum('military_status', ['active', 'inactive', 'veteran'])->default('inactive');
             $table->string('occupation')->nullable();
             $table->string('age')->nullable();

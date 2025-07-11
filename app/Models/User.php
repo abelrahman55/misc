@@ -37,10 +37,15 @@ public $fillable = [
     'family_history',
     // 'immunizations', // commented out in migration
     'smoking',
+    'about',
     'alcohol',
     'physical_activity',
     'dietary_preferences',
+    'type',
     'heart_rate',
+    'prof_img',
+    'parent_id',
+    'pronous',
     'specialization_id',
     'complaints',
     'blood_pressure',
@@ -61,13 +66,35 @@ public $fillable = [
     'street_name',
     'mobile_number',
     'town',
-    'country',
+    'country_id',
+    'active',
     'military_status',
     'occupation',
     'language',
     'home_number',
 ];
-
+public $appends=['prof_img_url','rate_avg','rate_count'];
+public function getProfImgUrlAttribute(){
+    if($this->prof_img){
+        return asset('storage/'.$this->prof_img);
+    }
+    return null;
+}
+public function features(){
+    return $this->hasMany(UserFeature::class,'user_id')->select('id','title','user_id');
+}
+public function ratings(){
+    return $this->hasMany(RateUser::class,'provider_id');
+}
+public function getRateAvgAttribute(){
+    return $this->ratings()->avg('rate')*1??0;
+}
+public function getRateCountAttribute(){
+    return $this->ratings()->count();
+}
+public function country(){
+    return $this->belongsTo(Countries::class,'country_id');
+}
     /**
      * The attributes that are mass assignable.
      *
@@ -98,6 +125,13 @@ public $fillable = [
             'specialization_id' => 'integer',
         ];
     }
+    public function specialist(){
+        return $this->belongsTo(Specialty::class,'specialization_id');
+    }
+
+    // public function getSpecialistAttribute(){
+    //     return $this->specialist()->first();
+    // }
     public function getJWTIdentifier()
     {
         return $this->getKey();

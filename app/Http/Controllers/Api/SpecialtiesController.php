@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Specialty;
+use App\Services\Api\SpecialistService;
 
 class SpecialtiesController{
     public function get_specialties(){
@@ -14,5 +15,9 @@ class SpecialtiesController{
             ];
         });
         return res_data($specialties,'',200);
+    }
+    public function specialty_providers(){
+        $providers=SpecialistService::GetSpcialtyProviders();
+        return $providers;
     }
 }

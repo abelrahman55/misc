@@ -19,4 +19,7 @@ class Specialty extends Model
     public $casts = [
         'title' => 'array',
     ];
+    public function forums() {
+    return $this->belongsToMany(Forums::class, 'forum_categories', 'speciality_id', 'forum_id');
+}
 }

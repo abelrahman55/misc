@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\ProvidersController;
+use App\Http\Controllers\Api\SpecialistsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\FaqsController;
@@ -7,9 +9,13 @@ use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\AboutUsController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ArticlesController;
-
+use App\Http\Controllers\Api\CountriesController;
 use App\Http\Controllers\Api\FeedBackController;
+use App\Http\Controllers\Api\RateSystemController;
+use App\Http\Controllers\Api\RateUserController;
 use App\Http\Controllers\Api\SpecialtiesController;
+use App\Http\Controllers\ForumsController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\Web\SpecialtiesDashController;
 use App\Http\Controllers\Web\FaqsController as WebFaqsController;
 use App\Http\Controllers\Web\BlogController as WebBlogController;;
@@ -18,7 +24,7 @@ use App\Http\Controllers\Web\BrandController as WebBrandController;
 use App\Http\Controllers\Web\AboutUsController as WebAboutUsController;
 use App\Http\Controllers\Web\ServiceController as WebServiceController;
 use App\Http\Controllers\Web\ArticlesController as WebArticlesController;
-
+use App\Services\Api\RateSystemService;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -81,8 +87,10 @@ Route::group([
 
     'prefix'=>'specialties',
 ],function(){
+    Route::get('our_specialist',[SpecialistsController::class,'our_specialist']);
     Route::get('get_specialties',[SpecialtiesController::class,'get_specialties']);
     Route::post('store_new_specialties',[SpecialtiesDashController::class,'store_new_specialty']);
+    Route::get('specialty_providers/{id}',[SpecialtiesController::class,'specialty_providers']);
 });
 
 
@@ -90,4 +98,41 @@ Route::group([
     'prefix'=>'feedback',
 ],function(){
     Route::post('add_feedback',[FeedBackController::class,'add_feedback']);
+});
+
+
+Route::group([
+    'prefix'=>'countries',
+],function(){
+    Route::get('get_countries',[CountriesController::class,'get_countries']);
+    Route::get('countries_with_providers',[CountriesController::class,'countries_with_providers']);
+});
+
+Route::group([
+    'prefix'=>'rates',
+    'middleware'=>'user_login',
+],function(){
+    Route::post('make_rate',[RateUserController::class,'make_rate']);
+    Route::post('rate_system',[RateSystemController::class,'rate_system']);
+    Route::get('clients_rates',[RateSystemController::class,'clients_rates']);
+});
+
+
+Route::group([
+    'prefix'=>'patient',
+    'middleware'=>'user_login',
+],function(){
+    Route::get('patient_data',[PatientController::class,'patient_data']);
+});
+Route::group([
+    'prefix'=>'providers',
+],function(){
+    Route::get('best_providers',[ProvidersController::class,'best_providers']);
+});
+
+Route::group([
+    'prefix'=>'forums',
+    'middleware'=>'user_login',
+],function(){
+    Route::post('make_forum',[ForumsController::class,'make_forum']);
 });
