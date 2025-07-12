@@ -13,4 +13,9 @@ class ForumsController extends Controller
         $forum=ForumService::MakeForum($request->validated());
         return $forum;
     }
+
+    public function forum_data(){
+        $data=ForumService::GetMakeForum();
+        return $data;
+    }
 }

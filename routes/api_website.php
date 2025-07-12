@@ -1,30 +1,32 @@
 <?php
 
-use App\Http\Controllers\Api\ProvidersController;
-use App\Http\Controllers\Api\SpecialistsController;
 use Illuminate\Support\Facades\Route;
+use App\Services\Api\RateSystemService;
+use App\Http\Controllers\ForumsController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\LikeForumsController;
 use App\Http\Controllers\Api\AboutUsController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\ReplyForumsController;
 use App\Http\Controllers\Api\ArticlesController;
-use App\Http\Controllers\Api\CountriesController;
 use App\Http\Controllers\Api\FeedBackController;
-use App\Http\Controllers\Api\RateSystemController;
 use App\Http\Controllers\Api\RateUserController;
+use App\Http\Controllers\Api\CountriesController;
+use App\Http\Controllers\Api\ProvidersController;
+use App\Http\Controllers\Api\RateSystemController;
+use App\Http\Controllers\Api\SpecialistsController;
 use App\Http\Controllers\Api\SpecialtiesController;
-use App\Http\Controllers\ForumsController;
-use App\Http\Controllers\PatientController;
+
 use App\Http\Controllers\Web\SpecialtiesDashController;
 use App\Http\Controllers\Web\FaqsController as WebFaqsController;
 use App\Http\Controllers\Web\BlogController as WebBlogController;;
-
 use App\Http\Controllers\Web\BrandController as WebBrandController;
 use App\Http\Controllers\Web\AboutUsController as WebAboutUsController;
 use App\Http\Controllers\Web\ServiceController as WebServiceController;
 use App\Http\Controllers\Web\ArticlesController as WebArticlesController;
-use App\Services\Api\RateSystemService;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -136,3 +138,39 @@ Route::group([
 ],function(){
     Route::post('make_forum',[ForumsController::class,'make_forum']);
 });
+
+
+Route::group([
+    'prefix'=>'forums',
+],function(){
+    Route::get('forum_data',[ForumsController::class,'forum_data']);
+});
+
+Route::group([
+    'prefix'=>'reply_forums',
+    'middleware'=>'user_login',
+],function(){
+    Route::post('make_reply_forum/{id}',[ReplyForumsController::class,'make_reply_forum']);
+});
+
+
+Route::group([
+    'prefix'=>'reply_forums',
+],function(){
+    Route::get('reply_forum_data/{id}',[ReplyForumsController::class,'reply_forum_data']);
+});
+
+Route::group([
+    'prefix'=>'like_forums',
+    'middleware'=>'user_login',
+],function(){
+    Route::post('make_like_forum/{id}',[LikeForumsController::class,'make_like_forum']);
+});
+
+
+Route::group([
+    'prefix'=>'like_forums',
+],function(){
+    Route::get('like_forum_data/{id}',[LikeForumsController::class,'like_forum_data']);
+});
+
