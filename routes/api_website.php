@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\WhatWeWorkController;
 use Illuminate\Support\Facades\Route;
 use App\Services\Api\RateSystemService;
 use App\Http\Controllers\ForumsController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Api\RateUserController;
 use App\Http\Controllers\Api\CountriesController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\Api\RateSystemController;
+use App\Http\Controllers\Api\ServicesController;
 use App\Http\Controllers\Api\SpecialistsController;
 use App\Http\Controllers\Api\SpecialtiesController;
 
@@ -174,3 +176,5 @@ Route::group([
     Route::get('like_forum_data/{id}',[LikeForumsController::class,'like_forum_data']);
 });
 
+Route::get('get_works',[WhatWeWorkController::class,'get_works']);
+Route::get('get_services',[ServicesController::class,'get_services']);
