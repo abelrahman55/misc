@@ -35,17 +35,24 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'faqs',
 ], function () {
-    Route::post('store_new_faqs', [WebFaqsController::class, 'store_new_faqs']);
+   Route::get('index', [WebFaqsController::class, 'index'])->name('faqs.index');
+    Route::post('store', [WebFaqsController::class, 'store'])->name('faqs.store');
+    Route::get('create', [WebFaqsController::class, 'create'])->middleware('web')->name('faqs.create');
+    Route::get('edit/{id}', [WebFaqsController::class, 'edit'])->middleware('web')->name('faqs.edit');
+    Route::post('updte/{id}', [WebFaqsController::class, 'update'])->name('faqs.update');
+    Route::delete('delete/{id}', [WebFaqsController::class, 'delete'])->name('faqs.delete');
     Route::get('get_faqs', [FaqsController::class, 'get_faqs']);
 });
 
 Route::group([
     'prefix' => 'blogs',
 ], function () {
-    Route::get('blogs', [WebBlogController::class, 'index'])->name('blogs.index');
-    Route::post('blogs', [WebBlogController::class, 'store'])->name('blogs.store');
-    Route::post('blogs/{id}', [WebBlogController::class, 'update'])->name('blogs.update');
-    Route::delete('blogs', [WebBlogController::class, 'delete'])->name('blogs.delete');
+    Route::get('index', [WebBlogController::class, 'index'])->name('blogs.index');
+    Route::post('store', [WebBlogController::class, 'store'])->name('blogs.store');
+    Route::get('create', [WebBlogController::class, 'create'])->middleware('web')->name('blogs.create');
+    Route::get('edit/{id}', [WebBlogController::class, 'edit'])->middleware('web')->name('blogs.edit');
+    Route::post('updte/{id}', [WebBlogController::class, 'update'])->name('blogs.update');
+    Route::delete('delete/{id}', [WebBlogController::class, 'delete'])->name('blogs.delete');
     Route::get('get_blogs', [BlogController::class, 'index']);
 });
 
@@ -55,7 +62,7 @@ Route::group([
     Route::get('index', [WebArticlesController::class, 'index'])->name('articles.index');
     Route::post('store', [WebArticlesController::class, 'store'])->name('articles.store');
     Route::get('create', [WebArticlesController::class, 'create'])->middleware('web')->name('articles.create');
-    Route::post('edit/{id}', [WebArticlesController::class, 'edit'])->name('articles.edit');
+    Route::get('edit/{id}', [WebArticlesController::class, 'edit'])->middleware('web')->name('articles.edit');
     Route::post('update/{id}', [WebArticlesController::class, 'update'])->name('articles.update');
     Route::delete('delete/{id}', [WebArticlesController::class, 'delete'])->name('articles.delete');
     Route::get('get_articles', [ArticlesController::class, 'index']);
@@ -75,6 +82,7 @@ Route::group([
 ], function () {
     Route::get('brand', [WebBrandController::class, 'index'])->name('brand.index');
     Route::post('brand', [WebBrandController::class, 'store'])->name('brand.store');
+    Route::get('brand', [WebBrandController::class, 'create'])->middleware('web')->name('brand.create');
     Route::get('get_Brand', [BrandController::class, 'index']);
 });
 
@@ -83,6 +91,8 @@ Route::group([
 ], function () {
     Route::get('services', [WebServiceController::class, 'index'])->name('services.index');
     Route::post('services', [WebServiceController::class, 'store'])->name('services.store');
+     Route::get('create', [WebServiceController::class, 'create'])->middleware('web')->name('services.create');
+    Route::get('edit/{id}', [WebServiceController::class, 'edit'])->middleware('web')->name('services.edit');
     Route::post('services/{id}', [WebServiceController::class, 'update'])->name('services.update');
     Route::delete('services', [WebServiceController::class, 'delete'])->name('services.delete');
     Route::get('get_Services', [ServiceController::class, 'index']);

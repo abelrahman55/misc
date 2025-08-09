@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Web;
 use App\Services\Web\BlogServices;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\StoreBlogRequest;
+use App\Models\Blog;
 
 class BlogController extends Controller
 {
@@ -14,23 +15,29 @@ class BlogController extends Controller
 
     public function index(){
         $blogs=$this->blogServices->index();
-        return res_data($blogs,'',200);
+        return view('Blog.index',compact('blogs'));
+    }
+     public function create()
+    {
+        return view('Blog.create');
     }
 
     public function store(StoreBlogRequest $request){
     $blogs=$this->blogServices->store($request->validated());
-        if($blogs){
-            return redirect()->back()->with('success','تمت الاضافه بنجاح');
-        }
-        return redirect()->back()->with('error','حدث خطأ');
+        return redirect()->route('blogs.index');
     }
+
+    public function edit($id)
+    {
+        $blog = Blog::findOrFail($id);
+        return view('Blog.edit',compact('blog'));
+    }
+
 
     public function update(StoreBlogRequest $request, $id){
         $blogs=$this->blogServices->update($request->validated(),$id);
-        if($blogs){
-            return redirect()->back()->with('success','تم التحديث بنجاح');
-        }
-        return redirect()->back()->with('error','حدث خطأ');
+               return redirect()->route('blogs.index');
+
     }
 
     public function delete($id){

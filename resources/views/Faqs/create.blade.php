@@ -13,7 +13,7 @@
                 <div class="col px-3">
                     <div class="card p-4">
                         <div class="card-body">
-                            <form action="{{ route('articles.update',$articles->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('faqs.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <!-- Tabs for languages -->
@@ -33,17 +33,17 @@
                                     <!-- Arabic -->
                                     <div class="tab-pane fade show active" id="lang-ar" role="tabpanel">
                                         <div class="mb-3">
-                                            <label class="form-label">Title (Arabic)</label>
-                                            <input type="text" name="title[ar]" class="form-control"
-                                                value="{{ old('title.ar', $articles->title['ar'] ?? '') }}" placeholder="أدخل العنوان" required>
-                                            @error('title.ar')
+                                            <label class="form-label">question (Arabic)</label>
+                                            <input type="text" name="question[ar]" class="form-control"
+                                                value="{{ old('question.ar') }}" placeholder="أدخل العنوان" required>
+                                            @error('question.ar')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Description (Arabic)</label>
-                                            <textarea name="description[ar]" class="form-control" placeholder="أدخل الوصف" required>{{ old('description.ar', $articles->description['ar'] ?? '') }}</textarea>
-                                            @error('description.ar')
+                                            <label class="form-label">answer (Arabic)</label>
+                                            <textarea name="answer[ar]" class="form-control" placeholder="أدخل الوصف" required>{{ old('answer.ar', $about_us->answer['ar'] ?? '') }}</textarea>
+                                            @error('answer.ar')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
@@ -52,17 +52,17 @@
                                     <!-- English -->
                                     <div class="tab-pane fade" id="lang-en" role="tabpanel">
                                         <div class="mb-3">
-                                            <label class="form-label">Title (English)</label>
-                                            <input type="text" name="title[en]" class="form-control"
-                                                value="{{ old('title.en', $articles->title['en'] ?? '') }}" placeholder="Enter the title" required>
-                                            @error('title.en')
+                                            <label class="form-label">question (English)</label>
+                                            <input type="text" name="question[en]" class="form-control"
+                                                value="{{ old('question.en') }}" placeholder="Enter the question" required>
+                                            @error('question.en')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Description (English)</label>
-                                            <textarea name="description[en]" class="form-control" placeholder="Enter the description" required>{{ old('description.en', $articles->description['en'] ?? '') }}</textarea>
-                                            @error('description.en')
+                                            <label class="form-label">answer (English)</label>
+                                            <textarea name="answer[en]" class="form-control" placeholder="Enter the answer" required>{{ old('answer.en', $about_us->answer['en'] ?? '') }}</textarea>
+                                            @error('answer.en')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
@@ -71,17 +71,17 @@
                                     <!-- French -->
                                     <div class="tab-pane fade" id="lang-fr" role="tabpanel">
                                         <div class="mb-3">
-                                            <label class="form-label">Title (French)</label>
-                                            <input type="text" name="title[fr]" class="form-control"
-                                                value="{{ old('title.fr', $articles->title['fr'] ?? '') }}" placeholder="Entrez le titre">
-                                            @error('title.fr')
+                                            <label class="form-label">question (French)</label>
+                                            <input type="text" name="question[fr]" class="form-control"
+                                                value="{{ old('question.fr') }}" placeholder="Entrez le titre">
+                                            @error('question.fr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Description (French)</label>
-                                            <textarea name="description[fr]" class="form-control" placeholder="Entrez la description">{{ old('description.fr', $articles->description['fr'] ?? '') }}</textarea>
-                                            @error('description.fr')
+                                            <label class="form-label">answer (French)</label>
+                                            <textarea name="answer[fr]" class="form-control" placeholder="Entrez la answer">{{ old('answer.fr', $about_us->answer['fr'] ?? '') }}</textarea>
+                                            @error('answer.fr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
@@ -90,46 +90,26 @@
                                     <!-- German -->
                                     <div class="tab-pane fade" id="lang-gr" role="tabpanel">
                                         <div class="mb-3">
-                                            <label class="form-label">Title (German)</label>
-                                            <input type="text" name="title[gr]" class="form-control"
-                                                value="{{ old('title.gr', $articles->title['gr'] ?? '') }}" placeholder="Geben Sie den Titel ein">
-                                            @error('title.gr')
+                                            <label class="form-label">question (German)</label>
+                                            <input type="text" name="question[gr]" class="form-control"
+                                                value="{{ old('question.gr') }}" placeholder="Geben Sie den Titel ein">
+                                            @error('question.gr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Description (German)</label>
-                                            <textarea name="description[gr]" class="form-control" placeholder="Geben Sie die Beschreibung ein">{{ old('description.gr', $articles->description['gr'] ?? '') }}</textarea>
-                                            @error('description.gr')
+                                            <label class="form-label">answer (German)</label>
+                                            <textarea name="answer[gr]" class="form-control" placeholder="Geben Sie die Beschreibung ein">{{ old('answer.gr', $about_us->answer['gr'] ?? '') }}</textarea>
+                                            @error('answer.gr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Image -->
-                                <div class="mb-3 mt-3">
-                                    <label class="form-label">Image</label>
-                                    <input type="file" name="image" class="form-control">
-                                    @error('image')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
+                               
 
-                                <div class="mb-3">
-                                    <label class="form-label">Status</label>
-                                    <select name="status" class="form-control" required>
-                                        <option value="1"
-                                            {{ old('status', $articles->status ?? "1") == "1" ? 'selected' : '' }}>Active
-                                        </option>
-                                        <option value="0"
-                                            {{ old('status', $articles->status ?? "0") == "0" ? 'selected' : '' }}>Inactive
-                                        </option>
-                                    </select>
-                                    @error('status')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
+
 
 
                                 <button type="submit" class="btn btn-purple text-white">Update</button>

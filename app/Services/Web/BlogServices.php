@@ -12,7 +12,7 @@ class BlogServices
     public function __construct(public Blog $model){}
     public function index()
     {
-        return $this->model->active()->get();
+        return $this->model->get();
     }
     public function store($data){
         if (isset($data['image'])) {

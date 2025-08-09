@@ -17,15 +17,15 @@
     <div class="row">
         @include('dashboard.layouts.sidebar')
         <main class="col-md-10 p-4 pb-0" style="font-family: Poppins, sans-serif;">
-            <h1 class="header-page text-muted mb-4">articles Management</h1>
+            <h1 class="header-page text-muted mb-4">services Management</h1>
             <div class="row">
                 <div class="col pe-4">
                     <!-- Tabs -->
                     <nav class="mb-4 mx-1">
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-articless-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-articless" type="button" role="tab"
-                                aria-controls="nav-articless" aria-selected="true">articless</button>
+                            <button class="nav-link active" id="nav-services-tab" data-bs-toggle="tab"
+                                data-bs-target="#nav-services" type="button" role="tab" aria-controls="nav-services"
+                                aria-selected="true">services</button>
                             <button class="nav-link" id="nav-appoinments-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-appoinments" type="button" role="tab"
                                 aria-controls="nav-appoinments" aria-selected="false">Appointments</button>
@@ -34,15 +34,15 @@
                                 aria-controls="nav-payments" aria-selected="false">Payments</button>
                         </div>
                     </nav>
-                    <a href="{{ route('articles.create') }}" class="btn btn-primary rounded-3 btn-sm">
+                    <a href="{{ route('services.create') }}" class="btn btn-primary rounded-3 btn-sm">
                         Create
                     </a>
                     <!-- Tap Contents -->
                     <div class="card border-0 p-4 rounded-4">
 
                         <div class="tab-content" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-articless" role="tabpanel"
-                                aria-labelledby="nav-articless-tab">
+                            <div class="tab-pane fade show active" id="nav-services" role="tabpanel"
+                                aria-labelledby="nav-services-tab">
                                 <table class="table table-borderless transaction-table">
                                     <thead>
                                         <tr>
@@ -57,29 +57,29 @@
                                     <tbody>
                                         <!--  -->
 
-                                        @foreach ($articless as $articles)
+                                        @foreach ($services as $service)
                                             <tr>
 
                                                 <td>{{ $loop->index + 1 }}</td>
-                                                <td class="text-muted">{{ $articles->title[app()->getLocale()] }}</td>
-                                                <td class="text-muted">{{ $articles->description[app()->getLocale()] }}
+                                                <td class="text-muted">{{ $service->title[app()->getLocale()] }}</td>
+                                                <td class="text-muted">{{ $service->description[app()->getLocale()] }}
                                                 </td>
                                                 <td class="text-muted">
-                                                    <img src="{{ $articles->image }}" alt="Blog Image" width="50"
+                                                    <img src="{{ $service->image }}" alt="service Image" width="50"
                                                         height="50" class="img-thumbnail">
                                                 </td>
+
                                                 <td class="text-muted">
-                                                    {{ $articles->status == '1' ? 'active' : 'inactive' }}
+                                                    {{ $service->status == '1' ? 'active' : 'inactive' }}
                                                 </td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="{{ route('articles.edit', $articles->id) }}"
+                                                        <a href="{{ route('services.edit', $service->id) }}"
                                                             class="btn btn-primary rounded-3 btn-sm">
                                                             Update
                                                         </a>
 
-                                                        <form
-                                                            action="{{ route('articles.delete', ['id' => $articles->id]) }}"
+                                                        <form action="{{ route('services.delete', ['id' => $service->id]) }}"
                                                             method="POST"
                                                             onsubmit="return confirm('Are you sure you want to delete this article?');">
                                                             @csrf
@@ -102,7 +102,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Time</th>
-                                            <th scope="col">articles</th>
+                                            <th scope="col">services</th>
                                             <th scope="col">Specialty</th>
                                             <th scope="col">Technician</th>
                                             <th scope="col">Location</th>
@@ -139,7 +139,7 @@
                                 <table class="table table-borderless table-hover transaction-table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">articles</th>
+                                            <th scope="col">services</th>
                                             <th scope="col">Provider</th>
                                             <th scope="col">Value</th>
                                             <th scope="col">Status</th>

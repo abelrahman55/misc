@@ -29,7 +29,6 @@ class ArticlesController extends Controller
 
     public function edit($id)
     {
-        dd("assa");
         $articles = Articles::findOrFail($id);
         return view('articles.edit',compact('articles'));
     }

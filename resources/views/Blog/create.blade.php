@@ -13,7 +13,7 @@
                 <div class="col px-3">
                     <div class="card p-4">
                         <div class="card-body">
-                            <form action="{{ route('articles.update',$articles->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('blogs.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <!-- Tabs for languages -->
@@ -35,14 +35,14 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (Arabic)</label>
                                             <input type="text" name="title[ar]" class="form-control"
-                                                value="{{ old('title.ar', $articles->title['ar'] ?? '') }}" placeholder="أدخل العنوان" required>
+                                                value="{{ old('title.ar') }}" placeholder="أدخل العنوان" required>
                                             @error('title.ar')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Description (Arabic)</label>
-                                            <textarea name="description[ar]" class="form-control" placeholder="أدخل الوصف" required>{{ old('description.ar', $articles->description['ar'] ?? '') }}</textarea>
+                                            <textarea name="description[ar]" class="form-control" placeholder="أدخل الوصف" required>{{ old('description.ar', $about_us->description['ar'] ?? '') }}</textarea>
                                             @error('description.ar')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -54,14 +54,14 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (English)</label>
                                             <input type="text" name="title[en]" class="form-control"
-                                                value="{{ old('title.en', $articles->title['en'] ?? '') }}" placeholder="Enter the title" required>
+                                                value="{{ old('title.en') }}" placeholder="Enter the title" required>
                                             @error('title.en')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Description (English)</label>
-                                            <textarea name="description[en]" class="form-control" placeholder="Enter the description" required>{{ old('description.en', $articles->description['en'] ?? '') }}</textarea>
+                                            <textarea name="description[en]" class="form-control" placeholder="Enter the description" required>{{ old('description.en', $about_us->description['en'] ?? '') }}</textarea>
                                             @error('description.en')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -73,14 +73,14 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (French)</label>
                                             <input type="text" name="title[fr]" class="form-control"
-                                                value="{{ old('title.fr', $articles->title['fr'] ?? '') }}" placeholder="Entrez le titre">
+                                                value="{{ old('title.fr') }}" placeholder="Entrez le titre">
                                             @error('title.fr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Description (French)</label>
-                                            <textarea name="description[fr]" class="form-control" placeholder="Entrez la description">{{ old('description.fr', $articles->description['fr'] ?? '') }}</textarea>
+                                            <textarea name="description[fr]" class="form-control" placeholder="Entrez la description">{{ old('description.fr', $about_us->description['fr'] ?? '') }}</textarea>
                                             @error('description.fr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -92,14 +92,14 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (German)</label>
                                             <input type="text" name="title[gr]" class="form-control"
-                                                value="{{ old('title.gr', $articles->title['gr'] ?? '') }}" placeholder="Geben Sie den Titel ein">
+                                                value="{{ old('title.gr') }}" placeholder="Geben Sie den Titel ein">
                                             @error('title.gr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Description (German)</label>
-                                            <textarea name="description[gr]" class="form-control" placeholder="Geben Sie die Beschreibung ein">{{ old('description.gr', $articles->description['gr'] ?? '') }}</textarea>
+                                            <textarea name="description[gr]" class="form-control" placeholder="Geben Sie die Beschreibung ein">{{ old('description.gr', $about_us->description['gr'] ?? '') }}</textarea>
                                             @error('description.gr')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
@@ -120,10 +120,10 @@
                                     <label class="form-label">Status</label>
                                     <select name="status" class="form-control" required>
                                         <option value="1"
-                                            {{ old('status', $articles->status ?? "1") == "1" ? 'selected' : '' }}>Active
+                                            {{ old('status', $about_us->status ?? 1) == 1 ? 'selected' : '' }}>Active
                                         </option>
                                         <option value="0"
-                                            {{ old('status', $articles->status ?? "0") == "0" ? 'selected' : '' }}>Inactive
+                                            {{ old('status', $about_us->status ?? 1) == 0 ? 'selected' : '' }}>Inactive
                                         </option>
                                     </select>
                                     @error('status')
