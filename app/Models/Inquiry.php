@@ -10,7 +10,7 @@ class Inquiry extends Model
 
     public $fillable=['user_id','date','treatment_type','assigned_coordintor','status'];
 
-    public function user()
+    public function patient()
     {
         return $this->belongsTo(User::class,'user_id','id');
     }
