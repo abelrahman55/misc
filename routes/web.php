@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\PatientDashController;
 use App\Http\Controllers\Web\DashboardPatient\HomeController;
 use App\Http\Controllers\Web\DashboardPatient\InquiryController;
 use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
+use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,9 @@ Route::group([
     Route::get('/document_centers', [DocumentCenterController::class, 'index'])->name('document_centers');
     Route::post('/document_centers', [DocumentCenterController::class, 'store'])->name('document_centers.store');
     Route::delete('/document_centers/{id}', [DocumentCenterController::class, 'destroy'])->name('document_centers.destroy');
+
+     Route::get('/feedback_review', [FeedbackReviewController::class, 'index'])->name('feedback_review');
+    Route::post('/feedback_review', [FeedbackReviewController::class, 'store'])->name('feedback_review.store');
 
     Route::resource('inquiries', InquiryController::class);
 });
