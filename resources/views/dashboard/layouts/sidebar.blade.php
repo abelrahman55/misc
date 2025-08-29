@@ -139,6 +139,8 @@
                         </a>
                     </li>
 
+
+
                     <li class="nav-item">
                         <a href="#" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
@@ -167,6 +169,55 @@
                                 </svg>
                             </div>
                             Reviews & Rating
+                        </a>
+                    </li>
+                                        <li class="nav-item">
+                        <a href="{{ route('welcome_provider') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Provider Dashboard
+                        </a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('provider_profile') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Provider Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('provider_patient') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Provider Patients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('provider_ratings') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Reviews & Ratings
                         </a>
                     </li>
                 </ul>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AdminLogin;
 use App\Http\Middleware\UserLogin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -25,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
         $middleware->appendToGroup('user_login',[UserLogin::class]);
+        $middleware->appendToGroup('admin', AdminLogin::class);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
