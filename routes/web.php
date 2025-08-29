@@ -5,6 +5,10 @@ use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\Web\PatientDashController;
 use App\Http\Controllers\Web\RolesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\DashboardPatient\HomeController;
+use App\Http\Controllers\Web\DashboardPatient\InquiryController;
+use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
+use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
 
 Route::get('/', function () {
     // return 'rere';
