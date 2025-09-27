@@ -20,7 +20,7 @@
                             </svg>
                             Inquiry Details
                         </h1>
-                        <a href="{{ route('patient.inquiries.index') }}" class="btn btn-secondary">
+                        <a href="{{ route('inquiries.index') }}" class="btn btn-secondary">
                             <i class="bi bi-arrow-left"></i> Back
                         </a>
                     </div>
@@ -31,7 +31,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th>User</th>
-                                    <td>{{ $inquiry->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $inquiry->patient->f_name ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Date</th>
@@ -79,10 +79,10 @@
                     </div>
 
                     {{-- <div class="mt-4 d-flex gap-2">
-                        <a href="{{ route('patient.inquiries.edit', $inquiry->id) }}" class="btn btn-warning">
+                        <a href="{{ route('inquiries.edit', $inquiry->id) }}" class="btn btn-warning">
                             <i class="bi bi-pencil"></i> Edit
                         </a>
-                        <form action="{{ route('patient.inquiries.destroy', $inquiry->id) }}" method="POST"
+                        <form action="{{ route('inquiries.destroy', $inquiry->id) }}" method="POST"
                               onsubmit="return confirm('Are you sure you want to delete this inquiry?')">
                             @csrf
                             @method('DELETE')

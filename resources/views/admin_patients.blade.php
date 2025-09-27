@@ -15,19 +15,19 @@
     @foreach ($patients as $patient)
         <div class="card text-center shadow-sm rounded-4 py-4 px-5 border-0">
             <div class="mx-auto mb-3">
-                <img src="{{ $patient?->client?->prof_img ? asset('storage/'.$patient?->client?->prof_img) : asset('default-avatar.png') }}"
+                <img src="{{ $patient?->prof_img ? asset('storage/'.$patient?->prof_img) : asset('default-avatar.png') }}"
                     alt="User Avatar"
                     class="rounded-circle shadow-sm border border-3 border-light"
                     width="100" height="100">
             </div>
-            <h5 class="mb-1 fw-semibold">{{ $patient?->client?->f_name }} {{ $patient?->client?->l_name }}</h5>
-            <div class="text-muted small mb-1">{{ $patient?->client?->phone }}</div>
-            <div class="text-muted small mb-1">{{ $patient?->client?->address }}</div>
-            <a href="mailto:{{ $patient?->client?->email }}" class="text-decoration-none small text-primary">
-                {{ $patient?->client?->email }}
+            <h5 class="mb-1 fw-semibold">{{ $patient?->f_name }} {{ $patient?->l_name }}</h5>
+            <div class="text-muted small mb-1">{{ $patient?->phone }}</div>
+            <div class="text-muted small mb-1">{{ $patient?->address }}</div>
+            <a href="mailto:{{ $patient?->email }}" class="text-decoration-none small text-primary">
+                {{ $patient?->email }}
             </a>
             <hr class="my-3">
-            <a href="{{ route('patient_profile',['id'=>$patient?->client?->id]) }}"
+            <a href="{{ route('patient_profile',['id'=>$patient?->id]) }}"
                 class="btn btn-purple text-white rounded-2 px-4 py-2">
                 <i class="bi bi-list-check"></i> Details
             </a>

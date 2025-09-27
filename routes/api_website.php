@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\Api\AboutUsController;
+use App\Http\Controllers\Api\AppointmentsController;
 use App\Http\Controllers\Api\ArticlesController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\Api\CountriesController;
 use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\FeedBackController;
+use App\Http\Controllers\Api\InqueriesController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\Api\RateSystemController;
 use App\Http\Controllers\Api\RateUserController;
@@ -19,6 +22,7 @@ use App\Http\Controllers\ForumsController;
 use App\Http\Controllers\LikeForumsController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ReplyForumsController;
+use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\AboutUsController as WebAboutUsController;
 use App\Http\Controllers\Web\ArticlesController as WebArticlesController;
 use App\Http\Controllers\Web\BlogController as WebBlogController;
@@ -183,3 +187,16 @@ Route::group([
 
 Route::get('get_works', [WhatWeWorkController::class, 'get_works']);
 Route::get('get_services', [ServicesController::class, 'get_services']);
+Route::get('get_treatment_service',[TreatmentServicesController::class,'get_treatment_service']);
+Route::post('make_appointment',[AppointmentsController::class,'make_appointment'])->middleware('user_login');
+
+Route::group([
+    'prefix'=>'conversations',
+    'middleware'=>'user_login'
+],function(){
+    Route::get('make_conversation',[ConversationsController::class,'make_conversation']);
+    Route::get('get_conversation',[ConversationsController::class,'get_conversation']);
+    Route::post('send_message',[ConversationsController::class,'send_message']);
+});
+
+Route::post('make_inquery',[InqueriesController::class,'make_inquery'])->middleware('user_login');

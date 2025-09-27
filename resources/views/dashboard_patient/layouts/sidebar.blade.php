@@ -24,7 +24,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('patient.inquiries.index') }}" class="nav-link d-flex align-items-center gap-3">
+                        <a href="{{ route('inquiries.index') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -38,7 +38,7 @@
 
 
                      <li class="nav-item">
-                        <a href="{{ route('patient.document_centers') }}" class="nav-link d-flex align-items-center gap-3">
+                        <a href="{{ route('document_centers') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
                             Documents Center
                         </a>
                     </li>
- 
+
 
 
 
@@ -74,7 +74,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('patient.feedback_review') }}" class="nav-link d-flex align-items-center gap-3">
+                        <a href="{{ route('feedback_review') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">

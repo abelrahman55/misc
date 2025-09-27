@@ -113,16 +113,16 @@ class AdminsController extends Controller
 
         $user=Auth::guard('web')->user();
         // return $user;
-        if($user->type=='admin'){
+        if($user->role=='admin'){
             return redirect('/');
         }
-        else if($user->type=='doctor'){
+        else if($user->role=='doctor'){
             // return 'er';
             return redirect()->route('welcome_provider');
             // return view('provider_dash');
         }
         else{
-            return redirect()->route('teacher_main');
+            return redirect('/');
         }
         // return $user;
     }

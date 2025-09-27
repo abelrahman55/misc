@@ -1,10 +1,11 @@
-@extends('dashboard_patient.layouts.layout')
-@include('dashboard_patient.layouts.header')
+@extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
+
 
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        @include('dashboard_patient.layouts.sidebar')
+        @include('dashboard.layouts.sidebar')
 
         <!-- Main Content -->
        <main class="col dashboard-content p-4">
@@ -21,7 +22,7 @@
                     </svg>
                     My Inquiries
                 </h1>
-                <a href="{{ route('patient.inquiries.create') }}" class="btn btn-primary">
+                <a href="{{ route('inquiries.create') }}" class="btn btn-primary">
                     <i class="bi bi-plus-lg"></i> New Inquiry
                 </a>
             </div>
@@ -89,8 +90,8 @@
                                 <i class="bi bi-three-dots" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false"></i>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('patient.inquiries.edit', $inquiry->id) }}">Edit</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('patient.inquiries.show', $inquiry->id) }}">View</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('inquiries.edit', $inquiry->id) }}">Edit</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('inquiries.show', $inquiry->id) }}">View</a></li>
                                     <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
                                 </ul>
                             </td>

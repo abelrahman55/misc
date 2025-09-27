@@ -17,6 +17,7 @@ class InquiryController extends Controller
      */
     public function index()
     {
+        // return 'erre';
         $data = $this->inquiryService->index();
         return view('dashboard_patient.inquiries.index',compact('data'));
     }
@@ -34,8 +35,9 @@ class InquiryController extends Controller
      */
     public function store(StoreInquiryRequest $request)
     {
-        $this->inquiryService->store($request->validated());
-        return redirect()->route('patient.inquiries.index');
+        // return $request;
+         $this->inquiryService->store($request->validated());
+        return redirect()->route('inquiries.index');
     }
 
     /**
@@ -44,6 +46,7 @@ class InquiryController extends Controller
     public function show(string $id)
     {
         $inquiry = $this->inquiryService->show($id);
+        // return $inquiry;
         return view('dashboard_patient.inquiries.show',compact('inquiry'));
     }
 
@@ -62,7 +65,7 @@ class InquiryController extends Controller
     public function update(UpdateInquiryRequest $request, string $id)
     {
         $this->inquiryService->update($id,$request->validated());
-        return redirect()->route('patient.inquiries.index');
+        return redirect()->route('inquiries.index');
     }
 
     /**
@@ -71,6 +74,6 @@ class InquiryController extends Controller
     public function destroy(string $id)
     {
         $this->inquiryService->destroy($id);
-        return redirect()->route('patient.inquiries.index');
+        return redirect()->route('inquiries.index');
     }
 }

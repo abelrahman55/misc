@@ -1,5 +1,6 @@
-@extends('dashboard_patient.layouts.layout')
-@include('dashboard_patient.layouts.header')
+@extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
+
 
 <div class="container-fluid">
     <div class="row">
@@ -11,10 +12,10 @@
         <div class="col">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="header-page">Edit Inquiry #{{ $inquiry->id }}</h1>
-                <a href="{{ route('patient.inquiries.index', $inquiry->id) }}" class="btn btn-secondary">← Back</a>
+                <a href="{{ route('inquiries.index', $inquiry->id) }}" class="btn btn-secondary">← Back</a>
             </div>
 
-            <form action="{{ route('patient.inquiries.update', $inquiry->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('inquiries.update', $inquiry->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 

@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rate_users', function (Blueprint $table) {
+        Schema::create('conversations', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('receiver_id');
             $table->bigInteger('user_id');
-            $table->bigInteger('provider_id');
-            $table->integer('rate');
-            $table->longText('comment')->nullable();
-            $table->longText('replay')->nullable();
-            $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rate_users');
+        Schema::dropIfExists('conversations');
     }
 };

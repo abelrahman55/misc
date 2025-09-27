@@ -3,6 +3,7 @@ namespace App\Services\Web\DashboardPatient;
 
 use App\Models\Inquiry;
 use App\Traits\HasImage;
+use Illuminate\Support\Facades\Auth;
 
 class InquiryService
 {
@@ -17,7 +18,10 @@ class InquiryService
     public function store($data)
     {
         // $data['user_id'] = 1;
+        $user=Auth::guard('web')->user();
 
+        // return $data;
+        $data['user_id']=$user->id;
         $inquiry = $this->model->create($data);
 
         foreach ($data['files'] as $file) {
@@ -32,7 +36,9 @@ class InquiryService
 
     public function show($id)
     {
-        return $this->model->findOrFail($id);
+        // return $id;
+        // $inquery=Inquiry::with('files','patient')->where('id',$id)->first();
+        return $this->model->with('patient')->findOrFail($id);
     }
 
     public function update($id, $data)

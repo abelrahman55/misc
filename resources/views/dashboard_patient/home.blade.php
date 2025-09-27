@@ -1,5 +1,6 @@
-@extends('dashboard_patient.layouts.layout')
-@include('dashboard_patient.layouts.header')
+@extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
+
 
 
 <div class="container-fluid">

@@ -1,5 +1,5 @@
-@extends('dashboard_patient.layouts.layout')
-@include('dashboard_patient.layouts.header')
+@extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
 
 <div class="container-fluid">
     <div class="row">
@@ -28,7 +28,7 @@
                                     <p class="text-2">Add your documents here, and you can upload up to 5 files max</p>
 
                                     <!-- Upload Form -->
-                                    <form action="{{ route('patient.document_centers.store') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('document_centers.store') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="box-upload mb-4">
                                             <p class="drag-text mb-0">Drag your file(s) to start uploading</p>
@@ -66,7 +66,7 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex">
-                                                <form action="{{ route('patient.document_centers.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                                <form action="{{ route('document_centers.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn text-danger"><i class="bi bi-trash"></i></button>

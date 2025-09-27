@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\DoctorFile;
 use App\Models\RateUser;
 use App\Models\UserNote;
@@ -73,14 +74,28 @@ class ProvidersController extends Controller
     }
     public function provider_patient(){
         $user=Auth::guard('web')->user();
-        $patients=User::where('role','patient')->paginate(10);
-        // return $user;
+        $appointment=Appointment::with('client')->where('doctor_id',$user->id)->where('status','completed')->paginate(10);
+        // $patients=User::where('role','patient')->paginate(10);
+        // return $appointment;
+        $patients=$appointment;
         return view('provider.provider_patient',compact('patients'));
     }
     public function provider_ratings(){
         $user=Auth::guard('web')->user();
         $reviews=RateUser::with('user')->where('provider_id',$user->id)->paginate(10);
-        // return $reviews;
+        // return $user;
         return view('provider.provider_reviews',compact('user','reviews'));
+    }
+    public function reply_review(Request $request){
+        $id=request('id');
+        $validator=Validator::make($request->all(),[
+            'reply'=>'required'
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        RateUser::where('id',$id)->update(['reply'=>$request->reply]);
+        return redirect()->back()->with('success','تم الرد بنجاح');
+        // return $request;
     }
 }

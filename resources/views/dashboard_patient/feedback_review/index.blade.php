@@ -1,5 +1,6 @@
-@extends('dashboard_patient.layouts.layout')
-@include('dashboard_patient.layouts.header')
+@extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
+
 
 <div class="container-fluid">
     <div class="row">
@@ -40,7 +41,7 @@
                             <div class="tab-pane fade" id="feedback-suggestions" role="tabpanel"
                                 aria-labelledby="feedback-suggestions-tab" tabindex="0">
 
-                                <form action="{{ route('patient.feedback_review.store') }}" method="POST">
+                                <form action="{{ route('feedback_review.store') }}" method="POST">
                                     @csrf
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" name="description" placeholder="Leave a comment here" id="suggestions"
