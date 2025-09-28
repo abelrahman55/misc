@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\Api\ConversationsController;
-use App\Http\Controllers\Web\AdminsController;
-use App\Http\Controllers\Api\ProvidersController;
-use App\Http\Controllers\PatientController;
-use App\Http\Controllers\TreatmentServicesController;
-use App\Http\Controllers\Web\PatientDashController;
-use App\Http\Controllers\Web\RolesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\Web\ChatController;
+use App\Http\Controllers\Web\RolesController;
+use App\Http\Controllers\Web\AdminsController;
+use App\Http\Controllers\Web\PackageController;
+use App\Http\Controllers\Api\ProvidersController;
+use App\Http\Controllers\Web\PatientDashController;
+use App\Http\Controllers\Api\ConversationsController;
+use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\DashboardPatient\HomeController;
 use App\Http\Controllers\Web\DashboardPatient\InquiryController;
 use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
@@ -57,6 +59,7 @@ Route::get('provider_ratings',[ProvidersController::class,'provider_ratings'])->
 
 
 
+    Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
 
     Route::resource('inquiries', InquiryController::class);
 
@@ -66,3 +69,10 @@ Route::get('provider_ratings',[ProvidersController::class,'provider_ratings'])->
     Route::get('provider_schedules',[TreatmentServicesController::class,'provider_schedules'])->name('provider_schedules');
     Route::get('admin_patients',[PatientController::class,'admin_patients'])->name('admin_patients');
 Route::get('log_out',[PatientController::class,'log_out'])->name('log_out');
+
+
+Route::middleware('user_login')->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat/{conversation}', [ChatController::class, 'show'])->name('chat.show');
+    Route::post('/chat/{conversation}/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+});

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Web\DashboardPatient;
 
+use App\Models\Countries;
+use App\Models\Specialty;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Web\DashboardPatient\InquiryService;
@@ -27,7 +29,9 @@ class InquiryController extends Controller
      */
     public function create()
     {
-        return view('dashboard_patient.inquiries.create');
+        $countries = Countries::all();
+        $specialties = Specialty::all();
+        return view('dashboard_patient.inquiries.create',compact('countries','specialties'));
     }
 
     /**
@@ -56,7 +60,9 @@ class InquiryController extends Controller
     public function edit(string $id)
     {
          $inquiry = $this->inquiryService->show($id);
-        return view('dashboard_patient.inquiries.edit',compact('inquiry'));
+         $countries = Countries::all();
+        $specialties = Specialty::all();
+        return view('dashboard_patient.inquiries.edit',compact('inquiry','countries','specialties'));
     }
 
     /**
