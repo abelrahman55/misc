@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Web\DashboardPatient;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -22,12 +21,20 @@ class UpdateInquiryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'nullable|string',
-            'treatment_type' => 'nullable|string',
+            'date'                => 'nullable|string',
+            'treatment_type'      => 'nullable|string',
             'assigned_coordintor' => 'nullable|string',
-            'status' => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
-            'files' => 'nullable|array',
-            'files.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Adjust file types and size as needed
+            'name'                => 'nullable|string|max:255',
+            'contact_details'     => 'nullable|string|max:255',
+            'country_id'          => 'nullable|integer|exists:countries,id',
+            'specialty_id'        => 'nullable|integer|exists:specialties,id',
+            'proximity'           => 'nullable|string|max:255',
+            'reputation'          => 'nullable|string|max:255',
+            'budget'              => 'nullable|numeric',
+            'symptoms'            => 'nullable|string',
+            'status'              => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
+            'files'               => 'nullable|array',
+            'files.*'             => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Adjust file types and size as needed
         ];
     }
 }
