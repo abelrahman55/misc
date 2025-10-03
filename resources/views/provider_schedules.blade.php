@@ -55,7 +55,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="">
+                                    <a href="{{ route('provider_pat_chat',['id'=>$appointment->client_id]) }}">
                                         <img src="{{ asset('storage/Group 370.png') }}" alt="">
                                     </a>
                                     <a href="">

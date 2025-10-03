@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\AdminsController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\TreatmentServicesController;
+use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\PatientDashController;
 use App\Http\Controllers\Web\RolesController;
 use Illuminate\Support\Facades\Route;
@@ -66,3 +67,4 @@ Route::get('provider_ratings',[ProvidersController::class,'provider_ratings'])->
     Route::get('provider_schedules',[TreatmentServicesController::class,'provider_schedules'])->name('provider_schedules');
     Route::get('admin_patients',[PatientController::class,'admin_patients'])->name('admin_patients');
 Route::get('log_out',[PatientController::class,'log_out'])->name('log_out');
+Route::get('provider_pat_chat/{id}',[ChatController::class,'provider_pat_chat'])->name('provider_pat_chat');
