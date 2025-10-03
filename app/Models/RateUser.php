@@ -18,6 +18,7 @@ class RateUser extends Model
         'rate',
         'comment',
         'status',
+        'reply'
     ];
 
     public $casts=[

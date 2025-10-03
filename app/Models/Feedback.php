@@ -18,6 +18,7 @@ class Feedback extends Model
     'feedback',
     'is_easy',
     'text_no',
+    'feature_comment',
     'design_rate',
     'is_clear_feature',
     'improve_suggestion_feature',
@@ -34,6 +35,22 @@ class Feedback extends Model
     'service_comment',
     'would_contact',
     'would_recommend',
+
+
+    'tech_rate',
+    'is_statis_hos_options',
+    'not_satisfy_tech',
+    'is_clear_estimated',
+    'improve_suggestion_estimated',
+    'is_final_treat_plan',
+    'is_exper_tech_issue',
+    'text_specify',
+    'page_load',
+    'is_service_worth_cost',
+    'comment_tech',
+    'feature_wants',
+    'tech_would_contact',
+    'is_recommend',
 ];
 
 }

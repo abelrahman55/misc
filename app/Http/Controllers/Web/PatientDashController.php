@@ -25,8 +25,10 @@ class PatientDashController extends Controller
     }
     public function patient_profile(){
         $id=request('id');
-        $patient=User::with('country')->where('id',$id)->first();
+// $user=Auth::guard('web')->user();
+        $patient=User::with('country','usernotes','files')->where('id',$id)->first();
         return view('patients.profile',compact('patient'));
+
         // return $patient;
     }
 }

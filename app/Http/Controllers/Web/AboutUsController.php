@@ -1,9 +1,10 @@
 <?php
 namespace App\Http\Controllers\Web;
 
+use App\Models\AboutUs;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Web\StoreAboutUsRequest;
 use App\Services\Web\AboutUsServices;
+use App\Http\Requests\Web\StoreAboutUsRequest;
 
 class AboutUsController extends Controller
 {
@@ -16,13 +17,16 @@ class AboutUsController extends Controller
         return res_data($AboutUs, '', 200);
     }
 
+    public function create()
+    {
+        $about_us = AboutUs::first();
+        return view('AboutUs.create',compact('about_us'));
+    }
+
     public function store(StoreAboutUsRequest $request)
     {
         $AboutUs = $this->AboutUsServices->store($request->validated());
-        if ($AboutUs) {
-            return redirect()->back()->with('success', 'تمت الاضافه بنجاح');
-        }
-        return redirect()->back()->with('error', 'حدث خطأ');
+        return redirect()->back();
     }
 
 }

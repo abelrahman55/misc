@@ -3,15 +3,30 @@
 namespace App\Services\Web;
 
 use App\Models\Faq;
+use App\Traits\HasImage;
 
 class FaqsServices
 {
-    static function GetFaqs(){
-        $faqs=Faq::active()->get();
-        return $faqs;
+
+    use HasImage;
+    public function __construct(public Faq $model){}
+    public function index()
+    {
+        return $this->model->get();
     }
-    static function AddFaqs($data){
-        $new=Faq::create($data);
-        return $new;
+    public function store($data){
+
+        return $this->model->create($data);
+    }
+    public function update($data, $id)
+    {
+        $blog = $this->model->findOrFail($id);
+       
+        return $blog->update($data);
+    }
+    public function delete($id)
+    {
+        $blog = $this->model->findOrFail($id);
+        return $blog->delete();
     }
 }

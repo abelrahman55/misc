@@ -17,7 +17,7 @@ class PatientResetPasswordService{
         return res_data($code,'Patient regist failed',400);
     }
     static function ResetPassword($data){
-        $user=User::where('email',$data['email'])->where('code',$data['code'])->first();
+        $user=User::where('email',$data['email'])->first();
         if($user){
             $user->password=bcrypt($data['password']);
             $user->code=null;

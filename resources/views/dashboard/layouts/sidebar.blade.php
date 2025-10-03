@@ -22,21 +22,9 @@
                             Dashboard
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
-                            <div class="box-icon">
-                                <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M5 1.25C5.16576 1.25 5.32473 1.31585 5.44194 1.43306C5.55915 1.55027 5.625 1.70924 5.625 1.875V2.5H9.375V1.875C9.375 1.70924 9.44085 1.55027 9.55806 1.43306C9.67527 1.31585 9.83424 1.25 10 1.25C10.1658 1.25 10.3247 1.31585 10.4419 1.43306C10.5592 1.55027 10.625 1.70924 10.625 1.875V2.5H11.25C11.7473 2.5 12.2242 2.69754 12.5758 3.04917C12.9275 3.40081 13.125 3.87772 13.125 4.375V5H1.875V4.375C1.875 3.87772 2.07254 3.40081 2.42417 3.04917C2.77581 2.69754 3.25272 2.5 3.75 2.5H4.375V1.875C4.375 1.70924 4.44085 1.55027 4.55806 1.43306C4.67527 1.31585 4.83424 1.25 5 1.25ZM1.875 6.25V11.875C1.875 12.3723 2.07254 12.8492 2.42417 13.2008C2.77581 13.5525 3.25272 13.75 3.75 13.75H11.25C11.7473 13.75 12.2242 13.5525 12.5758 13.2008C12.9275 12.8492 13.125 12.3723 13.125 11.875V6.25H1.875Z"
-                                        fill="#347FC2" fill-opacity="0.98" />
-                                </svg>
-                            </div>
-                            Schedule
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('patients') }}" class="nav-link d-flex align-items-center gap-3">
+                    @can('admin_patients')
+                            <li class="nav-item">
+                        <a href="{{ route('admin_patients') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -47,9 +35,114 @@
                             Patients
                         </a>
                     </li>
+                    @endcan
+                    {{--  <li class="nav-item">
+                        <a href="{{ route('patients') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                            </div>
+                            Patients
+                        </a>
+                    </li>  --}}
+                    @can('about_us')
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
+                        <a href="{{ route('aboutus.create') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg>
+                        </div>
+                        AboutUs
+                    </a>
+                </li>
+                @endcan
+                @can('articles')
+                    <li class="nav-item">
+                        <a href="{{ route('articles.index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg>
+                        </div>
+                        Articles
+                    </a>
+                </li>
+                @endcan
+                @can('services')
+
+                <li class="nav-item">
+                    <a href="{{ route('services.index') }}" class="nav-link d-flex align-items-center gap-3">
+                        <div class="box-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path
+                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                        </svg>
+                    </div>
+                    Service
+                </a>
+            </li>
+            @endcan
+
+            @can('blogs')
+            <li class="nav-item">
+                <a href="{{ route('blogs.index') }}" class="nav-link d-flex align-items-center gap-3">
+                    <div class="box-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path
+                        d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                    </svg>
+                </div>
+                Blogs
+            </a>
+        </li>
+        @endcan
+                @can('brand')
+
+                <li class="nav-item">
+                    <a href="{{ route('brand.create') }}" class="nav-link d-flex align-items-center gap-3">
+                        <div class="box-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-people-fill" viewBox="0 0 16 16">
+                            <path
+                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                        </svg>
+                    </div>
+                    Brand
+                </a>
+            </li>
+            @endcan
+
+                    @can('faqs')
+
+                    <li class="nav-item">
+                        <a href="{{ route('faqs.index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg>
+                        </div>
+                        Faqs
+                    </a>
+                </li>
+                @endcan
+
+
+
+                {{--  <li class="nav-item">
+                        <a href="{{ route('welcome_provider') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -57,12 +150,128 @@
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
                                 </svg>
                             </div>
-                            Profile
+                            Provider Dashboard
                         </a>
                     </li>
+                    </li>  --}}
+                    @can('provider_profile')
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link d-flex align-items-center gap-3">
+                        <a href="{{ route('provider_profile') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Provider Profile
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('doctor_patients')
+                        <li class="nav-item">
+                        <a href="{{ route('provider_patient') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Provider Patients
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('doctor_reviews_ratings')
+                        <li class="nav-item">
+                        <a href="{{ route('provider_ratings') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                </svg>
+                            </div>
+                            Reviews & Ratings
+                        </a>
+                    </li>
+                    @endcan
+
+
+                    @can('doctor_reviews_ratings')
+                        <li class="nav-item">
+                        <a href="{{ route('provider_schedules') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_681_14049)">
+                                        <path
+                                            d="M3.54669 15.0312H2.60919C2.42271 15.0312 2.24387 14.9572 2.11201 14.8253C1.98015 14.6934 1.90607 14.5146 1.90607 14.3281V10.1094C1.90607 9.92289 1.98015 9.74405 2.11201 9.61219C2.24387 9.48033 2.42271 9.40625 2.60919 9.40625H3.54669C3.73317 9.40625 3.91201 9.48033 4.04388 9.61219C4.17574 9.74405 4.24982 9.92289 4.24982 10.1094V14.3281C4.24982 14.5146 4.17574 14.6934 4.04388 14.8253C3.91201 14.9572 3.73317 15.0312 3.54669 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M10.1092 15.0312H9.17172C8.98524 15.0312 8.8064 14.9572 8.67454 14.8253C8.54268 14.6934 8.4686 14.5146 8.4686 14.3281V7.29687C8.4686 7.11039 8.54268 6.93155 8.67454 6.79969C8.8064 6.66783 8.98524 6.59375 9.17172 6.59375H10.1092C10.2957 6.59375 10.4745 6.66783 10.6064 6.79969C10.7383 6.93155 10.8123 7.11039 10.8123 7.29687V14.3281C10.8123 14.5146 10.7383 14.6934 10.6064 14.8253C10.4745 14.9572 10.2957 15.0312 10.1092 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M13.3904 15.0312H12.4529C12.2665 15.0312 12.0876 14.9572 11.9558 14.8253C11.8239 14.6934 11.7498 14.5146 11.7498 14.3281V4.01562C11.7498 3.82914 11.8239 3.6503 11.9558 3.51844C12.0876 3.38658 12.2665 3.3125 12.4529 3.3125H13.3904C13.5769 3.3125 13.7558 3.38658 13.8876 3.51844C14.0195 3.6503 14.0936 3.82914 14.0936 4.01562V14.3281C14.0936 14.5146 14.0195 14.6934 13.8876 14.8253C13.7558 14.9572 13.5769 15.0312 13.3904 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M6.82796 15.0312H5.89046C5.70398 15.0312 5.52513 14.9572 5.39327 14.8253C5.26141 14.6934 5.18733 14.5146 5.18733 14.3281V1.67187C5.18733 1.48539 5.26141 1.30655 5.39327 1.17469C5.52513 1.04283 5.70398 0.96875 5.89046 0.96875H6.82796C7.01444 0.96875 7.19328 1.04283 7.32514 1.17469C7.457 1.30655 7.53108 1.48539 7.53108 1.67187V14.3281C7.53108 14.5146 7.457 14.6934 7.32514 14.8253C7.19328 14.9572 7.01444 15.0312 6.82796 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_681_14049">
+                                            <rect width="15" height="15" fill="white"
+                                                transform="translate(0.499847 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            Provider Scedule
+                        </a>
+                    </li>
+                    @endcan
+
+
+
+                    @can('inquiries')
+
+                    <li class="nav-item">
+                        <a href="{{ route('inquiries.index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path
+                                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                            </div>
+                            Inquiries
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('document_center')
+
+                    <li class="nav-item">
+                        <a href="{{ route('document_centers') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg>
+                        </div>
+                        Documents Center
+                    </a>
+                </li>
+                @endcan
+
+
+
+                    {{--  <li class="nav-item">
+                        <a href="{{ route('feedback_review') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -90,10 +299,103 @@
                             </div>
                             Reviews & Rating
                         </a>
+                    </li>  --}}
+
+                        {{--  <li class="nav-item">
+                        <a href="{{ route('patient_schedules') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_681_14049)">
+                                        <path
+                                            d="M3.54669 15.0312H2.60919C2.42271 15.0312 2.24387 14.9572 2.11201 14.8253C1.98015 14.6934 1.90607 14.5146 1.90607 14.3281V10.1094C1.90607 9.92289 1.98015 9.74405 2.11201 9.61219C2.24387 9.48033 2.42271 9.40625 2.60919 9.40625H3.54669C3.73317 9.40625 3.91201 9.48033 4.04388 9.61219C4.17574 9.74405 4.24982 9.92289 4.24982 10.1094V14.3281C4.24982 14.5146 4.17574 14.6934 4.04388 14.8253C3.91201 14.9572 3.73317 15.0312 3.54669 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M10.1092 15.0312H9.17172C8.98524 15.0312 8.8064 14.9572 8.67454 14.8253C8.54268 14.6934 8.4686 14.5146 8.4686 14.3281V7.29687C8.4686 7.11039 8.54268 6.93155 8.67454 6.79969C8.8064 6.66783 8.98524 6.59375 9.17172 6.59375H10.1092C10.2957 6.59375 10.4745 6.66783 10.6064 6.79969C10.7383 6.93155 10.8123 7.11039 10.8123 7.29687V14.3281C10.8123 14.5146 10.7383 14.6934 10.6064 14.8253C10.4745 14.9572 10.2957 15.0312 10.1092 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M13.3904 15.0312H12.4529C12.2665 15.0312 12.0876 14.9572 11.9558 14.8253C11.8239 14.6934 11.7498 14.5146 11.7498 14.3281V4.01562C11.7498 3.82914 11.8239 3.6503 11.9558 3.51844C12.0876 3.38658 12.2665 3.3125 12.4529 3.3125H13.3904C13.5769 3.3125 13.7558 3.38658 13.8876 3.51844C14.0195 3.6503 14.0936 3.82914 14.0936 4.01562V14.3281C14.0936 14.5146 14.0195 14.6934 13.8876 14.8253C13.7558 14.9572 13.5769 15.0312 13.3904 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M6.82796 15.0312H5.89046C5.70398 15.0312 5.52513 14.9572 5.39327 14.8253C5.26141 14.6934 5.18733 14.5146 5.18733 14.3281V1.67187C5.18733 1.48539 5.26141 1.30655 5.39327 1.17469C5.52513 1.04283 5.70398 0.96875 5.89046 0.96875H6.82796C7.01444 0.96875 7.19328 1.04283 7.32514 1.17469C7.457 1.30655 7.53108 1.48539 7.53108 1.67187V14.3281C7.53108 14.5146 7.457 14.6934 7.32514 14.8253C7.19328 14.9572 7.01444 15.0312 6.82796 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_681_14049">
+                                            <rect width="15" height="15" fill="white"
+                                                transform="translate(0.499847 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            Scedule
+                        </a>
+                    </li>  --}}
+
+                    <li class="nav-item">
+                        <a href="{{ route('messages') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_681_14049)">
+                                        <path
+                                            d="M3.54669 15.0312H2.60919C2.42271 15.0312 2.24387 14.9572 2.11201 14.8253C1.98015 14.6934 1.90607 14.5146 1.90607 14.3281V10.1094C1.90607 9.92289 1.98015 9.74405 2.11201 9.61219C2.24387 9.48033 2.42271 9.40625 2.60919 9.40625H3.54669C3.73317 9.40625 3.91201 9.48033 4.04388 9.61219C4.17574 9.74405 4.24982 9.92289 4.24982 10.1094V14.3281C4.24982 14.5146 4.17574 14.6934 4.04388 14.8253C3.91201 14.9572 3.73317 15.0312 3.54669 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M10.1092 15.0312H9.17172C8.98524 15.0312 8.8064 14.9572 8.67454 14.8253C8.54268 14.6934 8.4686 14.5146 8.4686 14.3281V7.29687C8.4686 7.11039 8.54268 6.93155 8.67454 6.79969C8.8064 6.66783 8.98524 6.59375 9.17172 6.59375H10.1092C10.2957 6.59375 10.4745 6.66783 10.6064 6.79969C10.7383 6.93155 10.8123 7.11039 10.8123 7.29687V14.3281C10.8123 14.5146 10.7383 14.6934 10.6064 14.8253C10.4745 14.9572 10.2957 15.0312 10.1092 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M13.3904 15.0312H12.4529C12.2665 15.0312 12.0876 14.9572 11.9558 14.8253C11.8239 14.6934 11.7498 14.5146 11.7498 14.3281V4.01562C11.7498 3.82914 11.8239 3.6503 11.9558 3.51844C12.0876 3.38658 12.2665 3.3125 12.4529 3.3125H13.3904C13.5769 3.3125 13.7558 3.38658 13.8876 3.51844C14.0195 3.6503 14.0936 3.82914 14.0936 4.01562V14.3281C14.0936 14.5146 14.0195 14.6934 13.8876 14.8253C13.7558 14.9572 13.5769 15.0312 13.3904 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M6.82796 15.0312H5.89046C5.70398 15.0312 5.52513 14.9572 5.39327 14.8253C5.26141 14.6934 5.18733 14.5146 5.18733 14.3281V1.67187C5.18733 1.48539 5.26141 1.30655 5.39327 1.17469C5.52513 1.04283 5.70398 0.96875 5.89046 0.96875H6.82796C7.01444 0.96875 7.19328 1.04283 7.32514 1.17469C7.457 1.30655 7.53108 1.48539 7.53108 1.67187V14.3281C7.53108 14.5146 7.457 14.6934 7.32514 14.8253C7.19328 14.9572 7.01444 15.0312 6.82796 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_681_14049">
+                                            <rect width="15" height="15" fill="white"
+                                                transform="translate(0.499847 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            Messages
+                        </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('log_out') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_681_14049)">
+                                        <path
+                                            d="M3.54669 15.0312H2.60919C2.42271 15.0312 2.24387 14.9572 2.11201 14.8253C1.98015 14.6934 1.90607 14.5146 1.90607 14.3281V10.1094C1.90607 9.92289 1.98015 9.74405 2.11201 9.61219C2.24387 9.48033 2.42271 9.40625 2.60919 9.40625H3.54669C3.73317 9.40625 3.91201 9.48033 4.04388 9.61219C4.17574 9.74405 4.24982 9.92289 4.24982 10.1094V14.3281C4.24982 14.5146 4.17574 14.6934 4.04388 14.8253C3.91201 14.9572 3.73317 15.0312 3.54669 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M10.1092 15.0312H9.17172C8.98524 15.0312 8.8064 14.9572 8.67454 14.8253C8.54268 14.6934 8.4686 14.5146 8.4686 14.3281V7.29687C8.4686 7.11039 8.54268 6.93155 8.67454 6.79969C8.8064 6.66783 8.98524 6.59375 9.17172 6.59375H10.1092C10.2957 6.59375 10.4745 6.66783 10.6064 6.79969C10.7383 6.93155 10.8123 7.11039 10.8123 7.29687V14.3281C10.8123 14.5146 10.7383 14.6934 10.6064 14.8253C10.4745 14.9572 10.2957 15.0312 10.1092 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M13.3904 15.0312H12.4529C12.2665 15.0312 12.0876 14.9572 11.9558 14.8253C11.8239 14.6934 11.7498 14.5146 11.7498 14.3281V4.01562C11.7498 3.82914 11.8239 3.6503 11.9558 3.51844C12.0876 3.38658 12.2665 3.3125 12.4529 3.3125H13.3904C13.5769 3.3125 13.7558 3.38658 13.8876 3.51844C14.0195 3.6503 14.0936 3.82914 14.0936 4.01562V14.3281C14.0936 14.5146 14.0195 14.6934 13.8876 14.8253C13.7558 14.9572 13.5769 15.0312 13.3904 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                        <path
+                                            d="M6.82796 15.0312H5.89046C5.70398 15.0312 5.52513 14.9572 5.39327 14.8253C5.26141 14.6934 5.18733 14.5146 5.18733 14.3281V1.67187C5.18733 1.48539 5.26141 1.30655 5.39327 1.17469C5.52513 1.04283 5.70398 0.96875 5.89046 0.96875H6.82796C7.01444 0.96875 7.19328 1.04283 7.32514 1.17469C7.457 1.30655 7.53108 1.48539 7.53108 1.67187V14.3281C7.53108 14.5146 7.457 14.6934 7.32514 14.8253C7.19328 14.9572 7.01444 15.0312 6.82796 15.0312V15.0312Z"
+                                            fill="#347FC2" fill-opacity="0.98" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_681_14049">
+                                            <rect width="15" height="15" fill="white"
+                                                transform="translate(0.499847 0.5)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            Logout
+                        </a>
+                    </li>
+
                 </ul>
                 <!-- Doc -->
-                <div class="px-4">
+                {{--  <div class="px-4">
                     <div class="d-flex flex-column gap-3 bg-primary bg-circle-pattern px-2 py-3 text-white rounded-4">
                         <div class="bg-white p-1 pt-0 rounded-2" style="width: fit-content;">
                             <svg width="18" height="19" viewBox="0 0 18 19" fill="none"
@@ -109,7 +411,7 @@
                         </div>
                         <button class="btn bg-white">Documentation</button>
                     </div>
-                </div>
+                </div>  --}}
 
 
             </aside>

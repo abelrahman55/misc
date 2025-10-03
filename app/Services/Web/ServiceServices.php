@@ -12,7 +12,7 @@ class ServiceServices
     {}
     public function index()
     {
-        return $this->model->active()->get();
+        return $this->model->get();
     }
     public function store($data)
     {

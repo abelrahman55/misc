@@ -8,7 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
-
+use App\Models\UserNote;
+use App\Models\DoctorFile;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -128,6 +129,16 @@ public function country(){
     public function specialist(){
         return $this->belongsTo(Specialty::class,'specialization_id');
     }
+    public function usernotes(){
+      return $this->hasMany(UserNote::class,'user_id')??[];
+    }
+    public function files(){
+      return $this->hasMany(DoctorFile::class);
+    }
+    public function rates(){
+        return $this->hasMany(RateUser::class,'user_id');
+    }
+
 
     // public function getSpecialistAttribute(){
     //     return $this->specialist()->first();
