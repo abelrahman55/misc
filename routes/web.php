@@ -14,6 +14,7 @@ use App\Http\Controllers\Web\DashboardPatient\HomeController;
 use App\Http\Controllers\Web\DashboardPatient\InquiryController;
 use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
 use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
+use App\Http\Controllers\Web\PackageOptionController;
 
 Route::get('/', function () {
     // return 'rere';
@@ -59,9 +60,10 @@ Route::get('provider_ratings',[ProvidersController::class,'provider_ratings'])->
 
 
 
-    Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
+    // Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
 
     Route::resource('inquiries', InquiryController::class);
+    Route::resource('packages', PackageController::class);
 
     Route::get('patient_schedules',[TreatmentServicesController::class,'patient_schedules'])->name('patient_schedules');
     Route::get('messages',[ConversationsController::class,'messages'])->name('messages');
@@ -69,6 +71,8 @@ Route::get('provider_ratings',[ProvidersController::class,'provider_ratings'])->
     Route::get('provider_schedules',[TreatmentServicesController::class,'provider_schedules'])->name('provider_schedules');
     Route::get('admin_patients',[PatientController::class,'admin_patients'])->name('admin_patients');
 Route::get('log_out',[PatientController::class,'log_out'])->name('log_out');
+    Route::resource('package-options', PackageOptionController::class);
+
 
 
 Route::middleware('user_login')->group(function () {
