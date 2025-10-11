@@ -71,8 +71,8 @@ Route::get('provider_ratings',[ProvidersController::class,'provider_ratings'])->
 Route::get('log_out',[PatientController::class,'log_out'])->name('log_out');
 
 
-Route::middleware('user_login')->group(function () {
-    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+Route::group([],function () {
+    Route::get('/chat/{id}', [ChatController::class, 'index'])->name('chat.index');
     Route::get('/chat/{conversation}', [ChatController::class, 'show'])->name('chat.show');
     Route::post('/chat/{conversation}/send', [ChatController::class, 'sendMessage'])->name('chat.send');
 });

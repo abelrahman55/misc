@@ -332,7 +332,7 @@
                         </a>
                     </li>  --}}
 
-                    {{--  <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('messages') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
