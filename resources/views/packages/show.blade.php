@@ -33,19 +33,19 @@
                                     <tbody>
                                         <tr>
                                             <td>العربية</td>
-                                            <td>{{ $package->getTranslation('title', 'ar') }}</td>
+                                            <td>{{ $package->title['ar'] ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <td>English</td>
-                                            <td>{{ $package->getTranslation('title', 'en') }}</td>
+                                            <td>{{ $package->title['en'] ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Français</td>
-                                            <td>{{ $package->getTranslation('title', 'fr') }}</td>
+                                            <td>{{ $package->title['fr'] ?? '' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Deutsch</td>
-                                            <td>{{ $package->getTranslation('title', 'gr') }}</td>
+                                            <td>{{ $package->title['gr'] ?? '' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

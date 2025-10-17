@@ -1,12 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Package;
 use App\Models\PackageOption;
+use App\Models\RelatedPackageOption;
 use Illuminate\Http\Request;
-
 
 class PackageController extends Controller
 {
@@ -33,12 +32,15 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $data = $request->validate([
-            'title' => 'required|array',
+            'title'    => 'required|array',
             'title.ar' => 'required|string',
             'title.en' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'options' => 'nullable|array',
+            'title.fr' => 'required|string',
+            'title.gr' => 'required|string',
+            'price'    => 'required|numeric|min:0',
+            'options'  => 'nullable|array',
         ]);
 
         $package = Package::create([
@@ -46,7 +48,7 @@ class PackageController extends Controller
             'price' => $data['price'],
         ]);
 
-        if (!empty($data['options'])) {
+        if (! empty($data['options'])) {
             $package->options()->sync($data['options']);
         }
 
@@ -67,10 +69,11 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        $package = Package::with('options')->findOrFail($id);
-        $package_options = PackageOption::all();
-
-        return view('packages.edit', compact('package', 'package_options'));
+        $package          = Package::with('options')->findOrFail($id);
+        $package_options  = PackageOption::all();
+        $selected_options = RelatedPackageOption::where('package_id', $id)->pluck('package_option_id')->toArray();
+        // return $package;
+        return view('packages.edit', compact('package', 'package_options', 'selected_options'));
     }
 
     /**
@@ -78,14 +81,17 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return $request;
         $package = Package::findOrFail($id);
 
         $data = $request->validate([
-            'title' => 'required|array',
+            'title'    => 'required|array',
             'title.ar' => 'required|string',
             'title.en' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'options' => 'nullable|array',
+            'title.fr' => 'required|string',
+            'title.gr' => 'required|string',
+            'price'    => 'required|numeric|min:0',
+            'options'  => 'nullable|array',
         ]);
 
         $package->update([

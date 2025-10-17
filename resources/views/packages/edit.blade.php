@@ -36,7 +36,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (Arabic)</label>
                                             <input type="text" name="title[ar]" class="form-control"
-                                                value="{{ old('title.ar', $package->getTranslation('title', 'ar')) }}"
+                                                value="{{ old('title.ar', $package->title['ar'] ?? '') }}"
                                                 placeholder="أدخل الاسم بالعربية" required>
                                             @error('title.ar')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -49,7 +49,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (English)</label>
                                             <input type="text" name="title[en]" class="form-control"
-                                                value="{{ old('title.en', $package->getTranslation('title', 'en')) }}"
+                                                value="{{ old('title.en', $package->title['en'] ?? '') }}"
                                                 placeholder="Enter title in English" required>
                                             @error('title.en')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -62,7 +62,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (French)</label>
                                             <input type="text" name="title[fr]" class="form-control"
-                                                value="{{ old('title.fr', $package->getTranslation('title', 'fr')) }}"
+                                                value="{{ old('title.fr', $package->title['fr'] ?? '') }}"
                                                 placeholder="Entrez le titre en français">
                                             @error('title.fr')
                                                 <small class="text-danger">{{ $message }}</small>
@@ -75,7 +75,7 @@
                                         <div class="mb-3">
                                             <label class="form-label">Title (German)</label>
                                             <input type="text" name="title[gr]" class="form-control"
-                                                value="{{ old('title.gr', $package->getTranslation('title', 'gr')) }}"
+                                                value="{{ old('title.gr', $package->title['gr'] ?? '') }}"
                                                 placeholder="Geben Sie den Titel ein">
                                             @error('title.gr')
                                                 <small class="text-danger">{{ $message }}</small>

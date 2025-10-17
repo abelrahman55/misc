@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Models\Conversation;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-
 
 class ChatController extends Controller
 {
@@ -31,8 +29,11 @@ class ChatController extends Controller
     public function index(Request $request)
     {
         $id = $request->id; // ممكن يكون conversation id اللي بتمرره من الواجهة
-        // return Auth::guard('web')->id();
-        // جلب كل المحادثات الخاصة بالمستخدم الحالي
+                            // return $id;
+                            // return Auth::guard('web')->id();
+                            // جلب كل المحادثات الخاصة بالمستخدم الحالي
+        $user = Auth::guard('web')->user();
+        // return $user;
         $conversations = Conversation::with(['sender', 'receiver', 'messages'])
             ->where('user_id', Auth::id())
             ->orWhere('receiver_id', Auth::id())
@@ -49,17 +50,18 @@ class ChatController extends Controller
         return view('chat.index', compact('conversations', 'currentConversation'));
     }
 
-
     public function show($id)
     {
         $conversation = Conversation::with('messages.user')->findOrFail($id);
+        // $messages     = $conversation->messages ?? [];
 
-
+        $messages = $conversation->messages?->sortBy('created_at')->values() ?? collect();
+        // return $messages;
         if ($conversation->user_id != Auth::id() && $conversation->receiver_id != Auth::id()) {
             abort(403);
         }
 
-        return view('chat.show', compact('conversation'));
+        return view('chat.show', compact('conversation', 'messages'));
     }
 
     public function sendMessage(Request $request, $id)
@@ -78,8 +80,8 @@ class ChatController extends Controller
 
         $data = [
             'conversation_id' => $conversation->id,
-            'user_id' => Auth::id(),
-            'message' => $request->message,
+            'user_id'         => Auth::id(),
+            'message'         => $request->message,
         ];
 
         if ($request->hasFile('file')) {

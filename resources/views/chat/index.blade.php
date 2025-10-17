@@ -4,6 +4,19 @@
     *{
         color: black;
     }
+    .form_chat_search{
+        background-color: rgba(248, 249, 253, 1);
+        min-width: 340px;
+        max-width: fit-content;
+        padding: 5px;
+        display: flex;
+    }
+    .form_chat_search input{
+        border: none;
+        outline: none;
+        background-color: transparent;
+        flex:1;
+    }
 </style>
 <div class="container-fluid d-flex main-content">
     @include('dashboard.layouts.sidebar')
@@ -14,7 +27,12 @@
             <div class="w-1/3 border-r overflow-y-auto">
                 <div class="p-4 border-b flex justify-between items-center">
                     <h2 class="font-bold">All Messages</h2>
-                    <span class="text-blue-500 cursor-pointer">🔍</span>
+                    <div>
+                        <form class="form_chat_search" action="">
+                            <span class="text-blue-500 cursor-pointer">🔍</span>
+                            <input class="" placeholder="Search or start a new chat" type="text">
+                        </form>
+                    </div>
                 </div>
                 @forelse($conversations as $conv)
                     @php
