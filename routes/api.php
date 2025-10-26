@@ -1,14 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProxmimityController;
-use App\Http\Controllers\TreatmentServicesController;
-use App\Http\Controllers\Web\CountriesController;
-use App\Http\Controllers\Web\PackageOptionsController;
 use App\Http\Controllers\Web\PackagesController;
+use App\Http\Controllers\Web\CountriesController;
 use App\Http\Controllers\Web\ServicesWebController;
+use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\WhatWeWorkWebController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\PackageOptionsController;
+use App\Http\Controllers\Web\PackagesNursingController;
+use App\Http\Controllers\Web\PackageOptionsNursingController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -27,3 +29,7 @@ Route::post('add_new_prox',[ProxmimityController::class,'add_new_prox']);
 Route::post('add_new_option',[PackageOptionsController::class,'add_new_option']);
 Route::post('add_new_package',[PackagesController::class,'add_new_package']);
 Route::post('assign_options_topackages',[PackageOptionsController::class,'assign_options_topackages']);
+
+Route::post('add_new_option_nursing',[PackageOptionsNursingController::class,'add_new_option']);
+Route::post('add_new_package_nursing',[PackagesNursingController::class,'add_new_package']);
+Route::post('assign_options_topackages_nursing',[PackageOptionsNursingController::class,'assign_options_topackages']);

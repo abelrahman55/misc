@@ -1,19 +1,21 @@
 <?php
 
-use App\Http\Controllers\Api\ConversationsController;
-use App\Http\Controllers\Api\ProvidersController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
-use App\Http\Controllers\TreatmentServicesController;
-use App\Http\Controllers\Web\AdminsController;
 use App\Http\Controllers\Web\ChatController;
+use App\Http\Controllers\Web\RolesController;
+use App\Http\Controllers\Web\AdminsController;
+use App\Http\Controllers\Web\PackageController;
+use App\Http\Controllers\Api\ProvidersController;
+use App\Http\Controllers\Web\PatientDashController;
+use App\Http\Controllers\Api\ConversationsController;
+use App\Http\Controllers\TreatmentServicesController;
+use App\Http\Controllers\Web\PackageOptionController;
+use App\Http\Controllers\Web\PackageNursingController;
+use App\Http\Controllers\Web\PackageOptionNursingController;
+use App\Http\Controllers\Web\DashboardPatient\InquiryController;
 use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
 use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
-use App\Http\Controllers\Web\DashboardPatient\InquiryController;
-use App\Http\Controllers\Web\PackageController;
-use App\Http\Controllers\Web\PackageOptionController;
-use App\Http\Controllers\Web\PatientDashController;
-use App\Http\Controllers\Web\RolesController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return 'rere';
@@ -52,6 +54,7 @@ Route::post('/feedback_review', [FeedbackReviewController::class, 'store'])->nam
 
 Route::resource('inquiries', InquiryController::class);
 Route::resource('packages', PackageController::class);
+Route::resource('packages_nursing', PackageNursingController::class);
 
 Route::get('patient_schedules', [TreatmentServicesController::class, 'patient_schedules'])->name('patient_schedules');
 Route::get('messages', [ConversationsController::class, 'messages'])->name('messages');
@@ -60,6 +63,8 @@ Route::get('provider_schedules', [TreatmentServicesController::class, 'provider_
 Route::get('admin_patients', [PatientController::class, 'admin_patients'])->name('admin_patients');
 Route::get('log_out', [PatientController::class, 'log_out'])->name('log_out');
 Route::resource('package-options', PackageOptionController::class);
+
+Route::resource('package-options-nursing', PackageOptionNursingController::class);
 
 Route::group([], function () {
     Route::get('/chat/{id}', [ChatController::class, 'index'])->name('chat.index');
