@@ -12,7 +12,9 @@ use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\PackageOptionController;
 use App\Http\Controllers\Web\PackageNursingController;
+use App\Http\Controllers\Web\PackageHospitalController;
 use App\Http\Controllers\Web\PackageOptionNursingController;
+use App\Http\Controllers\Web\PackageOptionHospitalController;
 use App\Http\Controllers\Web\DashboardPatient\InquiryController;
 use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
 use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
@@ -55,6 +57,7 @@ Route::post('/feedback_review', [FeedbackReviewController::class, 'store'])->nam
 Route::resource('inquiries', InquiryController::class);
 Route::resource('packages', PackageController::class);
 Route::resource('packages_nursing', PackageNursingController::class);
+Route::resource('packages_hospital', PackageHospitalController::class);
 
 Route::get('patient_schedules', [TreatmentServicesController::class, 'patient_schedules'])->name('patient_schedules');
 Route::get('messages', [ConversationsController::class, 'messages'])->name('messages');
@@ -65,6 +68,7 @@ Route::get('log_out', [PatientController::class, 'log_out'])->name('log_out');
 Route::resource('package-options', PackageOptionController::class);
 
 Route::resource('package-options-nursing', PackageOptionNursingController::class);
+Route::resource('package-options-hospital', PackageOptionHospitalController::class);
 
 Route::group([], function () {
     Route::get('/chat/{id}', [ChatController::class, 'index'])->name('chat.index');

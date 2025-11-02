@@ -25,9 +25,12 @@ use App\Http\Controllers\Api\SpecialtiesController;
 use App\Http\Controllers\Api\AppointmentsController;
 use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\TreatmentServicesController;
+use App\Http\Controllers\Api\BookingHospitalController;
 use App\Http\Controllers\Api\BookingProviderController;
 use App\Http\Controllers\Api\PackagesNursingController;
 use App\Http\Controllers\Web\SpecialtiesDashController;
+use App\Http\Controllers\Api\PackagesHospitalController;
+use App\Http\Controllers\Api\BookingNursingProviderController;
 use App\Http\Controllers\Web\BlogController as WebBlogController;
 use App\Http\Controllers\Web\FaqsController as WebFaqsController;
 use App\Http\Controllers\Web\BrandController as WebBrandController;
@@ -209,3 +212,9 @@ Route::post('booking_provider',[BookingProviderController::class,'booking_provid
 
 Route::get('book_packages_nursing',[PackagesNursingController::class,'book_packages'])->middleware('user_login');
 Route::get('other_options_nursing/{id}',[PackagesNursingController::class,'other_options'])->middleware('user_login');
+Route::post('booking_nursing_provider',[BookingNursingProviderController::class,'booking_provider'])->middleware('user_login');
+
+
+Route::get('book_packages_hospital',[PackagesHospitalController::class,'book_packages'])->middleware('user_login');
+Route::get('other_options_hospital/{id}',[PackagesHospitalController::class,'other_options'])->middleware('user_login');
+Route::post('booking_hospital',[BookingHospitalController::class,'booking_provider'])->middleware('user_login');

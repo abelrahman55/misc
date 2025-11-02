@@ -9,9 +9,9 @@
         <!-- Main Content -->
         <main class="col-md-10 p-4 pb-0" style="font-family: Poppins, sans-serif;">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="header-page">All Packages Nursing</h1>
-                <a href="{{ route('packages_nursing.create') }}" class="btn btn-purple text-white">
-                    + Add New Package Nursing
+                <h1 class="header-page">All Packages Hospital</h1>
+                <a href="{{ route('packages_hospital.create') }}" class="btn btn-purple text-white">
+                    + Add New Package Hospital
                 </a>
             </div>
 
@@ -47,7 +47,7 @@
                                         <td>{{ number_format($package->price, 2) }} EGP</td>
                                         <td>
                                             <span class="badge bg-purple text-white">
-                                                {{ $package->optionsNursing->count() }}
+                                                {{ $package->optionsHospital->count() }}
                                             </span>
                                         </td>
                                         <td>{{ $package->created_at->format('Y-m-d') }}</td>
@@ -59,17 +59,17 @@
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="{{ route('packages_nursing.show', $package->id) }}">
+                                                        <a class="dropdown-item" href="{{ route('packages_hospital.show', $package->id) }}">
                                                             👁️ View
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="{{ route('packages_nursing.edit', $package->id) }}">
+                                                        <a class="dropdown-item" href="{{ route('packages_hospital.edit', $package->id) }}">
                                                             ✏️ Edit
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <form action="{{ route('packages_nursing.destroy', $package->id) }}" method="POST"
+                                                        <form action="{{ route('packages_hospital.destroy', $package->id) }}" method="POST"
                                                             onsubmit="return confirm('Are you sure you want to delete this package?');">
                                                             @csrf
                                                             @method('DELETE')

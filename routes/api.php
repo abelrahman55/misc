@@ -10,7 +10,9 @@ use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\WhatWeWorkWebController;
 use App\Http\Controllers\Web\PackageOptionsController;
 use App\Http\Controllers\Web\PackagesNursingController;
+use App\Http\Controllers\Web\PackagesHospitalController;
 use App\Http\Controllers\Web\PackageOptionsNursingController;
+use App\Http\Controllers\Web\PackageOptionsHospitalController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -33,3 +35,8 @@ Route::post('assign_options_topackages',[PackageOptionsController::class,'assign
 Route::post('add_new_option_nursing',[PackageOptionsNursingController::class,'add_new_option']);
 Route::post('add_new_package_nursing',[PackagesNursingController::class,'add_new_package']);
 Route::post('assign_options_topackages_nursing',[PackageOptionsNursingController::class,'assign_options_topackages']);
+
+
+Route::post('add_new_option_hospital',[PackageOptionsHospitalController::class,'add_new_option']);
+Route::post('add_new_package_hospital',[PackagesHospitalController::class,'add_new_package']);
+Route::post('assign_options_topackages_hospital',[PackageOptionsHospitalController::class,'assign_options_topackages']);

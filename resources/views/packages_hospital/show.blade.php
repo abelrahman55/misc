@@ -9,8 +9,8 @@
         <!-- Main Content -->
         <main class="col-md-10 p-4 pb-0" style="font-family: Poppins, sans-serif;">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="header-page">Package Details Nursing</h1>
-                <a href="{{ route('packages_nursing.index') }}" class="btn btn-secondary btn-sm">
+                <h1 class="header-page">Package Details Hospital</h1>
+                <a href="{{ route('packages_hospital.index') }}" class="btn btn-secondary btn-sm">
                     ← Back to Packages
                 </a>
             </div>
@@ -58,9 +58,9 @@
                             <!-- Package Options -->
                             <h4 class="text-purple mt-4 mb-3">Package Options</h4>
 
-                            @if ($package->optionsNursing->count() > 0)
+                            @if ($package->optionsHospital->count() > 0)
                                 <ul class="list-group">
-                                    @foreach ($package->optionsNursing as $option)
+                                    @foreach ($package->optionsHospital as $option)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             {{ $option->title['en'] ?? $option->title['ar'] ?? 'Untitled Option' }}
                                             <span class="badge bg-purple text-white rounded-pill">#{{ $option->id }}</span>
@@ -73,10 +73,10 @@
 
                             <!-- Actions -->
                             <div class="mt-4 d-flex gap-2">
-                                <a href="{{ route('packages_nursing.edit', $package->id) }}" class="btn btn-primary px-4">
+                                <a href="{{ route('packages_hospital.edit', $package->id) }}" class="btn btn-primary px-4">
                                     Edit
                                 </a>
-                                <form action="{{ route('packages_nursing.destroy', $package->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this package?');">
+                                <form action="{{ route('packages_hospital.destroy', $package->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this package?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger px-4">Delete</button>
