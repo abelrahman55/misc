@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'faqs',
 ], function () {
-   Route::get('index', [WebFaqsController::class, 'index'])->name('faqs.index');
+    Route::get('index', [WebFaqsController::class, 'index'])->name('faqs.index');
     Route::post('store', [WebFaqsController::class, 'store'])->name('faqs.store');
     Route::get('create', [WebFaqsController::class, 'create'])->middleware('web')->name('faqs.create');
     Route::get('edit/{id}', [WebFaqsController::class, 'edit'])->middleware('web')->name('faqs.edit');
@@ -75,7 +75,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix'     => 'aboutus',
+    'prefix' => 'aboutus',
 ], function () {
     Route::get('aboutus', [WebAboutUsController::class, 'index'])->name('aboutus.index');
     Route::post('aboutus', [WebAboutUsController::class, 'store'])->name('aboutus.store');
@@ -97,7 +97,7 @@ Route::group([
 ], function () {
     Route::get('services', [WebServiceController::class, 'index'])->name('services.index');
     Route::post('services', [WebServiceController::class, 'store'])->name('services.store');
-     Route::get('create', [WebServiceController::class, 'create'])->middleware('web')->name('services.create');
+    Route::get('create', [WebServiceController::class, 'create'])->middleware('web')->name('services.create');
     Route::get('edit/{id}', [WebServiceController::class, 'edit'])->middleware('web')->name('services.edit');
     Route::post('services/{id}', [WebServiceController::class, 'update'])->name('services.update');
     Route::delete('services', [WebServiceController::class, 'delete'])->name('services.delete');
@@ -189,19 +189,19 @@ Route::group([
 
 Route::get('get_works', [WhatWeWorkController::class, 'get_works']);
 Route::get('get_services', [ServicesController::class, 'get_services']);
-Route::get('get_treatment_service',[TreatmentServicesController::class,'get_treatment_service']);
-Route::post('make_appointment',[AppointmentsController::class,'make_appointment'])->middleware('user_login');
+Route::get('get_treatment_service', [TreatmentServicesController::class, 'get_treatment_service']);
+Route::post('make_appointment', [AppointmentsController::class, 'make_appointment'])->middleware('user_login');
 
 Route::group([
-    'prefix'=>'conversations',
-    'middleware'=>'user_login'
-],function(){
-    Route::get('make_conversation',[ConversationsController::class,'make_conversation']);
-    Route::get('get_conversation',[ConversationsController::class,'get_conversation']);
-    Route::post('send_message',[ConversationsController::class,'send_message']);
+    'prefix'     => 'conversations',
+    'middleware' => 'user_login',
+], function () {
+    Route::get('make_conversation', [ConversationsController::class, 'make_conversation']);
+    Route::get('get_conversation', [ConversationsController::class, 'get_conversation']);
+    Route::post('send_message', [ConversationsController::class, 'send_message']);
 });
 
-Route::post('make_inquery',[InqueriesController::class,'make_inquery'])->middleware('user_login');
-Route::get('book_packages',[PackagesController::class,'book_packages'])->middleware('user_login');
-Route::get('other_options/{id}',[PackagesController::class,'other_options'])->middleware('user_login');
-Route::post('booking_provider',[BookingProviderController::class,'booking_provider'])->middleware('user_login');
+Route::post('make_inquery', [InqueriesController::class, 'make_inquery'])->middleware('user_login');
+Route::get('book_packages', [PackagesController::class, 'book_packages'])->middleware('user_login');
+Route::get('other_options/{id}', [PackagesController::class, 'other_options'])->middleware('user_login');
+Route::post('booking_provider', [BookingProviderController::class, 'booking_provider'])->middleware('user_login');
