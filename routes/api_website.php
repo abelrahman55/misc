@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AboutUsController;
 use App\Http\Controllers\Api\AppointmentsController;
 use App\Http\Controllers\Api\ArticlesController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\BookingHospitalController;
+use App\Http\Controllers\Api\BookingNursingProviderController;
 use App\Http\Controllers\Api\BookingProviderController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ConversationsController;
@@ -12,6 +14,8 @@ use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\FeedBackController;
 use App\Http\Controllers\Api\InqueriesController;
 use App\Http\Controllers\Api\PackagesController;
+use App\Http\Controllers\Api\PackagesHospitalController;
+use App\Http\Controllers\Api\PackagesNursingController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\Api\RateSystemController;
 use App\Http\Controllers\Api\RateUserController;
@@ -205,3 +209,11 @@ Route::post('make_inquery', [InqueriesController::class, 'make_inquery'])->middl
 Route::get('book_packages', [PackagesController::class, 'book_packages'])->middleware('user_login');
 Route::get('other_options/{id}', [PackagesController::class, 'other_options'])->middleware('user_login');
 Route::post('booking_provider', [BookingProviderController::class, 'booking_provider'])->middleware('user_login');
+
+Route::get('book_packages_nursing', [PackagesNursingController::class, 'book_packages'])->middleware('user_login');
+Route::get('other_options_nursing/{id}', [PackagesNursingController::class, 'other_options'])->middleware('user_login');
+Route::post('booking_nursing_provider', [BookingNursingProviderController::class, 'booking_provider'])->middleware('user_login');
+
+Route::get('book_packages_hospital', [PackagesHospitalController::class, 'book_packages'])->middleware('user_login');
+Route::get('other_options_hospital/{id}', [PackagesHospitalController::class, 'other_options'])->middleware('user_login');
+Route::post('booking_hospital', [BookingHospitalController::class, 'booking_provider'])->middleware('user_login');
