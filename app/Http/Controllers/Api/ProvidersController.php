@@ -34,36 +34,87 @@ class ProvidersController extends Controller
         // return $user;
         return view('provider.provider_profile', compact('user'));
     }
-    public function upload_file(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'file' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        $user            = Auth::guard('web')->user();
-        $data            = $validator->validated();
-        $data['user_id'] = $user->id;
-        if (request()->hasFile('file')) {
+    // public function upload_file(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'file' => 'required',
+    //     ]);
+    //     if ($validator->fails()) {
+    //         return redirect()->back()->withErrors($validator)->withInput();
+    //     }
+    //     $user            = Auth::guard('web')->user();
+    //     $data            = $validator->validated();
+    //     $data['user_id'] = $user->id;
+    //     if (request()->hasFile('file')) {
 
-            // $data['avatar']=request()->file('avatar')->store('users','public');
-            $destinationPath = public_path('storage/' . 'files');
-            if (! file_exists($destinationPath)) {
-                mkdir($destinationPath, 0777, true);
-            }
-            $image     = request()->file('file');
-            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $imageName);
+    //         // $data['avatar']=request()->file('avatar')->store('users','public');
+    //         $destinationPath = public_path('storage/' . 'files');
+    //         if (! file_exists($destinationPath)) {
+    //             mkdir($destinationPath, 0777, true);
+    //         }
+    //         $image     = request()->file('file');
+    //         $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+    //         $image->move($destinationPath, $imageName);
 
-            $data['file'] = 'files' . '/' . $imageName;
+    //         $data['file'] = 'files' . '/' . $imageName;
 
-            // return $data['avatar'];
-        }
-        // return $data;
-        $new = DoctorFile::create($data);
-        return redirect()->back()->with('success', 'تمت الاضافه بنجاح');
+    //         // return $data['avatar'];
+    //     }
+    //     // return $data;
+    //     $new = DoctorFile::create($data);
+    //     return redirect()->back()->with('success', 'تمت الاضافه بنجاح');
+    // }
+
+    public function update_profile(Request $request)
+{
+    $user = Auth::guard('web')->user();
+
+    $validator = Validator::make($request->all(), [
+        'f_name' => 'nullable|string|max:100',
+        'l_name' => 'nullable|string|max:100',
+        'email'  => 'nullable|email|unique:users,email,'.$user->id,
+        'phone'  => 'nullable|string|max:20',
+        'address'=> 'nullable|string|max:255',
+        'dob'    => 'nullable|date',
+        'gender' => 'nullable|string',
+        'prof_img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'file' => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx|max:5120',
+    ]);
+
+    if($validator->fails()){
+        return redirect()->back()->withErrors($validator)->withInput();
     }
+
+    $data = $validator->validated();
+
+    if ($request->hasFile('prof_img')) {
+        if($user->prof_img && file_exists(public_path('storage/'.$user->prof_img))){
+            unlink(public_path('storage/'.$user->prof_img));
+        }
+        $path = $request->file('prof_img')->store('profile_images', 'public');
+        $data['prof_img'] = $path;
+    }
+
+    $user->update($data);
+
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $destinationPath = public_path('storage/files');
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+        }
+        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move($destinationPath, $fileName);
+
+        DoctorFile::create([
+            'user_id' => $user->id,
+            'file' => 'files/' . $fileName,
+        ]);
+    }
+
+    return redirect()->back()->with('success', 'تم تحديث البيانات ورفع الملف بنجاح');
+}
+
     public function add_note(Request $request)
     {
         $validator = Validator::make($request->all(), [
