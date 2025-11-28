@@ -33,10 +33,10 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $option->title['ar'] ?? '-' }}</td>
                                     <td>{{ $option->title['en'] ?? '-' }}</td>
-                                    <td>{{ $option->created_at->format('Y-m-d') }}</td>
+                                    <td>{{ $option?->created_at?->format('Y-m-d')??"" }}</td>
                                     <td>
-                                        <a href="{{ route('package-options-hospital.edit', $option->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <form action="{{ route('package-options-hospital.destroy', $option->id) }}" method="POST" class="d-inline">
+                                        {{--  <a href="{{ route('package-options-hospital.edit', $option->id) }}" class="btn btn-sm btn-primary">Edit</a>  --}}
+                                        <form action="{{ route('delete_package_options_hospital', ['id'=>$option->id]) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"

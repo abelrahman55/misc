@@ -69,6 +69,11 @@
                                                         </a>
                                                     </li>
                                                     <li>
+                                                        <a class="dropdown-item" href="{{ route('packages_nursing_reservations', ['id'=>$package->id]) }}">
+                                                            Reservations
+                                                        </a>
+                                                    </li>
+                                                    <li>
                                                         <form action="{{ route('packages_nursing.destroy', $package->id) }}" method="POST"
                                                             onsubmit="return confirm('Are you sure you want to delete this package?');">
                                                             @csrf

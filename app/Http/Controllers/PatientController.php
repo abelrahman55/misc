@@ -16,7 +16,8 @@ class PatientController extends Controller
     }
     public function assign_role()
     {
-        User::where('email', 'patien43t@gmail.com')->first()->assignRole('admin');
+        User::where('email', 'aa0368048@gmail.com')->update(['role' => 'patient']);
+        User::where('email', 'aa0368048@gmail.com')->first()->assignRole('patient');
         return 're';
     }
     public function admin_patients()

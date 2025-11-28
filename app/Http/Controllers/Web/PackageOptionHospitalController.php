@@ -1,9 +1,9 @@
 <?php
 namespace App\Http\Controllers\Web;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\PackageHospitalOption;
+use Illuminate\Http\Request;
 
 class PackageOptionHospitalController extends Controller
 {
@@ -42,6 +42,12 @@ class PackageOptionHospitalController extends Controller
         return view('package_options_hospital.edit', compact('option'));
     }
 
+    public function show($id)
+    {
+        $package = PackageHospitalOption::findOrFail($id);
+        return view('package_options_hospital.show', compact('package'));
+    }
+
     public function update(Request $request, PackageHospitalOption $package_option)
     {
         $data = $request->validate([
@@ -61,6 +67,16 @@ class PackageOptionHospitalController extends Controller
 
     public function destroy(PackageHospitalOption $package_option)
     {
+        // return $package_option;
+        $package_option->delete();
+        return redirect()->route('package-options-hospital.index')->with('success', 'Package option deleted successfully.');
+    }
+    public function delete_package_options_hospital()
+    {
+        $id             = request('id');
+        $package_option = PackageHospitalOption::where('id', $id)->first();
+        // return $id;
+        // return $package_option;
         $package_option->delete();
         return redirect()->route('package-options-hospital.index')->with('success', 'Package option deleted successfully.');
     }

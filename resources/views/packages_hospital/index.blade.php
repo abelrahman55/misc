@@ -50,7 +50,7 @@
                                                 {{ $package->optionsHospital->count() }}
                                             </span>
                                         </td>
-                                        <td>{{ $package->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ $package?->created_at?->format('Y-m-d')??"" }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
@@ -61,6 +61,11 @@
                                                     <li>
                                                         <a class="dropdown-item" href="{{ route('packages_hospital.show', $package->id) }}">
                                                             👁️ View
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('packages_providers_reservations', ['id'=>$package->id]) }}">
+                                                            Reservations
                                                         </a>
                                                     </li>
                                                     <li>

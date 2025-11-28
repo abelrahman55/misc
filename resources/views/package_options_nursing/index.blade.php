@@ -35,8 +35,11 @@
                                     <td>{{ $option->title['en'] ?? '-' }}</td>
                                     <td>{{ $option->created_at->format('Y-m-d') }}</td>
                                     <td>
-                                        <a href="{{ route('package-options-nursing.edit', $option->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <form action="{{ route('package-options-nursing.destroy', $option->id) }}" method="POST" class="d-inline">
+                                        {{--  <a href="{{ route('package-options-nursing.edit', $option) }}" class="btn btn-sm btn-primary">Edit</a>  --}}
+                                        <a href="{{ route('edit_package-options-nursing', ['id' => $option->id]) }}" class="btn btn-sm btn-primary">Edit</a>
+
+                                        {{--  <a href="{{ route('package-options-nursing.edit', ['id'=>$option->id??0]) }}" class="btn btn-sm btn-primary">Edit</a>  --}}
+                                        <form action="{{ route('destroy_package-options-nursing', ['id'=>$option->id]) }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger"

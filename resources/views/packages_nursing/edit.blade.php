@@ -85,15 +85,15 @@
                                 </div>
 
                                 <!-- Price -->
-                                <div class="mb-3 mt-4">
+                                {{--  <div class="mb-3 mt-4">
                                     <label class="form-label">Price</label>
                                     <input type="number" name="price" class="form-control" step="0.01"
                                         placeholder="Enter price"
-                                        value="{{ old('price', $package->price) }}" required>
+                                        value="{{ old('price', $package->price) }}" >
                                     @error('price')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
+                                </div>  --}}
 
                                 <!-- Package Options -->
                                 <div class="mb-3">

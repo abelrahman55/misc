@@ -80,13 +80,13 @@
                                 </div>
 
                                 <!-- Price -->
-                                <div class="mb-3 mt-4">
+                                {{--  <div class="mb-3 mt-4">
                                     <label class="form-label">Price</label>
-                                    <input type="number" name="price" class="form-control" step="0.01" placeholder="Enter price" value="{{ old('price') }}" required>
+                                    <input type="number" name="price" class="form-control" step="0.01" placeholder="Enter price" value="{{ old('price') }}" >
                                     @error('price')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
+                                </div>  --}}
 
                                 <!-- Package Options -->
                                 <div class="mb-3">

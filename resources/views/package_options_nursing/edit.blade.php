@@ -12,10 +12,10 @@
                 <div class="col px-3">
                     <div class="card p-4 shadow-sm border-0">
                         <div class="card-body">
-                            <form action="{{ route('package-options-nursing.update', $option->id) }}" method="POST">
+                            <form action="{{ route('package-options-nursing.update', ['id',$option->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-
+                                <input type="hidden" name="id" value="{{ $option->id }}">
                                 <ul class="nav nav-tabs mb-3" id="langTabs" role="tablist">
                                     <li class="nav-item"><button class="nav-link active" id="ar-tab"
                                             data-bs-toggle="tab" data-bs-target="#lang-ar"

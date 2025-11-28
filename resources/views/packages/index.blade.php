@@ -63,6 +63,11 @@
                                                             👁️ View
                                                         </a>
                                                     </li>
+                                                        <li>
+                                                        <a class="dropdown-item" href="{{ route('packages_reservations', ['id'=>$package->id]) }}">
+                                                            Reservations
+                                                        </a>
+                                                    </li>
                                                     <li>
                                                         <a class="dropdown-item" href="{{ route('packages.edit', $package->id) }}">
                                                             ✏️ Edit

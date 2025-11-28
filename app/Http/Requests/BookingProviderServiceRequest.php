@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,10 +13,10 @@ class BookingProviderServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'package_id'     => 'required',
-            'other_options'  => 'sometimes',
-            'provider_id'    => 'required',
-            'date'           => 'required|date',
+            'package_id'    => 'required',
+            'other_options' => 'sometimes',
+            'provider_id'   => 'required',
+            'date'          => 'required|date',
         ];
     }
 

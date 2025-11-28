@@ -305,6 +305,22 @@
                 @endcan
 
 
+                @can('packages_nursing')
+
+                    <li class="nav-item">
+                        <a href="{{ route('packages_nursing.index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path
+                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                            </svg>
+                        </div>
+                        Nursing Packages
+                    </a>
+                </li>
+                @endcan
+
                 @can('package-options-nursing')
 
                     <li class="nav-item">
@@ -316,27 +332,13 @@
                                 d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
                             </svg>
                         </div>
-                        Package Options
+                        Nursing Package Options
                     </a>
                 </li>
                 @endcan
 
 
-                 @can('packages_nursing')
 
-                    <li class="nav-item">
-                        <a href="{{ route('packages_nursing.index') }}" class="nav-link d-flex align-items-center gap-3">
-                            <div class="box-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-people-fill" viewBox="0 0 16 16">
-                                <path
-                                d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
-                            </svg>
-                        </div>
-                        Packages
-                    </a>
-                </li>
-                @endcan
 
                 @can('package-options-hospital')
 
@@ -349,7 +351,7 @@
                                 d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
                             </svg>
                         </div>
-                        Package Options
+                        Package Options Providers
                     </a>
                 </li>
                 @endcan
@@ -366,7 +368,7 @@
                                 d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
                             </svg>
                         </div>
-                        Packages
+                        Packages Providers
                     </a>
                 </li>
                 @endcan
@@ -466,6 +468,80 @@
                             </a>
                         </li>
                     @endcan
+
+
+                        @can('coupons')
+                        <li class="nav-item">
+                            <a href="{{ route('coupons') }}" class="nav-link d-flex align-items-center gap-3">
+                                <div class="box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path
+                                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                            </div>
+                            coupons
+                            {{--  حجوزات الرعايه  --}}
+                        </a>
+                    </li>
+                    @endcan
+
+
+
+
+
+                    {{-- Patient Pages   --}}
+
+                    @can('my_nursing_bookings')
+                        <li class="nav-item">
+                            <a href="{{ route('my_nursing_bookings') }}" class="nav-link d-flex align-items-center gap-3">
+                                <div class="box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path
+                                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                            </div>
+                            Care bookings
+                            {{--  حجوزات الرعايه  --}}
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('my_provider_bookings')
+                        <li class="nav-item">
+                            <a href="{{ route('my_provider_bookings') }}" class="nav-link d-flex align-items-center gap-3">
+                                <div class="box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path
+                                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                            </div>
+                            Providers bookings
+                            {{--  حجوزات الرعايه  --}}
+                        </a>
+                    </li>
+                    @endcan
+
+
+                    @can('my_sick_bookings')
+                        <li class="nav-item">
+                            <a href="{{ route('my_sick_bookings') }}" class="nav-link d-flex align-items-center gap-3">
+                                <div class="box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path
+                                    d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                </svg>
+                            </div>
+                            Sick bookings
+                            {{--  حجوزات الرعايه  --}}
+                        </a>
+                    </li>
+                    @endcan
+
+
                     <li class="nav-item">
                         <a href="{{ route('log_out') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">

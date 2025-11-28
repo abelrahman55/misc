@@ -210,10 +210,10 @@ Route::get('book_packages', [PackagesController::class, 'book_packages'])->middl
 Route::get('other_options/{id}', [PackagesController::class, 'other_options'])->middleware('user_login');
 Route::post('booking_provider', [BookingProviderController::class, 'booking_provider'])->middleware('user_login');
 
-Route::get('book_packages_nursing', [PackagesNursingController::class, 'book_packages'])->middleware('user_login');
-Route::get('other_options_nursing/{id}', [PackagesNursingController::class, 'other_options'])->middleware('user_login');
+Route::get('book_packages_nursing', [PackagesNursingController::class, 'book_packages']);
+Route::get('other_options_nursing/{id}', [PackagesNursingController::class, 'other_options']);
 Route::post('booking_nursing_provider', [BookingNursingProviderController::class, 'booking_provider'])->middleware('user_login');
 
-Route::get('book_packages_hospital', [PackagesHospitalController::class, 'book_packages'])->middleware('user_login');
-Route::get('other_options_hospital/{id}', [PackagesHospitalController::class, 'other_options'])->middleware('user_login');
+Route::get('book_packages_hospital', [PackagesHospitalController::class, 'book_packages']);
+Route::get('other_options_hospital/{id}', [PackagesHospitalController::class, 'other_options']);
 Route::post('booking_hospital', [BookingHospitalController::class, 'booking_provider'])->middleware('user_login');

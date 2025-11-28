@@ -1,17 +1,16 @@
 <?php
 namespace App\Http\Controllers\Web;
 
-use App\Models\Package;
-use Illuminate\Http\Request;
-use App\Models\PackageOption;
-use App\Models\PackageNursing;
-use App\Models\PackageHospital;
 use App\Http\Controllers\Controller;
-use App\Models\PackageNursingOption;
-use App\Models\RelatedPackageOption;
+use App\Models\BookingHospital;
+use App\Models\HospitalPackageMessage;
+use App\Models\PackageHospital;
 use App\Models\PackageHospitalOption;
-use App\Models\RelatedPackageNursingOption;
+use App\Models\ProviderMakeOffer;
 use App\Models\RelatedPackageHospitalOption;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PackageHospitalController extends Controller
 {
@@ -21,6 +20,7 @@ class PackageHospitalController extends Controller
     public function index()
     {
         $packages = PackageHospital::with('optionsHospital')->latest()->paginate(10);
+        // return $packages;
         return view('packages_hospital.index', compact('packages'));
     }
 
@@ -45,13 +45,13 @@ class PackageHospitalController extends Controller
             'title.en' => 'required|string',
             'title.fr' => 'required|string',
             'title.gr' => 'required|string',
-            'price'    => 'required|numeric|min:0',
+            // 'price'    => 'required|numeric|min:0',
             'options'  => 'nullable|array',
         ]);
 
         $package = PackageHospital::create([
             'title' => $data['title'],
-            'price' => $data['price'],
+            'price' => $data['price'] ?? 0,
         ]);
 
         if (! empty($data['options'])) {
@@ -96,13 +96,13 @@ class PackageHospitalController extends Controller
             'title.en' => 'required|string',
             'title.fr' => 'required|string',
             'title.gr' => 'required|string',
-            'price'    => 'required|numeric|min:0',
+            // 'price'    => 'required|numeric|min:0',
             'options'  => 'nullable|array',
         ]);
 
         $package->update([
             'title' => $data['title'],
-            'price' => $data['price'],
+            'price' => $data['price'] ?? 0,
         ]);
 
         $package->optionsHospital()->sync($data['options'] ?? []);
@@ -121,4 +121,112 @@ class PackageHospitalController extends Controller
 
         return redirect()->route('packages_hospital.index')->with('success', 'Package deleted successfully.');
     }
+
+    public function packages_providers_reservations()
+    {
+        $id            = request('id');
+        $conversations = BookingHospital::with('user', 'messages_by_last')->where('package_id', $id)->paginate(10);
+        // return $conversations;
+        return view('packages_hospital.reservations', compact('conversations', 'id'));
+    }
+
+    public function make_provider_price()
+    {
+        $id = request('id');
+
+        $conversations = BookingHospital::with('provider', 'package', 'options')
+            ->where('id', $id)
+            ->paginate(10);
+
+        $providers = User::whereIn('type', ['hospital', 'hotel'])
+            ->get(['id', 'f_name', 'l_name', 'm_name']);
+
+        // ✅ نجيب العرض القديم لو موجود
+        $offer = ProviderMakeOffer::where('booking_id', $id)->first();
+
+        return view('packages_hospital.make_provider_price', compact('conversations', 'id', 'providers', 'offer'));
+    }
+
+    public function provider_conv_messages(Request $request)
+    {
+        $id      = $request->id;
+        $perPage = 20;
+
+        $messages = HospitalPackageMessage::with('user')
+            ->where('book_package_id', $id)
+            ->orderBy('created_at', 'desc') // أحدث الرسائل أول
+            ->paginate($perPage);
+
+        // عكس ترتيب الرسائل
+        $messages->setCollection($messages->getCollection()->reverse());
+
+        return view('packages_hospital.messages', compact('messages', 'id'));
+    }
+
+    public function load_more_nursing_messages(Request $request)
+    {
+        $id      = $request->id;
+        $perPage = 20;
+
+        $messages = HospitalPackageMessage::with('user')
+            ->where('book_package_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
+
+        // عكس ترتيب الرسائل
+        $messages->setCollection($messages->getCollection()->reverse());
+
+        return view('packages_hospital._message_items', compact('messages'))->render();
+    }
+
+    public function provider_send_message(Request $request, $id)
+    {
+        $request->validate([
+            'message' => 'required_without:file',
+            'file'    => 'nullable|file',
+        ]);
+
+        $path = null;
+
+        if ($request->hasFile('file')) {
+            $path = UploadFile($request->file('file'), 'nursing_messages');
+            // $path = $request->file('file')->store('nursing_messages', 'public');
+        }
+        $user = Auth::guard('web')->user();
+        HospitalPackageMessage::create([
+            'message'         => $request->message,
+            'book_package_id' => $id,
+            'user_id'         => $user->id,
+            'user_type'       => 'user',
+            'file'            => $path,
+        ]);
+        return back();
+    }
+
+    public function provider_make_offer(Request $request)
+    {
+        $book = BookingHospital::where('id', $request->booking_id)->first();
+
+        // هل فيه عرض معمول قبل كده؟
+        $offer = ProviderMakeOffer::where('booking_id', $book->id)->first();
+
+        if ($offer) {
+            // تعديل العرض القديم
+            $offer->update([
+                'provider_id'    => $request->provider_id,
+                'provider_price' => $request->provider_price,
+            ]);
+            return back()->with('success', 'تم تعديل العرض بنجاح');
+        } else {
+            // إنشاء عرض جديد
+            ProviderMakeOffer::create([
+                'user_id'        => $book->user_id,
+                'provider_id'    => $request->provider_id,
+                'booking_id'     => $book->id,
+                'provider_price' => $request->provider_price,
+            ]);
+            return back()->with('success', 'تم إنشاء العرض بنجاح');
+        }
+    }
+
 }
