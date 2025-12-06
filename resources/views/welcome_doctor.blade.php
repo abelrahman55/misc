@@ -6,12 +6,9 @@
 
     <main class="col dashboard-content p-4">
 
-        <h2 class="mb-4">Welcome, {{ auth()->guard('web')->user()->f_name ?? 'Patient' }}</h2>
+        <h2 class="mb-4">Welcome, {{ auth()->guard('web')->user()->f_name ?? 'Doctor' }}</h2>
 
-        {{-- ===================================== --}}
-        {{-- 🔵 Meetings --}}
-        {{-- ===================================== --}}
-        {{--  <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4">
             <div class="card-header bg-primary text-white">
                 Latest Sicking Meetings
             </div>
@@ -23,7 +20,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>User</th>
-                                <th>Doctor</th>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Link</th>
@@ -34,7 +30,6 @@
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $appointment->user?->f_name ?? '—' }}</td>
-                                    <td>{{ $appointment->doctor?->f_name ?? '—' }}</td>
                                     <td>{{ $appointment->date ?? '—' }}</td>
                                     <td>{{ $appointment->time ?? '—' }}</td>
                                     <td>
@@ -61,24 +56,27 @@
                         </tbody>
                     </table>
 
-        {{ $meetings->links() }}
-    @else
-        <p class="text-muted">No meetings found.</p>
-        @endif
+                    {{-- Pagination --}}
+                    {{ $meetings->links() }}
+                @else
+                    <p class="text-muted">No meetings found.</p>
+                @endif
 
-</div>
-</div> --}}
+            </div>
+        </div>
+
+
 
         {{-- ===================================== --}}
-        {{-- 🟢 Hospital Bookings --}}
+        {{-- 🟠 Provider Bookings --}}
         {{-- ===================================== --}}
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-success text-white">
-                Hospital Bookings
+        <div class="card shadow-sm mb-5">
+            <div class="card-header bg-warning">
+                Provider Bookings
             </div>
             <div class="card-body">
 
-                @if ($hospitalBookings->count())
+                @if ($providerBookings->count())
                     <table class="table table-borderless table-hover text-center align-middle">
                         <thead class="table-light">
                             <tr>
@@ -92,7 +90,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($hospitalBookings as $booking)
+                            @forelse ($providerBookings as $booking)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>
@@ -114,7 +112,7 @@
                                     <td>
                                         @if ($booking?->offer && $booking?->offer?->paid == 'success')
                                             <a class="btn btn-purple text-white btn-sm"
-                                                href="{{ route('offer_meetings', ['id' => $booking->offer->id]) }}">
+                                                href="{{ route('client_package_offer_meetings', ['id' => $booking->offer->id]) }}">
                                                 Meetings
                                             </a>
                                         @else
@@ -124,7 +122,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($booking->offer && $booking->offer->paid != 'success')
+                                        @if ($booking?->offer && $booking?->offer?->paid != 'success')
                                             <button class="btn btn-purple text-white btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#paymentModal" data-booking="{{ $booking->id }}"
                                                 data-price="{{ $booking->offer->provider_price }}">
@@ -144,15 +142,13 @@
                             @endforelse
                         </tbody>
                     </table>
-
-                    {{ $hospitalBookings->links() }}
+                    {{ $providerBookings->links() }}
                 @else
-                    <p class="text-muted">No hospital bookings.</p>
+                    <p class="text-muted">No provider bookings.</p>
                 @endif
 
             </div>
         </div>
-
 
     </main>
 </div>

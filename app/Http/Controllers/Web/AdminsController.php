@@ -121,11 +121,15 @@ class AdminsController extends Controller
         if ($user->role == 'admin') {
             return redirect('/');
         } else if ($user->role == 'doctor') {
-            return redirect()->route('welcome_provider');
+            if ($user->type == 'doctor') {
+                return redirect()->route('welcome_doctor');
+            } else {
+                return redirect()->route('welcome_provider');
+            }
             // return view('provider_dash');
         } else {
             // return 'er';
-            return redirect('/');
+            return redirect('patient_welcome');
         }
         // return $user;
     }

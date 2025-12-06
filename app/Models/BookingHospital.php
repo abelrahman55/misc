@@ -43,6 +43,6 @@ class BookingHospital extends Model
     }
     public function offer()
     {
-        return $this->hasOne(ProviderMakeOffer::class, 'booking_id');
+        return $this->hasOne(ProviderMakeOffer::class, 'booking_id')->orderBy('id', 'desc');
     }
 }

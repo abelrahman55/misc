@@ -6,7 +6,7 @@
         @include('dashboard.layouts.sidebar')
         <main class="col-md-10 px-4 py-0">
             <div class="row h-100">
-               
+
                 <div class="col-4 px-0 bg-white shadow-sm">
                     <div class="p-4">
                         <h2 class="header-page-1 mb-5">
@@ -35,9 +35,9 @@
                                 data-bs-target="#v-pills-info" type="button" role="tab"
                                 aria-controls="v-pills-info" aria-selected="true">General Information</button>
 
-                            <button class="nav-link text-start" id="v-pills-history-tab" data-bs-toggle="pill"
+                            {{--  <button class="nav-link text-start" id="v-pills-history-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-history" type="button" role="tab"
-                                aria-controls="v-pills-history" aria-selected="false">Medical History</button>
+                                aria-controls="v-pills-history" aria-selected="false">Medical History</button>  --}}
 
                             <button class="nav-link text-start" id="v-pills-notes-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-notes" type="button" role="tab"
@@ -77,7 +77,8 @@
                                 <form action="{{ route('update_profile') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{ $patient->id }}">
+                                    <input type="hidden" name="id" value="{{ $patient->id }}"
+                                        {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
 
 
                                     <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
@@ -87,17 +88,21 @@
                                                 <label class="col text-2 fw-bold" for="f_name">First Name</label>
                                                 <input type="text" name="f_name" id="f_name"
                                                     class="form-control col"
-                                                    value="{{ old('f_name', $patient->f_name) }}" required>
+                                                    value="{{ old('f_name', $patient->f_name) }}" required
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
                                             </div>
                                             <div class="row">
                                                 <label class="col text-2 fw-bold" for="l_name">Last Name</label>
                                                 <input type="text" name="l_name" id="l_name"
                                                     class="form-control col"
-                                                    value="{{ old('l_name', $patient->l_name) }}">
+                                                    value="{{ old('l_name', $patient->l_name) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
                                             </div>
                                             <div class="row">
                                                 <label class="col text-2 fw-bold" for="gender">Gender</label>
-                                                <select name="gender" id="gender" class="form-select col">
+                                                <select
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}
+                                                    name="gender" id="gender" class="form-select col">
                                                     <option value="male"
                                                         {{ old('gender', $patient->gender) == 'male' ? 'selected' : '' }}>
                                                         Male</option>
@@ -109,7 +114,8 @@
                                             <div class="row">
                                                 <label class="col text-2 fw-bold" for="dob">Date Of Birth</label>
                                                 <input type="date" name="dob" id="dob"
-                                                    class="form-control col" value="{{ old('dob', $patient->dob) }}">
+                                                    class="form-control col" value="{{ old('dob', $patient->dob) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
                                             </div>
                                             <div class="row">
                                                 <label class="col text-2 fw-bold">Age</label>
@@ -126,19 +132,23 @@
                                                 <label class="col text-2 fw-bold" for="email">Email</label>
                                                 <input type="email" name="email" id="email"
                                                     class="form-control col"
-                                                    value="{{ old('email', $patient->email) }}" required>
+                                                    value="{{ old('email', $patient->email) }}" required
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+
                                             </div>
                                             <div class="row">
                                                 <label class="col text-2 fw-bold" for="phone">Phone</label>
                                                 <input type="text" name="phone" id="phone"
                                                     class="form-control col"
-                                                    value="{{ old('phone', $patient->phone) }}">
+                                                    value="{{ old('phone', $patient->phone) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
                                             </div>
                                             <div class="row">
                                                 <label class="col text-2 fw-bold" for="address">Address</label>
                                                 <input type="text" name="address" id="address"
                                                     class="form-control col"
-                                                    value="{{ old('address', $patient->address) }}">
+                                                    value="{{ old('address', $patient->address) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
                                             </div>
                                         </div>
                                     </div>
@@ -159,18 +169,20 @@
                                         </div>
                                     </div>
 
+                                    @if (auth()?->guard('web')?->user()?->role == 'patinet')
+                                        <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                            <h3 class="header-page mb-4">Update Profile Image</h3>
+                                            <input type="file" name="prof_img" accept="image/*"
+                                                class="form-control">
+                                        </div>
 
-                                    <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
-                                        <h3 class="header-page mb-4">Update Profile Image</h3>
-                                        <input type="file" name="prof_img" accept="image/*" class="form-control">
-                                    </div>
 
-
-                                    <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
-                                        <h3 class="header-page mb-4">Upload Additional File</h3>
-                                        <input type="file" name="file" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
-                                            class="form-control">
-                                    </div>
+                                        <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                            <h3 class="header-page mb-4">Upload Additional File</h3>
+                                            <input type="file" name="file"
+                                                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" class="form-control">
+                                        </div>
+                                    @endif
 
                                     <button type="submit" class="btn btn-primary">Save Updates</button>
                                 </form>

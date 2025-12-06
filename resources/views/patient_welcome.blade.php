@@ -11,7 +11,7 @@
         {{-- ===================================== --}}
         {{-- 🔵 Meetings --}}
         {{-- ===================================== --}}
-        {{--  <div class="card shadow-sm mb-4">
+        <div class="card shadow-sm mb-4">
             <div class="card-header bg-primary text-white">
                 Latest Sicking Meetings
             </div>
@@ -61,13 +61,14 @@
                         </tbody>
                     </table>
 
-        {{ $meetings->links() }}
-    @else
-        <p class="text-muted">No meetings found.</p>
-        @endif
+                    {{-- Pagination --}}
+                    {{ $meetings->links() }}
+                @else
+                    <p class="text-muted">No meetings found.</p>
+                @endif
 
-</div>
-</div> --}}
+            </div>
+        </div>
 
         {{-- ===================================== --}}
         {{-- 🟢 Hospital Bookings --}}
@@ -153,6 +154,159 @@
             </div>
         </div>
 
+        {{-- ===================================== --}}
+        {{-- 🟣 Nursing Bookings --}}
+        {{-- ===================================== --}}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+                Nursing Bookings
+            </div>
+            <div class="card-body">
+
+                @if ($nursingBookings->count())
+                    <table class="table table-borderless table-hover text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Package</th>
+                                <th>Offer Price</th>
+                                <th>Date</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($nursingBookings as $booking)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        {{ $booking->package->title['en'] ?? '-' }}
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ number_format($booking->package->price, 2) }} EGP
+                                        </small>
+                                    </td>
+                                    <td>
+                                        @if ($booking->offer)
+                                            {{ number_format($booking->offer->provider_price, 2) }} EGP
+                                        @else
+                                            <span class="text-muted">No offer yet</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $booking->date }}</td>
+                                    <td>{{ $booking->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        @if ($booking?->offer && $booking?->offer?->paid != 'success')
+                                            <button class="btn btn-purple text-white btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#paymentModal" data-booking="{{ $booking->id }}"
+                                                data-price="{{ $booking->offer->provider_price }}">
+                                                💳 Pay
+                                            </button>
+                                        @else
+                                            <button class="btn btn-secondary btn-sm" disabled>
+                                                No Offer
+                                            </button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-muted py-4">No bookings found.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+
+                    {{ $nursingBookings->links() }}
+                @else
+                    <p class="text-muted">No nursing bookings.</p>
+                @endif
+
+            </div>
+        </div>
+
+        {{-- ===================================== --}}
+        {{-- 🟠 Provider Bookings --}}
+        {{-- ===================================== --}}
+        <div class="card shadow-sm mb-5">
+            <div class="card-header bg-warning">
+                Provider Bookings
+            </div>
+            <div class="card-body">
+
+                @if ($providerBookings->count())
+                    <table class="table table-borderless table-hover text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Package</th>
+                                <th>Offer Price</th>
+                                <th>Date</th>
+                                <th>Created</th>
+                                <th>Meetings</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($providerBookings as $booking)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>
+                                        {{ $booking->package->title['en'] ?? '-' }}
+                                        <br>
+                                        <small class="text-muted">
+                                            {{ number_format($booking->package->price, 2) }} EGP
+                                        </small>
+                                    </td>
+                                    <td>
+                                        @if ($booking->offer)
+                                            {{ number_format($booking->offer->provider_price, 2) }} EGP
+                                        @else
+                                            <span class="text-muted">No offer yet</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $booking->date }}</td>
+                                    <td>{{ $booking->created_at->format('Y-m-d') }}</td>
+                                    <td>
+                                        @if ($booking?->offer && $booking?->offer?->paid == 'success')
+                                            <a class="btn btn-purple text-white btn-sm"
+                                                href="{{ route('client_package_offer_meetings', ['id' => $booking->offer->id]) }}">
+                                                Meetings
+                                            </a>
+                                        @else
+                                            <button class="btn btn-secondary btn-sm" disabled>
+                                                No Offer
+                                            </button>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($booking?->offer && $booking?->offer?->paid != 'success')
+                                            <button class="btn btn-purple text-white btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#paymentModal" data-booking="{{ $booking->id }}"
+                                                data-price="{{ $booking->offer->provider_price }}">
+                                                💳 Pay
+                                            </button>
+                                        @else
+                                            <button class="btn btn-secondary btn-sm" disabled>
+                                                No Offer
+                                            </button>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-muted py-4">No bookings found.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                    {{ $providerBookings->links() }}
+                @else
+                    <p class="text-muted">No provider bookings.</p>
+                @endif
+
+            </div>
+        </div>
 
     </main>
 </div>

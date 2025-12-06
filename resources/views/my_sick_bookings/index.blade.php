@@ -27,8 +27,8 @@
                     <nav class="mb-4 mx-1">
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-bookings-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-bookings" type="button" role="tab" aria-controls="nav-bookings"
-                                aria-selected="true">Bookings</button>
+                                data-bs-target="#nav-bookings" type="button" role="tab"
+                                aria-controls="nav-bookings" aria-selected="true">Bookings</button>
                             {{--  <button class="nav-link" id="nav-payments-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-payments" type="button" role="tab" aria-controls="nav-payments"
                                 aria-selected="false">Payments</button>  --}}
@@ -48,6 +48,7 @@
                                             <th>Offer Price</th>
                                             <th>Date</th>
                                             <th>Created</th>
+                                            <th>Meetings</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -72,10 +73,21 @@
                                                 <td>{{ $booking->date }}</td>
                                                 <td>{{ $booking->created_at->format('Y-m-d') }}</td>
                                                 <td>
-                                                    @if ($booking->offer)
+                                                    @if ($booking?->offer && $booking?->offer?->paid == 'success')
+                                                        <a class="btn btn-purple text-white btn-sm"
+                                                            href="{{ route('client_package_offer_meetings', ['id' => $booking->offer->id]) }}">
+                                                            Meetings
+                                                        </a>
+                                                    @else
+                                                        <button class="btn btn-secondary btn-sm" disabled>
+                                                            No Offer
+                                                        </button>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($booking?->offer && $booking?->offer?->paid != 'success')
                                                         <button class="btn btn-purple text-white btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#paymentModal"
+                                                            data-bs-toggle="modal" data-bs-target="#paymentModal"
                                                             data-booking="{{ $booking->id }}"
                                                             data-price="{{ $booking->offer->provider_price }}">
                                                             💳 Pay
@@ -132,7 +144,7 @@
                     <div class="mb-3">
                         <label class="form-label">Have a Coupon?</label>
                         <input type="text" name="coupon_code" class="form-control"
-                               placeholder="Enter coupon code (optional)">
+                            placeholder="Enter coupon code (optional)">
                     </div>
 
                     <div class="form-check mb-3">

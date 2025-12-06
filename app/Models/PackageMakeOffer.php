@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class PackageMakeOffer extends Model
 {
     //
-    public $fillable = ['provider_price', 'booking_id', 'provider_id', 'user_id'];
+    public $fillable = ['provider_price', 'paid', 'booking_id', 'provider_id', 'user_id'];
 
     public $casts = [
         'provider_price' => 'float',

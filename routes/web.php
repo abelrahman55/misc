@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PatientWelcomeController;
 use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\AdminsController;
 use App\Http\Controllers\Web\AdminWelcomeController;
@@ -18,7 +19,10 @@ use App\Http\Controllers\Web\PackageNursingController;
 use App\Http\Controllers\Web\PackageOptionController;
 use App\Http\Controllers\Web\PackageOptionHospitalController;
 use App\Http\Controllers\Web\PackageOptionNursingController;
+use App\Http\Controllers\Web\PatientController as WebPatientController;
 use App\Http\Controllers\Web\PatientDashController;
+use App\Http\Controllers\Web\ProviderMakeMeetingController;
+use App\Http\Controllers\Web\ProviderReservationsController;
 use App\Http\Controllers\Web\RolesController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +46,7 @@ Route::post('upload_file', [ProvidersController::class, 'upload_file'])->name('u
 Route::post('add_note', [ProvidersController::class, 'add_note'])->name('add_note');
 Route::get('provider_patient', [ProvidersController::class, 'provider_patient'])->name('provider_patient');
 Route::get('provider_ratings', [ProvidersController::class, 'provider_ratings'])->name('provider_ratings');
+Route::post('make_rate', [ProvidersController::class, 'make_rate'])->name('make_rate');
 
 Route::post('/document_centers', [DocumentCenterController::class, 'store'])->name('document_centers.store');
 
@@ -115,3 +120,25 @@ Route::post('provider_pay', [MyBookingsController::class, 'provider_pay'])->name
 
 Route::get('my_sick_bookings', [MyBookingsController::class, 'my_sick_bookings'])->name('my_sick_bookings');
 Route::post('package_pay', [MyBookingsController::class, 'package_pay'])->name('package_pay');
+
+Route::get('doctor_meetings/{id}', [ProviderMakeMeetingController::class, 'doctor_meetings'])->name('doctor_meetings');
+Route::post('create_package_meeting', [ProviderMakeMeetingController::class, 'create_package_meeting'])->name('create_package_meeting');
+
+Route::get('/package/meeting/join/{meeting}', [ProviderMakeMeetingController::class, 'package_meeting_join'])
+    ->name('package_meeting_join');
+
+Route::get('client_meeting_join/{meeting}', [ProviderMakeMeetingController::class, 'client_meeting_join'])->name('client_meeting_join');
+
+Route::get('/package/meeting/end_package_meeting/{meeting}', [ProviderMakeMeetingController::class, 'end_package_meeting'])
+    ->name('end_package_meeting');
+
+Route::get('offer_meetings/{id}', [ProviderMakeMeetingController::class, 'offer_meetings'])->name('offer_meetings');
+Route::get('patient_welcome', [PatientWelcomeController::class, 'patient_welcome'])->name('patient_welcome');
+Route::get('welcome_doctor', [PatientWelcomeController::class, 'welcome_doctor'])->name('welcome_doctor');
+
+Route::get('provider_offer_meetings/{id}', [ProviderMakeMeetingController::class, 'provider_offer_meetings'])->name('provider_offer_meetings');
+
+Route::get('client_package_offer_meetings/{id}', [ProviderMakeMeetingController::class, 'client_package_offer_meetings'])->name('client_package_offer_meetings');
+Route::get('provider_reservations', [ProviderReservationsController::class, 'provider_reservations'])->name('provider_reservations');
+Route::get('patient_doctors', [WebPatientController::class, 'patient_doctors'])->name('patient_doctors');
+Route::get('patient_provider', [WebPatientController::class, 'patient_provider'])->name('patient_provider');
