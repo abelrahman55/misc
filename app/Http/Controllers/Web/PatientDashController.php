@@ -72,7 +72,7 @@ class PatientDashController extends Controller
 
     $patient->save();
 
-    
+
     if ($request->hasFile('file')) {
         $filePath = $request->file('file')->store('patient_files', 'public');
         $patient->files()->create([

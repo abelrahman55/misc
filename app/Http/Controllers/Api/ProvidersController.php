@@ -101,12 +101,27 @@ class ProvidersController extends Controller
 
         $data = $validator->validated();
 
+        // if ($request->hasFile('prof_img')) {
+        //     if ($user->prof_img && file_exists(public_path('storage/' . $user->prof_img))) {
+        //         unlink(public_path('storage/' . $user->prof_img));
+        //     }
+        //     $path             = $request->file('prof_img')->store('profile_images', 'public');
+        //     $data['prof_img'] = $path;
+        // }
+
         if ($request->hasFile('prof_img')) {
-            if ($user->prof_img && file_exists(public_path('storage/' . $user->prof_img))) {
-                unlink(public_path('storage/' . $user->prof_img));
+
+            if ($user->prof_img && file_exists(public_path($user->prof_img))) {
+                unlink(public_path($user->prof_img));
             }
-            $path             = $request->file('prof_img')->store('profile_images', 'public');
-            $data['prof_img'] = $path;
+
+            $image    = $request->file('prof_img');
+            $fileName = time() . '_' . $image->getClientOriginalName();
+            $savePath = 'works/' . $fileName;
+
+            $image->move(public_path('/works'), $fileName);
+
+            $data['prof_img'] = $savePath;
         }
 
         $user->update($data);

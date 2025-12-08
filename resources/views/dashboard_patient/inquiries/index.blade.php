@@ -28,29 +28,47 @@
                     </div>
 
                     <!-- Filters -->
-                    <div class="d-flex justify-content-between align-items-center mb-5">
-                        <div>
-                            <input type="text" placeholder="Search..." class="form-control" />
+                    <form method="GET" action="{{ route('inquiries.index') }}">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+
+                            <div>
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                    placeholder="Search..." class="form-control" />
+                            </div>
+
+                            <div class="btn-group filter-box" role="group">
+
+                                <select name="date_filter" class="btn border-0 border-end">
+                                    <option value="">Select Date</option>
+                                    <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>
+                                        Today</option>
+                                    <option value="last_7_days"
+                                        {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>Last 7 Days
+                                    </option>
+                                </select>
+
+                                <select name="status" class="btn border-0 border-end">
+                                    <option value="">Inquiry Status</option>
+                                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                        Pending</option>
+                                    <option value="in_progress"
+                                        {{ request('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>
+                                        Completed</option>
+                                </select>
+
+                                <button type="submit" class="btn border-0 border-end">
+                                    <i class="bi bi-funnel"></i> Apply
+                                </button>
+
+                                <a href="{{ route('inquiries.index') }}" class="btn reset-filter-btn">
+                                    <i class="bi bi-arrow-clockwise"></i> Reset Filter
+                                </a>
+
+                            </div>
                         </div>
-                        <div class="btn-group filter-box" role="group">
-                            <button type="button" class="btn border-0 border-end"><i class="bi bi-funnel"></i></button>
-                            <button type="button" class="btn border-0 border-end">Filter By</button>
-                            <select class="btn border-0 border-end">
-                                <option value="">Select Date</option>
-                                <option value="">Today</option>
-                                <option value="">Last 7 Days</option>
-                            </select>
-                            <select class="btn border-0 border-end">
-                                <option value="">Inquiry Status</option>
-                                <option value="pending">Pending</option>
-                                <option value="in_progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                            </select>
-                            <button type="button" class="btn reset-filter-btn">
-                                <i class="bi bi-arrow-clockwise"></i> Reset Filter
-                            </button>
-                        </div>
-                    </div>
+                    </form>
+
 
                     <div class="table-responsive">
                         <table class="table dashboard-table table-bordered align-middle">
@@ -76,8 +94,8 @@
                                         <td>{{ $inquiry->name }}</td>
                                         <td>{{ $inquiry->contact_details }}</td>
                                         <td>{{ $inquiry->treatment_type }}</td>
-                                        <td>{{ $inquiry->specialty->name ?? '-' }}</td>
-                                        <td>{{ $inquiry->country->name ?? '-' }}</td>
+                                        <td>{{ $inquiry->specialty->title[app()->getLocale()] ?? '-' }}</td>
+                                        <td>{{ $inquiry->country->name[app()->getLocale()] ?? '-' }}</td>
                                         <td>{{ $inquiry->assigned_coordintor }}</td>
                                         <td>{{ $inquiry->budget ? number_format($inquiry->budget, 2) : '-' }}</td>
                                         <td>{{ $inquiry->date }}</td>

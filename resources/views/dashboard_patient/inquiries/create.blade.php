@@ -55,7 +55,7 @@
                                             <option value="">Select Country</option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                                    {{ $country->name }}
+                                                    {{ $country->name[app()->getLocale()] }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -67,7 +67,7 @@
                                             <option value="">Select Specialty</option>
                                             @foreach($specialties as $specialty)
                                                 <option value="{{ $specialty->id }}" {{ old('specialty_id') == $specialty->id ? 'selected' : '' }}>
-                                                    {{ $specialty->title }}
+                                                    {{ $specialty->title[app()->getLocale()] }}
                                                 </option>
                                             @endforeach
                                         </select>

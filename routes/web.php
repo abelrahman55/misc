@@ -40,8 +40,9 @@ Route::post('admin_regist', [AdminsController::class, 'admin_regist'])->name('ad
 Route::get('admin_logout', [AdminsController::class, 'admin_logout'])->name('admin_logout');
 
 Route::resource('roles', RolesController::class);
-Route::get('provider_profile', [ProvidersController::class, 'provider_profile'])->name('provider_profile')->middleware('admin');
+Route::get('profile', [ProvidersController::class, 'provider_profile'])->name('provider_profile')->middleware('admin');
 
+Route::post('update_profile_provider', [ProvidersController::class, 'update_profile'])->name('update_profile_provider');
 Route::post('upload_file', [ProvidersController::class, 'upload_file'])->name('upload_file');
 Route::post('add_note', [ProvidersController::class, 'add_note'])->name('add_note');
 Route::get('provider_patient', [ProvidersController::class, 'provider_patient'])->name('provider_patient');

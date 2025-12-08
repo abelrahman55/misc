@@ -43,11 +43,11 @@
                                 </tr>
                                 <tr>
                                     <th>Country</th>
-                                    <td>{{ $inquiry->country->name ?? '-' }}</td>
+                                    <td>{{ $inquiry->country->name[app()->getLocale()] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Specialty</th>
-                                    <td>{{ $inquiry->specialty->name ?? '-' }}</td>
+                                    <td>{{ $inquiry->specialty->name[app()->getLocale()] ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Proximity</th>

@@ -11,18 +11,18 @@ use Illuminate\Support\Str;
         <main class="col-md-10 px-4 py-0">
             <div class="row h-100">
 
-              
+
                 <div class="col-4 px-0 bg-white shadow-sm">
                     <div class="p-4">
                         <h2 class="header-page-1 mb-5">
                             <i class="bi bi-arrow-left-short"></i>
-                            Patient Profile
+                             Profile
                         </h2>
 
                         <div class="d-flex flex-column gap-1 align-items-center mb-3">
-                            <img src="{{ asset('storage/'.$user->prof_img) }}" alt="doctor" width="65" height="65"
+                            <img src="{{ asset($user->prof_img) }}" alt="doctor" width="65" height="65"
                                 class="rounded-circle img-thumbnail">
-                            <span class="heading-3 fw-bold text-dark">{{$user->f_name ?? ""}} Hi</span>
+                            <span class="heading-3 fw-bold text-dark">{{$user->f_name ?? ""}}</span>
                             <div class="d-flex gap-1 text-3 text-head">
                                 <span>{{$user->age}} years old</span>
                                 <span>|</span>
@@ -78,7 +78,7 @@ use Illuminate\Support\Str;
                                     </div>
                                 @endif
 
-                                <form action="{{ route('update_profile') }}" method="post" enctype="multipart/form-data">
+                                <form action="{{ route('update_profile_provider') }}" method="post" enctype="multipart/form-data">
                                     @csrf
 
 
@@ -223,13 +223,13 @@ use Illuminate\Support\Str;
                                             </a>
 
 
-                                            <form action="{{ route('delete_file', $file->id) }}" method="POST"
+                                            {{--  <form action="{{ route('delete_file', $file->id) }}" method="POST"
                                                 style="position:absolute; top:0; right:0;"
                                                 onsubmit="return confirm('هل أنت متأكد من حذف الملف؟');">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">×</button>
-                                            </form>
+                                            </form>  --}}
                                         </div>
                                     @empty
                                         <p>No files uploaded yet.</p>
@@ -237,7 +237,7 @@ use Illuminate\Support\Str;
                                 </div>
 
 
-                                <form method="post" action="{{ route('update_profile') }}" enctype="multipart/form-data">
+                                <form method="post" action="{{ route('update_profile_provider') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="d-flex justify-content-between align-items-center bg-light py-2 px-3 rounded-2">
                                         <div class="w-50">
