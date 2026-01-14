@@ -125,4 +125,12 @@ protected function social_login($data)
         $reset=PatientResetPasswordService::ResetPassword($request->validated());
         return $reset;
     }
+    public function check_data_completed(){
+        $user = auth()->guard('users')->user();
+        if(!$user){
+            return 1;
+        }
+        return $user->is_comp;
+
+    }
 }

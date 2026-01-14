@@ -39,4 +39,26 @@ class PatientController extends Controller
         // أو مثلاً:
         // return redirect('/login');
     }
+    public function update_physical_data(Request $request)
+    {
+        $user = Auth::guard('user')->user();
+
+        $validatedData = $request->validate([
+            'heart_rate' => 'nullable',
+            'blood_pressure' => 'nullable|numeric|min:0',
+            'temperature' => 'nullable|string|max:3',
+            'respiratory_rate' => 'nullable|string|max:255',
+            'oxygen_saturation' => 'nullable|string|max:255',
+        ]);
+
+        // تحديث بيانات المستخدم
+        $user->heart_rate = $validatedData['heart_rate'] ?? $user->heart_rate;
+        $user->blood_pressure = $validatedData['blood_pressure'] ?? $user->blood_pressure;
+        $user->temperature = $validatedData['temperature'] ?? $user->temperature;
+        $user->respiratory_rate = $validatedData['respiratory_rate'] ?? $user->respiratory_rate;
+        $user->oxygen_saturation = $validatedData['oxygen_saturation'] ?? $user->oxygen_saturation;
+        $user->save();
+
+        return response()->json(['message' => 'Physical data updated successfully', 'data' => $user]);
+    }
 }

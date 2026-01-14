@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\RateSystemController;
 use App\Http\Controllers\Api\RateUserController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ServicesController;
+use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\SpecialistsController;
 use App\Http\Controllers\Api\SpecialtiesController;
 use App\Http\Controllers\Api\WhatWeWorkController;
@@ -225,3 +226,6 @@ Route::get('my_documents',[DocumentCenterController::class, 'my_documents'])->mi
 Route::post('add_new_document',[DocumentCenterController::class, 'add_new_document'])->middleware('user_login');
 Route::delete('delete_document/{id}',[DocumentCenterController::class, 'delete_document'])->middleware('user_login');
 Route::post('update_document/{id}',[DocumentCenterController::class, 'update_document'])->middleware('user_login');
+
+Route::get('settings',[SettingsController::class,'settings']);
+Route::post('update_physical_data',[PatientController::class,'update_physical_data'])->middleware('user_login');

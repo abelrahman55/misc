@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable("document_centers")){
+            return ;
+        }
         Schema::create('document_centers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users','id')->cascadeOnDelete();

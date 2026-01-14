@@ -27,6 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'doctor_date',
         'organ_donation',
         'p_f_name',
+        'is_comp',
         'p_m_name',
         'p_l_name',
         'p_phone',

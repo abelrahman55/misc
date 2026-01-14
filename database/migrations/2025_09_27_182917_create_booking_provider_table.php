@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable("booking_provider")) {
         Schema::create('booking_provider', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('package_id')->nullable();
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->nullable();
             $table->string('date')->nullable();
             $table->timestamps();
-        });
+        });}
     }
 
     /**

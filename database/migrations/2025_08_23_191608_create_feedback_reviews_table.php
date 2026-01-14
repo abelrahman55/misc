@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable("feedback_reviews")) {
         Schema::create('feedback_reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained('users','id')->cascadeOnDelete();
             $table->longText('description');
             $table->timestamps();
-        });
+        });}
     }
 
     /**

@@ -82,6 +82,8 @@ class CompeleteDataRequest extends FormRequest
             'adverse_reactions'=>'nullable',
             'file_meds'=>'nullable',
 
+            'role'=>'required',
+
             //surgeries
             'current_treatment'=>'nullable',
             'start_date'=>'nullable',

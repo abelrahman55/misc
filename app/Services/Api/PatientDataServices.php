@@ -25,6 +25,7 @@ class PatientDataServices{
             'p_f_name', 'p_m_name', 'p_l_name', 'p_phone', 'p_email', 'p_home',
             'chro_ill_conditions', 'surgical_history', 'family_history',
             'smoking', 'alcohol', 'physical_activity', 'dietary_preferences',
+            'role',
             'heart_rate', 'blood_pressure', 'temperature', 'respiratory_rate', 'oxygen_saturation','type',
             'height', 'weight', 'waist_circumference',
             'prefered_hospital', 'prefered_clinic', 'prefered_specialist',
@@ -35,6 +36,7 @@ class PatientDataServices{
                 $user->$field = $data[$field]??null;
             }
         }
+        $user->is_comp = 1;
         $user->save();
 
         // Labodata
