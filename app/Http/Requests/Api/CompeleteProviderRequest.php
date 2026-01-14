@@ -26,6 +26,8 @@ class CompeleteProviderRequest extends FormRequest
             'complaint' => 'required',
             'doctor_files' => 'required',
             'doctor_date' => 'required',
+                        'type'                => 'nullable|in:doctor,hospital,hotel,patient',
+
             'doctor_time' => 'required',
         ];
     }

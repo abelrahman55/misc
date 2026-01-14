@@ -51,6 +51,8 @@ class CompeleteDataRequest extends FormRequest
             'family_history'=>'nullable',
             'smoking'=>'nullable',
             'alcohol'=>'nullable',
+                        'type'                => 'nullable|in:doctor,hospital,hotel,patient',
+
             'physical_activity'=>'nullable',
             'dietary_preferences'=>'nullable',
             'heart_rate'=>'nullable',

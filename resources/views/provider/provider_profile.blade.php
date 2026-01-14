@@ -1,32 +1,37 @@
 @extends('dashboard.layouts.layout')
 @include('dashboard.layouts.header')
 
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <div class="container-fluid">
     <div class="row">
         @include('dashboard.layouts.sidebar')
         <main class="col-md-10 px-4 py-0">
             <div class="row h-100">
-                <!-- Sidebar Patient Info -->
+
+
                 <div class="col-4 px-0 bg-white shadow-sm">
                     <div class="p-4">
                         <h2 class="header-page-1 mb-5">
                             <i class="bi bi-arrow-left-short"></i>
-                            Patient Profile
+                             Profile
                         </h2>
 
                         <div class="d-flex flex-column gap-1 align-items-center mb-3">
-                            <img src="{{ asset('storage/'.$user->prof_img) }}" alt="doctor" width="65" height="65"
+                            <img src="{{ asset($user->prof_img) }}" alt="doctor" width="65" height="65"
                                 class="rounded-circle img-thumbnail">
-                            <span class="heading-3 fw-bold text-dark">{{$user->f_name ?? ""}} Hi</span>
+                            <span class="heading-3 fw-bold text-dark">{{$user->f_name ?? ""}}</span>
                             <div class="d-flex gap-1 text-3 text-head">
                                 <span>{{$user->age}} years old</span>
                                 <span>|</span>
-                                <span><i class="bi bi-geo-alt"></i> {{isset($user->country)?$user->country->name['ar']:""}}</span>
+                                <span><i class="bi bi-geo-alt"></i> {{isset($user->country)?$user->country->getTranslation('name', app()->getLocale()):""}}</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tabs -->
+
                     <div class="d-flex align-items-start">
                         <div class="nav flex-column nav-pills nav-profile w-100 px-1" id="v-pills-tab"
                             role="tablist" aria-orientation="vertical">
@@ -49,77 +54,91 @@
                     </div>
                 </div>
 
-                <!-- Main Content -->
-                <div class="col p-4 h-100">
-                    <div class="tab-content " id="v-pills-tabContent">
 
-                        <!-- Tab Info -->
+                <div class="col p-4 h-100">
+                    <div class="tab-content" id="v-pills-tabContent">
+
+
                         <div class="tab-pane fade show active" id="v-pills-info" role="tabpanel"
                             aria-labelledby="v-pills-info-tab">
 
                             <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: 85vh;">
-                                <!-- Demographics -->
-                                <div class="shadow-sm bg-white px-5 py-4 rounded">
-                                    <h3 class="header-page mb-4">Demographics</h3>
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="row">
-                                            <span class="col text-2">Name</span>
-                                            <span class="col text-2 text-dark">{{$user->f_name ?? ""}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Gender</span>
-                                            <span class="col text-2 text-dark">{{$user->gender}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Date Of Birth</span>
-                                            <span class="col text-2 text-dark">{{$user->dob ?? 'N/A'}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Age</span>
-                                            <span class="col text-2 text-dark">{{$user->age ?? ''}}</span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <!-- Contact Info -->
-                                <div class="shadow-sm bg-white px-5 py-4 rounded">
-                                    <h3 class="header-page mb-4">Contact Information</h3>
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="row">
-                                            <span class="col text-2">Email</span>
-                                            <span class="col text-2 text-dark">{{$user->email}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Phone</span>
-                                            <span class="col text-2 text-dark">{{$user->phone}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Address</span>
-                                            <span class="col text-2 text-dark">{{$user->address}}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                @if(session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
 
-                                <!-- Insurance -->
-                                <div class="shadow-sm bg-white px-5 py-4 rounded">
-                                    <h3 class="header-page mb-4">Insurance</h3>
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="row">
-                                            <span class="col text-2">Member Id</span>
-                                            <span class="col text-2 text-dark">{{$user->id}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Policy Holder</span>
-                                            <span class="col text-2 text-dark">{{$user->f_name}} {{$user->l_name}}</span>
-                                        </div>
+                                @if($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                </div>
+                                @endif
+
+                                <form action="{{ route('update_profile_provider') }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+
+
+                                    <div class="mb-3">
+                                        <label for="f_name" class="form-label">First Name</label>
+                                        <input type="text" id="f_name" name="f_name" class="form-control" value="{{ old('f_name', $user->f_name) }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="l_name" class="form-label">Last Name</label>
+                                        <input type="text" id="l_name" name="l_name" class="form-control" value="{{ old('l_name', $user->l_name) }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" id="email" name="email" class="form-control" value="{{ old('email', $user->email) }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="phone" class="form-label">Phone</label>
+                                        <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" id="address" name="address" class="form-control" value="{{ old('address', $user->address) }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select id="gender" name="gender" class="form-select">
+                                            <option value="male" {{ (old('gender', $user->gender) == 'male') ? 'selected' : '' }}>Male</option>
+                                            <option value="female" {{ (old('gender', $user->gender) == 'female') ? 'selected' : '' }}>Female</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="dob" class="form-label">Date of Birth</label>
+                                        <input type="date" id="dob" name="dob" class="form-control" value="{{ old('dob', $user->dob) }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="prof_img" class="form-label">Profile Image</label>
+                                        <input type="file" id="prof_img" name="prof_img" class="form-control" accept="image/*">
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="file" class="form-label">Upload New File</label>
+                                        <input type="file" id="file" name="file" class="form-control" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-purple text-white">Save Updates</button>
+                                </form>
+
                             </div>
                         </div>
 
                         <!-- Tab Medical History -->
-                        <div class="tab-pane fade" id="v-pills-history" role="tabpanel"
-                            aria-labelledby="v-pills-history-tab">
+                        <div class="tab-pane fade" id="v-pills-history" role="tabpanel" aria-labelledby="v-pills-history-tab">
                             <div class="shadow-sm bg-white p-4 rounded">
                                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                                     <button class="nav-link active" id="nav-summary-tab" data-bs-toggle="tab"
@@ -156,9 +175,8 @@
                             </div>
                         </div>
 
-                        <!-- Tab Consultation Notes -->
-                        <div class="tab-pane fade" id="v-pills-notes" role="tabpanel"
-                            aria-labelledby="v-pills-notes-tab">
+
+                        <div class="tab-pane fade" id="v-pills-notes" role="tabpanel" aria-labelledby="v-pills-notes-tab">
                             <div class="shadow-sm bg-white p-4 rounded">
                                 <div class="d-flex flex-column gap-5 p-4">
                                     @foreach($user->usernotes ?? [] as $note)
@@ -172,7 +190,7 @@
                                             </div>
                                         </div>
                                     @endforeach
-                                    <!-- Add Note -->
+
                                     <form method="post" action="{{route('add_note')}}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="d-flex justify-content-between align-items-center bg-light py-2 px-3 rounded-2">
@@ -189,40 +207,54 @@
                             </div>
                         </div>
 
-                        <!-- Tab Files -->
-                        <div class="tab-pane fade" id="v-pills-files" role="tabpanel"
-                            aria-labelledby="v-pills-files-tab">
+
+                        <div class="tab-pane fade" id="v-pills-files" role="tabpanel" aria-labelledby="v-pills-files-tab">
                             <div class="shadow-sm bg-white p-4 rounded">
+
                                 <div class="d-flex flex-wrap gap-3 mb-3">
-                                    @forelse($user->files ?? [] as $value)
-                                        <a href="{{asset('storage/'.$value->file)}}" target="_blank">
-                                            @if(Str::endsWith($value->file, ['.jpg','.jpeg','.png']))
-                                                <img src="{{asset('storage/'.$value->file)}}" width="60" height="60" class="img-thumbnail"/>
-                                            @else
-                                                <img src="{{asset('assets/file.png')}}" width="60" height="60"/>
-                                            @endif
-                                        </a>
+                                    @forelse($user->files ?? [] as $file)
+                                        <div class="position-relative">
+                                            <a href="{{ asset('storage/' . $file->file) }}" target="_blank">
+                                                @if (Str::endsWith($file->file, ['.jpg','.jpeg','.png']))
+                                                    <img src="{{ asset('storage/' . $file->file) }}" width="60" height="60" class="img-thumbnail" />
+                                                @else
+                                                    <img src="{{ asset('assets/file.png') }}" width="60" height="60" />
+                                                @endif
+                                            </a>
+
+
+                                            {{--  <form action="{{ route('delete_file', $file->id) }}" method="POST"
+                                                style="position:absolute; top:0; right:0;"
+                                                onsubmit="return confirm('هل أنت متأكد من حذف الملف؟');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">×</button>
+                                            </form>  --}}
+                                        </div>
                                     @empty
                                         <p>No files uploaded yet.</p>
                                     @endforelse
                                 </div>
-                                <!-- Upload File -->
-                                <form method="post" action="{{route('upload_file')}}" enctype="multipart/form-data">
+
+
+                                <form method="post" action="{{ route('update_profile_provider') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="d-flex justify-content-between align-items-center bg-light py-2 px-3 rounded-2">
                                         <div class="w-50">
-                                            <input type="file" name="file" class="form-control border-0 bg-transparent">
+                                            <input type="file" name="file" class="form-control border-0 bg-transparent" accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
                                         </div>
                                         <div>
-                                            <button class="btn btn-purple text-white">Upload</button>
+                                            <button class="btn btn-purple text-white">Upload New File</button>
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
 
                     </div>
                 </div>
+
             </div>
         </main>
     </div>

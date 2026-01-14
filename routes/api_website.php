@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\BookingProviderController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\Api\CountriesController;
+use App\Http\Controllers\Api\DocumentCenterController;
 use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\FeedBackController;
 use App\Http\Controllers\Api\InqueriesController;
@@ -33,6 +34,10 @@ use App\Http\Controllers\Web\FaqsController as WebFaqsController;
 use App\Http\Controllers\Web\ServiceController as WebServiceController;
 use App\Http\Controllers\Web\SpecialtiesDashController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PackagesNursingController;
+use App\Http\Controllers\Api\BookingNursingProviderController;
+use App\Http\Controllers\Api\PackagesHospitalController;
+use App\Http\Controllers\Api\BookingHospitalController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -133,8 +138,8 @@ Route::group([
 ], function () {
     Route::post('make_rate', [RateUserController::class, 'make_rate']);
     Route::post('rate_system', [RateSystemController::class, 'rate_system']);
-    Route::get('clients_rates', [RateSystemController::class, 'clients_rates']);
 });
+    Route::get('rates/clients_rates', [RateSystemController::class, 'clients_rates']);
 
 Route::group([
     'prefix'     => 'patient',
@@ -202,6 +207,21 @@ Route::group([
 });
 
 Route::post('make_inquery',[InqueriesController::class,'make_inquery'])->middleware('user_login');
-Route::get('book_packages',[PackagesController::class,'book_packages'])->middleware('user_login');
+Route::get('book_packages',[PackagesController::class,'book_packages']);
 Route::get('other_options/{id}',[PackagesController::class,'other_options'])->middleware('user_login');
 Route::post('booking_provider',[BookingProviderController::class,'booking_provider'])->middleware('user_login');
+
+
+
+
+Route::get('book_packages_nursing', [PackagesNursingController::class, 'book_packages']);
+Route::get('other_options_nursing/{id}', [PackagesNursingController::class, 'other_options']);
+Route::post('booking_nursing_provider', [BookingNursingProviderController::class, 'booking_provider'])->middleware('user_login');
+
+Route::get('book_packages_hospital', [PackagesHospitalController::class, 'book_packages']);
+Route::get('other_options_hospital/{id}', [PackagesHospitalController::class, 'other_options']);
+Route::post('booking_hospital', [BookingHospitalController::class, 'booking_provider'])->middleware('user_login');
+Route::get('my_documents',[DocumentCenterController::class, 'my_documents'])->middleware('user_login');
+Route::post('add_new_document',[DocumentCenterController::class, 'add_new_document'])->middleware('user_login');
+Route::delete('delete_document/{id}',[DocumentCenterController::class, 'delete_document'])->middleware('user_login');
+Route::post('update_document/{id}',[DocumentCenterController::class, 'update_document'])->middleware('user_login');

@@ -25,13 +25,45 @@
                         </a>
                     </div>
 
-                    <div class="card p-4">
+                    <div class="card p-4 mb-4">
                         <div class="card-body">
                             <h5 class="mb-3">Inquiry Information</h5>
                             <table class="table table-bordered">
                                 <tr>
                                     <th>User</th>
                                     <td>{{ $inquiry->patient->f_name ?? 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{ $inquiry->name ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Contact Details</th>
+                                    <td>{{ $inquiry->contact_details ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Country</th>
+                                    <td>{{ $inquiry->country->name[app()->getLocale()] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Specialty</th>
+                                    <td>{{ $inquiry->specialty->name[app()->getLocale()] ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Proximity</th>
+                                    <td>{{ $inquiry->proximity ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Reputation</th>
+                                    <td>{{ $inquiry->reputation ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Budget</th>
+                                    <td>{{ number_format($inquiry->budget, 2) ?? '-' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Symptoms</th>
+                                    <td>{{ $inquiry->symptoms ?? '-' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Date</th>
@@ -48,23 +80,23 @@
                                 <tr>
                                     <th>Status</th>
                                     <td>
-                                        <span class="badge
-                                            @if($inquiry->status == 'pending') bg-warning
-                                            @elseif($inquiry->status == 'confirmed') bg-info
-                                            @elseif($inquiry->status == 'in_progress') bg-primary
-                                            @elseif($inquiry->status == 'awaiting_reply') bg-secondary
-                                            @elseif($inquiry->status == 'completed') bg-success
-                                            @endif">
-                                            {{ ucfirst(str_replace('_',' ',$inquiry->status)) }}
+                                        <span
+                                            class="badge
+                        @if ($inquiry->status == 'pending') bg-warning
+                        @elseif($inquiry->status == 'confirmed') bg-info
+                        @elseif($inquiry->status == 'in_progress') bg-primary
+                        @elseif($inquiry->status == 'awaiting_reply') bg-secondary
+                        @elseif($inquiry->status == 'completed') bg-success @endif">
+                                            {{ ucfirst(str_replace('_', ' ', $inquiry->status)) }}
                                         </span>
                                     </td>
                                 </tr>
                             </table>
 
                             <h5 class="mt-4 mb-3">Attached Files</h5>
-                            @if($inquiry->files->count())
+                            @if ($inquiry->files->count())
                                 <ul>
-                                    @foreach($inquiry->files as $file)
+                                    @foreach ($inquiry->files as $file)
                                         <li>
                                             <a href="{{ $file->file }}" target="_blank">
                                                 File {{ $loop->iteration }}
@@ -77,6 +109,7 @@
                             @endif
                         </div>
                     </div>
+
 
                     {{-- <div class="mt-4 d-flex gap-2">
                         <a href="{{ route('inquiries.edit', $inquiry->id) }}" class="btn btn-warning">

@@ -23,18 +23,87 @@
                                     <p>General Info</p>
                                 </div>
                                 <div class="rounded bg-white p-3 h-100">
+
                                     <div class="mb-3">
                                         <label class="form-label">Date</label>
                                         <input type="date" name="date" class="form-control" value="{{ old('date') }}">
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">Treatment Type</label>
                                         <input type="text" name="treatment_type" class="form-control" value="{{ old('treatment_type') }}">
                                     </div>
+
                                     <div class="mb-3">
                                         <label class="form-label">Assigned Coordinator</label>
                                         <input type="text" name="assigned_coordintor" class="form-control" value="{{ old('assigned_coordintor') }}">
                                     </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Contact Details</label>
+                                        <input type="text" name="contact_details" class="form-control" value="{{ old('contact_details') }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Country</label>
+                                        <select name="country_id" class="form-control">
+                                            <option value="">Select Country</option>
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
+                                                  {{ $country->getTranslation('name', app()->getLocale()) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Specialty</label>
+                                        <select name="specialty_id" class="form-control">
+                                            <option value="">Select Specialty</option>
+                                            @foreach($specialties as $specialty)
+                                                <option value="{{ $specialty->id }}" {{ old('specialty_id') == $specialty->id ? 'selected' : '' }}>
+                                                    {{ $specialty->title[app()->getLocale()] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Proximity</label>
+                                        <input type="text" name="proximity" class="form-control" value="{{ old('proximity') }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Reputation</label>
+                                        <input type="text" name="reputation" class="form-control" value="{{ old('reputation') }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Budget</label>
+                                        <input type="number" step="0.01" name="budget" class="form-control" value="{{ old('budget') }}">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Symptoms</label>
+                                        <textarea name="symptoms" class="form-control">{{ old('symptoms') }}</textarea>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Status</label>
+                                        <select name="status" class="form-control">
+                                            <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="confirmed" {{ old('status') == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                            <option value="in_progress" {{ old('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                                            <option value="awaiting_reply" {{ old('status') == 'awaiting_reply' ? 'selected' : '' }}>Awaiting Reply</option>
+                                            <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                                        </select>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -84,7 +153,6 @@
 
             wrapper.appendChild(newInput);
 
-            // حذف input
             newInput.querySelector(".removeFile").addEventListener("click", function() {
                 newInput.remove();
             });

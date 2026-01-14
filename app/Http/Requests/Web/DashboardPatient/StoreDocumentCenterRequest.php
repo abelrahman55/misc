@@ -23,7 +23,8 @@ class StoreDocumentCenterRequest extends FormRequest
     {
         return
         [
-            'file' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
+            'file' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx',
+            'descripe'=>'nullable|string',
         ];
     }
 }

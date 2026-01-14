@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
 use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
@@ -23,18 +21,20 @@ class Conversation extends Model
      */
     protected $casts = [
         'receiver_id' => 'integer',
-        'user_id' => 'integer',
+        'user_id'     => 'integer',
     ];
 
     public function messages()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class)->orderBy('id', 'desc');
     }
-    public function receiver(){
-        return $this->belongsTo(User::class,'receiver_id');
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
-    public function sender(){
-        return $this->belongsTo(User::class,'user_id');
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // protected static function newFactory(): ConversationFactory

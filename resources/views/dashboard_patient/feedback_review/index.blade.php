@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        @include('dashboard_patient.layouts.sidebar')
+        @include('dashboard.layouts.sidebar')
 
         <main class="col dashboard-content p-4">
             <div class="d-flex gap-5">

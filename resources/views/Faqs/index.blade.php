@@ -26,12 +26,12 @@
                             <button class="nav-link active" id="nav-faqs-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-faqs" type="button" role="tab" aria-controls="nav-faqs"
                                 aria-selected="true">faqs</button>
-                            <button class="nav-link" id="nav-appoinments-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-appoinments" type="button" role="tab"
-                                aria-controls="nav-appoinments" aria-selected="false">Appointments</button>
-                            <button class="nav-link" id="nav-payments-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-payments" type="button" role="tab"
-                                aria-controls="nav-payments" aria-selected="false">Payments</button>
+                            <!--<button class="nav-link" id="nav-appoinments-tab" data-bs-toggle="tab"-->
+                            <!--    data-bs-target="#nav-appoinments" type="button" role="tab"-->
+                            <!--    aria-controls="nav-appoinments" aria-selected="false">Appointments</button>-->
+                            <!--<button class="nav-link" id="nav-payments-tab" data-bs-toggle="tab"-->
+                            <!--    data-bs-target="#nav-payments" type="button" role="tab"-->
+                            <!--    aria-controls="nav-payments" aria-selected="false">Payments</button>-->
                         </div>
                     </nav>
                     <a href="{{ route('faqs.create') }}" class="btn btn-primary rounded-3 btn-sm">

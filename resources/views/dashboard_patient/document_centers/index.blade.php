@@ -42,6 +42,8 @@
                                                 <input type="file" name="file" hidden required />
                                             </label>
                                         </div>
+                                        <label for="">Descripe</label>
+                                        <textarea style="display: block;margin-bottom:10px" name="descripe" class="form-control" id=""></textarea>
                                         <button type="submit" class="btn btn-primary">Upload</button>
                                     </form>
 
@@ -62,7 +64,10 @@
                                                 </div>
                                                 <div class="d-flex flex-column">
                                                     <span class="file-name">{{ basename($doc->file) }}</span>
-                                                    <a href="{{ $doc->file }}" target="_blank" class="file-link">Click to view</a>
+                                                    <a href="{{ asset('storage/' . $doc->file) }}" target="_blank" class="file-link">Click to view</a>
+                                                    <div>
+                                                        Description: <span class="text-muted">{{ $doc->descripe ?? 'N/A' }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="d-flex">

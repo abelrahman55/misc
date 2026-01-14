@@ -10,9 +10,29 @@ class InquiryService
     use HasImage;
     public function __construct(public Inquiry $model)
     {}
+    
     public function index()
     {
-        return $this->model->paginate();
+        $query = Inquiry::query();
+
+        if (request()->filled('search')) {
+            $query->where('name', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('contact_details', 'LIKE', '%' . request('search') . '%');
+        }
+
+        if (request()->filled('date_filter')) {
+            if (request('date_filter') == 'today') {
+                $query->whereDate('created_at', today());
+            } elseif (request('date_filter') == 'last_7_days') {
+                $query->where('created_at', '>=', now()->subDays(7));
+            }
+        }
+
+        if (request()->filled('status')) {
+            $query->where('status', request('status'));
+        }
+
+        return $query->paginate(10);
     }
 
     public function store($data)

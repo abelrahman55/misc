@@ -11,6 +11,7 @@ class DocumentCenter extends Model
     protected $fillable = [
         'file',
         'user_id',
+        'descripe',
     ];
     public $casts=[
         'user_id' => 'integer',

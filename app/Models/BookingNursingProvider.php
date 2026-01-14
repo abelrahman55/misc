@@ -1,0 +1,44 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class BookingNursingProvider extends Model
+{
+    public $table    = 'booking_nursing_providers';
+    public $fillable = [
+        'package_id',
+        'provider_id',
+        'user_id',
+        'date',
+    ];
+    public $casts = [
+        'package_id'  => 'int',
+        'provider_id' => 'int',
+        'user_id'     => 'int',
+    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function provider()
+    {
+        return $this->belongsTo(User::class, 'provider_id');
+    }
+    public function package()
+    {
+        return $this->belongsTo(PackageNursing::class, 'package_id');
+    }
+    public function options()
+    {
+        return $this->hasMany(BookingNursingProviderOption::class, 'booking_id');
+    }
+    public function messages()
+    {
+        return $this->hasMany(NursingPackageMessage::class, 'book_package_id')->orderBy('id', 'desc');
+    }
+    public function offer()
+    {
+        return $this->hasOne(NursingMakeOffer::class, 'booking_id');
+    }
+}

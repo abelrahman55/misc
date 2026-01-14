@@ -26,12 +26,12 @@
                             <button class="nav-link active" id="nav-blogs-tab" data-bs-toggle="tab"
                                 data-bs-target="#nav-blogs" type="button" role="tab" aria-controls="nav-blogs"
                                 aria-selected="true">blogs</button>
-                            <button class="nav-link" id="nav-appoinments-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-appoinments" type="button" role="tab"
-                                aria-controls="nav-appoinments" aria-selected="false">Appointments</button>
-                            <button class="nav-link" id="nav-payments-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-payments" type="button" role="tab"
-                                aria-controls="nav-payments" aria-selected="false">Payments</button>
+                            <!--<button class="nav-link" id="nav-appoinments-tab" data-bs-toggle="tab"-->
+                            <!--    data-bs-target="#nav-appoinments" type="button" role="tab"-->
+                            <!--    aria-controls="nav-appoinments" aria-selected="false">Appointments</button>-->
+                            <!--<button class="nav-link" id="nav-payments-tab" data-bs-toggle="tab"-->
+                            <!--    data-bs-target="#nav-payments" type="button" role="tab"-->
+                            <!--    aria-controls="nav-payments" aria-selected="false">Payments</button>-->
                         </div>
                     </nav>
                     <a href="{{ route('blogs.create') }}" class="btn btn-primary rounded-3 btn-sm">
@@ -65,7 +65,7 @@
                                                 <td class="text-muted">{{ $blog->description[app()->getLocale()] }}
                                                 </td>
                                                 <td class="text-muted">
-                                                    <img src="{{ $blog->image }}" alt="Blog Image" width="50"
+                                                    <img src="{{ asset('storage/app/public/' . $blog->image ) }}" alt="Blog Image" width="50"
                                                         height="50" class="img-thumbnail">
                                                 </td>
 

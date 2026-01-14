@@ -6,7 +6,7 @@
         @include('dashboard.layouts.sidebar')
         <main class="col-md-10 px-4 py-0">
             <div class="row h-100">
-                <!-- Sidebar Patient Info -->
+
                 <div class="col-4 px-0 bg-white shadow-sm">
                     <div class="p-4">
                         <h2 class="header-page-1 mb-5">
@@ -15,28 +15,29 @@
                         </h2>
 
                         <div class="d-flex flex-column gap-1 align-items-center mb-3">
-                            <img src="{{ asset('storage/'.$patient->prof_img) }}" alt="doctor" width="65" height="65"
-                                class="rounded-circle img-thumbnail">
-                            <span class="heading-3 fw-bold text-dark">{{$patient->f_name ?? ""}} Hi</span>
+                            <img src="{{ asset('storage/' . $patient->prof_img) }}" alt="patient" width="65"
+                                height="65" class="rounded-circle img-thumbnail">
+                            <span class="heading-3 fw-bold text-dark">{{ $patient->f_name ?? '' }} Hi</span>
                             <div class="d-flex gap-1 text-3 text-head">
-                                <span>{{$patient->age}} years old</span>
+                                <span>{{ $patient->age }} years old</span>
                                 <span>|</span>
-                                <span><i class="bi bi-geo-alt"></i> {{isset($patient->country)?$patient->country->name['ar']:""}}</span>
+                                <span><i class="bi bi-geo-alt"></i>
+                                    {{ isset($patient->country) ? $patient->country->getTranslation('name', app()->getLocale()) : '' }}</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tabs -->
-                    <div class="d-flex align-items-start">
-                        <div class="nav flex-column nav-pills nav-profile w-100 px-1" id="v-pills-tab"
-                            role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active text-start" id="v-pills-info-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info"
-                                aria-selected="true">General Information</button>
 
-                            <button class="nav-link text-start" id="v-pills-history-tab" data-bs-toggle="pill"
+                    <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills nav-profile w-100 px-1" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                            <button class="nav-link active text-start" id="v-pills-info-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-info" type="button" role="tab"
+                                aria-controls="v-pills-info" aria-selected="true">General Information</button>
+
+                            {{--  <button class="nav-link text-start" id="v-pills-history-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-history" type="button" role="tab"
-                                aria-controls="v-pills-history" aria-selected="false">Medical History</button>
+                                aria-controls="v-pills-history" aria-selected="false">Medical History</button>  --}}
 
                             <button class="nav-link text-start" id="v-pills-notes-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-notes" type="button" role="tab"
@@ -49,75 +50,149 @@
                     </div>
                 </div>
 
-                <!-- Main Content -->
-                <div class="col p-4 h-100">
-                    <div class="tab-content " id="v-pills-tabContent">
 
-                        <!-- Tab Info -->
+                <div class="col p-4 h-100">
+                    <div class="tab-content" id="v-pills-tabContent">
+
+
                         <div class="tab-pane fade show active" id="v-pills-info" role="tabpanel"
                             aria-labelledby="v-pills-info-tab">
 
                             <div class="d-flex flex-column gap-3 overflow-auto" style="max-height: 85vh;">
-                                <!-- Demographics -->
-                                <div class="shadow-sm bg-white px-5 py-4 rounded">
-                                    <h3 class="header-page mb-4">Demographics</h3>
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="row">
-                                            <span class="col text-2">Name</span>
-                                            <span class="col text-2 text-dark">{{$patient->f_name ?? ""}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Gender</span>
-                                            <span class="col text-2 text-dark">{{$patient->gender}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Date Of Birth</span>
-                                            <span class="col text-2 text-dark">{{$patient->dob ?? 'N/A'}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Age</span>
-                                            <span class="col text-2 text-dark">{{$patient->age ?? ''}}</span>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <!-- Contact Info -->
-                                <div class="shadow-sm bg-white px-5 py-4 rounded">
-                                    <h3 class="header-page mb-4">Contact Information</h3>
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="row">
-                                            <span class="col text-2">Email</span>
-                                            <span class="col text-2 text-dark">{{$patient->email}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Phone</span>
-                                            <span class="col text-2 text-dark">{{$patient->phone}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Address</span>
-                                            <span class="col text-2 text-dark">{{$patient->address}}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                @if (session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                @endif
 
-                                <!-- Insurance -->
-                                <div class="shadow-sm bg-white px-5 py-4 rounded">
-                                    <h3 class="header-page mb-4">Insurance</h3>
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="row">
-                                            <span class="col text-2">Member Id</span>
-                                            <span class="col text-2 text-dark">{{$patient->id}}</span>
-                                        </div>
-                                        <div class="row">
-                                            <span class="col text-2">Policy Holder</span>
-                                            <span class="col text-2 text-dark">{{$patient->f_name}} {{$patient->l_name}}</span>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+                                <form action="{{ route('update_profile') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $patient->id }}"
+                                        {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+
+
+                                    <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                        <h3 class="header-page mb-4">Demographics</h3>
+                                        <div class="d-flex flex-column gap-3">
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="f_name">First Name</label>
+                                                <input type="text" name="f_name" id="f_name"
+                                                    class="form-control col"
+                                                    value="{{ old('f_name', $patient->f_name) }}" required
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="l_name">Last Name</label>
+                                                <input type="text" name="l_name" id="l_name"
+                                                    class="form-control col"
+                                                    value="{{ old('l_name', $patient->l_name) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="gender">Gender</label>
+                                                <select
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}
+                                                    name="gender" id="gender" class="form-select col">
+                                                    <option value="male"
+                                                        {{ old('gender', $patient->gender) == 'male' ? 'selected' : '' }}>
+                                                        Male</option>
+                                                    <option value="female"
+                                                        {{ old('gender', $patient->gender) == 'female' ? 'selected' : '' }}>
+                                                        Female</option>
+                                                </select>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="dob">Date Of Birth</label>
+                                                <input type="date" name="dob" id="dob"
+                                                    class="form-control col" value="{{ old('dob', $patient->dob) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold">Age</label>
+                                                <span class="col text-2 text-dark">{{ $patient->age ?? '' }}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+
+
+                                    <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                        <h3 class="header-page mb-4">Contact Information</h3>
+                                        <div class="d-flex flex-column gap-3">
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="email">Email</label>
+                                                <input type="email" name="email" id="email"
+                                                    class="form-control col"
+                                                    value="{{ old('email', $patient->email) }}" required
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="phone">Phone</label>
+                                                <input type="text" name="phone" id="phone"
+                                                    class="form-control col"
+                                                    value="{{ old('phone', $patient->phone) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold" for="address">Address</label>
+                                                <input type="text" name="address" id="address"
+                                                    class="form-control col"
+                                                    value="{{ old('address', $patient->address) }}"
+                                                    {{ auth()->guard('web')->user()?->role == $patient?->role ? '' : 'disabled' }}>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                        <h3 class="header-page mb-4">Insurance</h3>
+                                        <div class="d-flex flex-column gap-3">
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold">Member Id</label>
+                                                <span class="col text-2 text-dark">{{ $patient->id }}</span>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col text-2 fw-bold">Policy Holder</label>
+                                                <span class="col text-2 text-dark">{{ $patient->f_name }}
+                                                    {{ $patient->l_name }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if (auth()?->guard('web')?->user()?->role == 'patinet')
+                                        <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                            <h3 class="header-page mb-4">Update Profile Image</h3>
+                                            <input type="file" name="prof_img" accept="image/*"
+                                                class="form-control">
+                                        </div>
+
+
+                                        <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
+                                            <h3 class="header-page mb-4">Upload Additional File</h3>
+                                            <input type="file" name="file"
+                                                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" class="form-control">
+                                        </div>
+                                    @endif
+
+                                    @if($patient->id == auth()->guard('web')->user()->id)
+                                    <button type="submit" class="btn btn-primary">Save Updates</button>
+                                    @endif
+                                </form>
+
                             </div>
                         </div>
 
-                        <!-- Tab Medical History -->
+
                         <div class="tab-pane fade" id="v-pills-history" role="tabpanel"
                             aria-labelledby="v-pills-history-tab">
                             <div class="shadow-sm bg-white p-4 rounded">
@@ -156,68 +231,46 @@
                             </div>
                         </div>
 
-                        <!-- Tab Consultation Notes -->
+
                         <div class="tab-pane fade" id="v-pills-notes" role="tabpanel"
                             aria-labelledby="v-pills-notes-tab">
                             <div class="shadow-sm bg-white p-4 rounded">
                                 <div class="d-flex flex-column gap-5 p-4">
-                                    @foreach($patient->usernotes ?? [] as $note)
+                                    @foreach ($patient->usernotes ?? [] as $note)
                                         <div class="row">
                                             <div class="col-1">
                                                 <div class="box-icon-purple">📝</div>
                                             </div>
                                             <div class="col d-flex flex-column gap-1">
-                                                <span class="text-4">{{$note->created_at}}</span>
-                                                <span class="text-2">{{$note->note ?? ""}}</span>
+                                                <span class="text-4">{{ $note->created_at }}</span>
+                                                <span class="text-2">{{ $note->note ?? '' }}</span>
                                             </div>
                                         </div>
                                     @endforeach
-                                    <!-- Add Note -->
-                                    {{--  <form method="post" action="{{route('add_note')}}" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="d-flex justify-content-between align-items-center bg-light py-2 px-3 rounded-2">
-                                            <div class="w-50">
-                                                <input type="text" name="note" class="form-control border-0 bg-transparent"
-                                                    placeholder="Add a note">
-                                            </div>
-                                            <div>
-                                                <button class="btn btn-purple text-white">Post</button>
-                                            </div>
-                                        </div>
-                                    </form>  --}}
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Tab Files -->
+
                         <div class="tab-pane fade" id="v-pills-files" role="tabpanel"
                             aria-labelledby="v-pills-files-tab">
                             <div class="shadow-sm bg-white p-4 rounded">
                                 <div class="d-flex flex-wrap gap-3 mb-3">
-                                    @forelse($patient->files ?? [] as $value)
-                                        <a href="{{asset('storage/'.$value->file)}}" target="_blank">
-                                            @if(Str::endsWith($value->file, ['.jpg','.jpeg','.png']))
-                                                <img src="{{asset('storage/'.$value->file)}}" width="60" height="60" class="img-thumbnail"/>
+                                    @forelse($patient->files ?? [] as $file)
+                                        <a href="{{ asset('storage/' . $file->file) }}" target="_blank"
+                                            class="d-block">
+                                            @if (\Illuminate\Support\Str::endsWith($file->file, ['.jpg', '.jpeg', '.png']))
+                                                <img src="{{ asset('storage/' . $file->file) }}" width="60"
+                                                    height="60" class="img-thumbnail" />
                                             @else
-                                                <img src="{{asset('assets/file.png')}}" width="60" height="60"/>
+                                                <img src="{{ asset('assets/file.png') }}" width="60"
+                                                    height="60" alt="file icon" />
                                             @endif
                                         </a>
                                     @empty
                                         <p>No files uploaded yet.</p>
                                     @endforelse
                                 </div>
-                                <!-- Upload File -->
-                                {{--  <form method="post" action="{{route('upload_file')}}" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="d-flex justify-content-between align-items-center bg-light py-2 px-3 rounded-2">
-                                        <div class="w-50">
-                                            <input type="file" name="file" class="form-control border-0 bg-transparent">
-                                        </div>
-                                        <div>
-                                            <button class="btn btn-purple text-white">Upload</button>
-                                        </div>
-                                    </div>
-                                </form>  --}}
                             </div>
                         </div>
 

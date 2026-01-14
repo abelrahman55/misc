@@ -22,12 +22,28 @@ class StoreInquiryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'required|string',
-            'treatment_type' => 'required|string',
+            // 'date' => 'required|string',
+            // 'treatment_type' => 'required|string',
+            // 'assigned_coordintor' => 'nullable|string',
+            // // 'status' => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
+            // 'files' => 'required|array',
+            // 'files.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Adjust file types and size as needed
+            
+            
+            'date'                => 'required|string',
+            'treatment_type'      => 'required|string',
             'assigned_coordintor' => 'nullable|string',
-            // 'status' => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
-            'files' => 'required|array',
-            'files.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Adjust file types and size as needed
+            'name'                => 'required|string|max:255',
+            'contact_details'     => 'required|string|max:255',
+            'country_id'          => 'required|integer|exists:countries,id',
+            'specialty_id'        => 'required|integer|exists:specialties,id',
+            'proximity'           => 'nullable|string|max:255',
+            'reputation'          => 'nullable|string|max:255',
+            'budget'              => 'nullable|numeric',
+            'symptoms'            => 'nullable|string',
+            'status'              => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
+            'files'               => 'required|array',
+            'files.*'             => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
         ];
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -12,18 +11,19 @@ class Message extends Model
         'user_id',
         'message',
         'read',
-        'voice'
+        'voice',
+        'file',
     ];
 
-    public $appends=['voice_url'];
+    public $appends = ['voice_url'];
 
-    public function getVoiceUrlAttribute(){
-        if($this->voice){
-            return asset('storage/'.$this->voice);
+    public function getVoiceUrlAttribute()
+    {
+        if ($this->voice) {
+            return asset('storage/' . $this->voice);
         }
         return '';
     }
-
 
     public function conversation()
     {
@@ -32,7 +32,7 @@ class Message extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }
