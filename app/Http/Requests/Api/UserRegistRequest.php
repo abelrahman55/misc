@@ -29,7 +29,7 @@ class UserRegistRequest extends FormRequest
             'password'=>'required',
             'country'=>'required',
             'dob'=>'required',
-            'role'=>'required',
+            // 'role'=>'required',
         ];
     }
     public function messages()

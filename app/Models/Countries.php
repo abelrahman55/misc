@@ -3,15 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Countries extends Model
 {
     //
+        use  HasTranslations;
+
     public $table='countries';
     public $fillable=['name'];
     public $casts=[
         'name'=>'array'
     ];
+        public $translatable = ['name'];
+
     // public $appends=['name'];
     // public function getNameAttribute(){
     //     $lang=request()->header('lang','ar');

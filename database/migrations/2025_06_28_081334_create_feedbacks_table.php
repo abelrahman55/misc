@@ -38,12 +38,23 @@ return new class extends Migration
             $table->tinyInteger('would_contact')->nullable();
             $table->tinyInteger('would_recommend')->nullable();
             $table->bigInteger('user_id')->nullable();
-            // $table->tinyInteger('tech_rate')->nullable();
-            // $table->tinyInteger('is_statis_hos_options')->nullable();
+            $table->longText('feature_comment')->nullable();
+
+            $table->tinyInteger('tech_rate')->nullable();
+            $table->tinyInteger('is_statis_hos_options')->nullable();
+            $table->longText('not_satisfy_tech')->nullable();
+            $table->tinyInteger('is_clear_estimated')->nullable();
+            $table->longText('improve_suggestion_estimated')->nullable();
+            $table->tinyInteger('is_final_treat_plan')->nullable();
+            $table->tinyInteger('is_exper_tech_issue')->nullable();
+            $table->longText('text_specify')->nullable();
+            $table->bigInteger('page_load')->nullable();
+            $table->bigInteger('is_service_worth_cost')->nullable();
+            $table->longText('comment_tech')->nullable();
+            $table->longText('feature_wants')->nullable();
+            $table->tinyInteger('tech_would_contact')->nullable();
+            $table->tinyInteger('is_recommend')->nullable();
             // $table->longText('no_sat_hos_options_text')->nullable();
-            // $table->tinyInteger('is_clear_estimated')->nullable();
-            // $table->longText('improve_suggestion_estimated')->nullable();
-            // $table->tinyInteger('is_final_treat_plan')->nullable();
             // $table->tinyInteger('is_exper_tech')->nullable();
             // $table->longText('yes_text_tech')->nullable();
             // $table

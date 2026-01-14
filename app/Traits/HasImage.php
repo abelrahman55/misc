@@ -15,46 +15,51 @@ trait HasImage
      */
     public function saveImage(UploadedFile $image, $folder)
     {
-        $destinationPath = public_path('storage/' . $folder);
-        if (! file_exists($destinationPath)) {
-            mkdir($destinationPath, 0777, true);
-        }
-
-        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-        $image->move($destinationPath, $imageName);
-
-        return asset('storage/' . $folder . '/' . $imageName);
+       
+        return $image->store($folder, 'public');
     }
 
     /**
-     * حذف الصورة القديمة إذا كانت موجودة
+     * تحديث الصورة: حذف القديمة وحفظ الجديدة
      *
-     * @param string|null $imageUrl
-     * @return void
+     * @param UploadedFile $newImage
+     * @param string $folder
+     * @param string|null $oldImageUrl
+     * @return string
      */
     public function updateImage(UploadedFile $newImage, $folder, $oldImageUrl = null)
     {
-        // التأكد من حذف الصورة القديمة
         if ($oldImageUrl) {
             $this->deleteImage($oldImageUrl);
         }
 
-        // حفظ الصورة الجديدة وإرجاع رابطها الصحيح
         return $this->saveImage($newImage, $folder);
     }
 
-    // دالة لحذف الصورة القديمة
+    /**
+     * حذف الصورة
+     *
+     * @param string|null $imageUrl
+     * @return void
+     */
     public function deleteImage($imageUrl)
     {
-        if ($imageUrl) {
-                                                         // استخراج اسم الملف من الرابط
-            $path = parse_url($imageUrl, PHP_URL_PATH);  // /storage/folder/image.jpg
-            $path = str_replace('/storage/', '', $path); // folder/image.jpg
+        if (! $imageUrl) {
+            return;
+        }
 
-            // حذف الصورة إذا كانت موجودة
-            if (Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->delete($path);
-            }
+        // استخراج المسار النسبي من الرابط الكامل إذا كان رابطاً
+        $path = parse_url($imageUrl, PHP_URL_PATH);
+
+        // إزالة '/storage/' للحصول على المسار داخل الديسك (public)
+        // مثال: /storage/folder/image.jpg -> folder/image.jpg
+        $path = str_replace('/storage/', '', $path);
+        
+        // التعامل مع بداية المسار
+        $path = ltrim($path, '/');
+
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
         }
     }
 }

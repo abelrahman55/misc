@@ -14,11 +14,12 @@ class BlogResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $lang=request()->header('lang','ar');
         return [
             'id' => $this->id,
-            'title' => $this->getTranslatedTitle(),
-            'description' => $this->getTranslatedDescription(),
-            'image' => $this->image,
+             'title' => $this->getTranslation('title', app()->getLocale()),
+    'description' => $this->getTranslation('description', app()->getLocale()),
+            'image' => asset($this->image),
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

@@ -19,15 +19,16 @@ class AboutUsServices
     {
 
         $about_us = $this->model->first();
+         if (isset($data['image'])) {
+            $data['image'] = $this->saveImage($data['image'], 'about_us');
+        }
 
         if ($about_us) {
             $about_us->update($data);
         } else {
             $about_us = $this->model->create($data);
         }
-        if (isset($data['image'])) {
-            $data['image'] = $this->saveImage($data['image'], 'about_us');
-        }
+
         return $about_us;
 
     }

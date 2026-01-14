@@ -1,4 +1,4 @@
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    {{--  <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('assets/logos/logo2.png') }}" alt="" width="140" height="55">
@@ -51,4 +51,4 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav>  --}}

@@ -64,7 +64,7 @@
                                                 <td class="text-muted">{{ $patient->active==1?'active':'disactive' }}</td>
                                                 <td>
                                                     <div class="d-flex gap-2">
-                                                        <a href="{{ route('patient_profile',['id'=>$patient->id]) }}" class="btn btn-purple text-white rounded-3 btn-sm">See
+                                                        <a href="{{ route('_profile',['id'=>$patient->id]) }}" class="btn btn-purple text-white rounded-3 btn-sm">See
                                                             Profile</a>
                                                         <a
                                                             href="{{ route('change_active',['id'=>$patient->id]) }}"

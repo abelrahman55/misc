@@ -34,7 +34,7 @@ class StoreArticlesRequest extends FormRequest
             'description.fr' => ['nullable', 'string'],
             'description.gr' => ['nullable', 'string'],
 
-            'image' => ['required', 'image', 'max:2048'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'status' => ['required', 'boolean'],
         ];
     }

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
+        if(Schema::hasTable("package_options")){
+            return;
+        }
+        Schema::create('package_options', function (Blueprint $table) {
             $table->id();
-            $table->json('title')->nullable();
-            $table->string('image')->nullable();
-            $table->boolean('status')->default(1);
-            $table->json('description')->nullable();
+            $table->json('title');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::dropIfExists('package_options');
     }
 };

@@ -14,6 +14,7 @@ Route::group([
     Route::post('user_regist',[PatientAuthController::class,'user_regist']);
     Route::post('check_code',[PatientAuthController::class,'check_code']);
     Route::post('user_login',[PatientAuthController::class,'user_login']);
+    Route::post('reset_password',[PatientAuthController::class,'reset_password']);
 
     Route::group([
 
@@ -24,3 +25,4 @@ Route::group([
     });
 
 });
+Route::get('check_data_completed',[PatientAuthController::class,'check_data_completed']);

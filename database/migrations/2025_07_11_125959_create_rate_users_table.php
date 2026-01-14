@@ -16,7 +16,8 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('provider_id');
             $table->integer('rate');
-            $table->string('comment')->nullable();
+            $table->longText('comment')->nullable();
+            $table->longText('replay')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

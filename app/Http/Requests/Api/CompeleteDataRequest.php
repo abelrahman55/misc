@@ -51,6 +51,8 @@ class CompeleteDataRequest extends FormRequest
             'family_history'=>'nullable',
             'smoking'=>'nullable',
             'alcohol'=>'nullable',
+                        'type'                => 'nullable|in:doctor,hospital,hotel,patient',
+
             'physical_activity'=>'nullable',
             'dietary_preferences'=>'nullable',
             'heart_rate'=>'nullable',
@@ -79,6 +81,8 @@ class CompeleteDataRequest extends FormRequest
             'pres_provider'=>'nullable',
             'adverse_reactions'=>'nullable',
             'file_meds'=>'nullable',
+
+            'role'=>'required',
 
             //surgeries
             'current_treatment'=>'nullable',

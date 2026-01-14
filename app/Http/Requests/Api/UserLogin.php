@@ -6,47 +6,42 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UserLogin extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
-            'email'=>'required',
-            'password'=>'required',
+            // إذا كان تسجيل دخول عادي
+            'email' => 'required_without:provider',
+            'password' => 'required_without:provider',
+            // إذا تسجيل اجتماعي
+            'provider' => 'required_with:provider_id|in:google,facebook,apple',
+            'provider_id' => 'required_with:provider',
+            'type'=> 'required_with:provider_id',
+            'role'=> 'required_with:provider_id',
         ];
     }
-    public function messages(){
-        $lang=request()->header('lang','ar');
-        $messages=[
+
+    public function messages()
+    {
+        $lang = request()->header('lang','ar');
+        $messages = [
             'ar'=>[
-                'email.required'=>'البريد الإلكتروني مطلوب',
-                'password.required'=>'كلمة المرور مطلوبة',
+                'email.required_without'=>'البريد الإلكتروني مطلوب',
+                'password.required_without'=>'كلمة المرور مطلوبة',
+                'provider.required_with'=>'نوع الموفر مطلوب',
+                'provider_id.required_with'=>'معرّف الموفر مطلوب',
             ],
             'en'=>[
-                'email.required'=>'Email is required',
-                'password.required'=>'Password is required',
+                'email.required_without'=>'Email is required',
+                'password.required_without'=>'Password is required',
+                'provider.required_with'=>'Provider is required',
+                'provider_id.required_with'=>'Provider ID is required',
             ],
-            'fr'=>[
-                'email.required'=>'L\'e-mail est requis',
-                'password.required'=>'Le mot de passe est requis',
-            ],
-            'gr'=>[
-                'email.required'=>'Το email είναι υποχρεωτικό',
-                'password.required'=>'Το κωδικό είναι υποχρεωτικό',
-            ]
         ];
-        return $messages[$lang];
+        return $messages[$lang] ?? $messages['ar'];
     }
 }
