@@ -1,0 +1,154 @@
+@extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
+
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        @include('dashboard.layouts.sidebar')
+
+        <!-- Main Content -->
+        <main class="col dashboard-content p-4">
+            <div class="d-flex gap-5">
+                <div class="col">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="header-page">
+                            <svg width="24" height="10" viewBox="0 0 24 10" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M7.61619 9.28003C7.40289 8.72536 7.1682 8.21336 6.9122 7.74403C6.65619 7.25336 6.36819 6.7947 6.04819 6.36803H23.2002V3.74403H6.04819C6.3469 3.31736 6.62419 2.86936 6.88019 2.40003C7.13619 1.90936 7.3709 1.3867 7.5842 0.832031H5.15219C3.82949 2.38936 2.37889 3.57336 0.800194 4.38403V5.76003C2.37889 6.52803 3.82949 7.70136 5.15219 9.28003H7.61619Z"
+                                    fill="#141414" />
+                            </svg>
+                            My Inquiries
+                        </h1>
+                        <a href="{{ route('inquiries.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-lg"></i> New Inquiry
+                        </a>
+                    </div>
+
+                    <!-- Filters -->
+                    <form method="GET" action="{{ route('inquiries.index') }}">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+
+                            <div>
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                    placeholder="Search..." class="form-control" />
+                            </div>
+
+                            <div class="btn-group filter-box" role="group">
+
+                                <select name="date_filter" class="btn border-0 border-end">
+                                    <option value="">Select Date</option>
+                                    <option value="today" {{ request('date_filter') == 'today' ? 'selected' : '' }}>
+                                        Today</option>
+                                    <option value="last_7_days"
+                                        {{ request('date_filter') == 'last_7_days' ? 'selected' : '' }}>Last 7 Days
+                                    </option>
+                                </select>
+
+                                <select name="status" class="btn border-0 border-end">
+                                    <option value="">Inquiry Status</option>
+                                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                        Pending</option>
+                                    <option value="in_progress"
+                                        {{ request('status') == 'in_progress' ? 'selected' : '' }}>In Progress</option>
+                                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>
+                                        Completed</option>
+                                </select>
+
+                                <button type="submit" class="btn border-0 border-end">
+                                    <i class="bi bi-funnel"></i> Apply
+                                </button>
+
+                                <a href="{{ route('inquiries.index') }}" class="btn reset-filter-btn">
+                                    <i class="bi bi-arrow-clockwise"></i> Reset Filter
+                                </a>
+
+                            </div>
+                        </div>
+                    </form>
+
+
+                    <div class="table-responsive">
+                        <table class="table dashboard-table table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Serial Number</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Contact Details</th>
+                                    <th scope="col">Treatment Type</th>
+                                    <th scope="col">Specialty</th>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">Coordinator</th>
+                                    <th scope="col">Budget</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $inquiry)
+                                    <tr>
+                                        <td>{{ $inquiry->id }}</td>
+                                        <td>{{ $inquiry->name }}</td>
+                                        <td>{{ $inquiry->contact_details }}</td>
+                                        <td>{{ $inquiry->treatment_type }}</td>
+                                        <td>{{ $inquiry->specialty->title[app()->getLocale()] ?? '-' }}</td>
+                                        <td>{{ $inquiry->country->name[app()->getLocale()] ?? '-' }}</td>
+                                        <td>{{ $inquiry->assigned_coordintor }}</td>
+                                        <td>{{ $inquiry->budget ? number_format($inquiry->budget, 2) : '-' }}</td>
+                                        <td>{{ $inquiry->date }}</td>
+                                        <td>
+                                            <span
+                                                class="badge
+                            @if ($inquiry->status == 'pending') bg-warning
+                            @elseif($inquiry->status == 'completed') bg-success
+                            @elseif($inquiry->status == 'in_progress') bg-info
+                            @elseif($inquiry->status == 'awaiting_reply') bg-secondary
+                            @else bg-primary @endif">
+                                                {{ ucfirst(str_replace('_', ' ', $inquiry->status)) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <i class="bi bi-three-dots" type="button" data-bs-toggle="dropdown"
+                                                aria-expanded="false"></i>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('inquiries.edit', $inquiry->id) }}">Edit</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                        href="{{ route('inquiries.show', $inquiry->id) }}">View</a>
+                                                </li>
+                                                <li>
+                                                    <form action="{{ route('inquiries.destroy', $inquiry->id) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Are you sure you want to delete this inquiry?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="dropdown-item text-danger">Delete</button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-between pagination-box">
+                            <p class="pagination-text">
+                                Showing {{ $data->firstItem() }}-{{ $data->lastItem() }} of {{ $data->total() }}
+                            </p>
+                            {{ $data->links('pagination::bootstrap-5') }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>

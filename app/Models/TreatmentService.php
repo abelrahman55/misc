@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class TreatmentService extends Model
+{
+    //
+    public $fillable = ['title', 'status', 'specialty_id'];
+    public $casts = [
+        'title' => 'array',
+    ];
+
+    public function getTranslatedTitle($local = 'ar')
+    {
+        $lang = request()->header('lang', 'ar');
+        return $this->title[$lang] ?? "";
+    }
+
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class, 'specialty_id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+}
