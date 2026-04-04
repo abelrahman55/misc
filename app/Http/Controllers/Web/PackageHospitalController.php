@@ -125,7 +125,7 @@ class PackageHospitalController extends Controller
     public function packages_providers_reservations()
     {
         $id            = request('id');
-        $conversations = BookingHospital::with('user', 'messages_by_last')->where('package_id', $id)->paginate(10);
+        $conversations = BookingHospital::with('user', 'messages_by_last')->where('package_id', $id)->orderBy('id', 'desc')->paginate(10);
         // return $conversations;
         return view('packages_hospital.reservations', compact('conversations', 'id'));
     }

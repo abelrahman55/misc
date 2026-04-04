@@ -24,7 +24,17 @@
                         <div class="fw-bold">{{ $user->f_name }} {{ $user->l_name }}</div>
                         <small class="text-muted">{{ $user->email }}</small>
                     </li>
-                    <li><a class="dropdown-item py-2" href="{{ route('provider_profile') }}"><i class="bi bi-person me-2"></i> Profile</a></li>
+                    <li>
+                        @if($user->role == 'patient')
+                            <a class="dropdown-item py-2" href="{{ route('patient_profile', ['id' => $user->id]) }}">
+                                <i class="bi bi-person me-2"></i> Profile
+                            </a>
+                        @else
+                            <a class="dropdown-item py-2" href="{{ route('provider_profile') }}">
+                                <i class="bi bi-person me-2"></i> Profile
+                            </a>
+                        @endif
+                    </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <a class="dropdown-item py-2 text-danger" href="{{ route('log_out') }}">

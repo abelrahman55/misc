@@ -3,8 +3,10 @@
 
 @php
 $lang     = app()->getLocale();
+$isDoctor = $patient?->type == 'doctor';
 $isOwner  = auth()->guard('web')->user()?->id == $patient?->id;
-$canEdit  = $isOwner || auth()->guard('web')->user()?->role == 'admin';
+// Admin can edit patients, but NOT doctors. Doctors can only be edited by themselves (owner).
+$canEdit  = $isOwner || (auth()->guard('web')->user()?->role == 'admin' && !$isDoctor);
 @endphp
 
 <div class="container-fluid">
@@ -20,17 +22,19 @@ $canEdit  = $isOwner || auth()->guard('web')->user()?->role == 'admin';
                             <a href="{{ url()->previous() }}" class="text-dark text-decoration-none">
                                 <i class="bi bi-arrow-left-short"></i>
                             </a>
-                            Patient Profile
+                            {{ $isDoctor ? 'Doctor Profile' : 'Patient Profile' }}
                         </h2>
 
                         <div class="d-flex flex-column gap-1 align-items-center mb-3">
                             <img src="{{ $patient->prof_img ? asset('storage/' . $patient->prof_img) : asset('assets/images/user.png') }}"
-                                alt="patient" width="75" height="75"
+                                alt="user pic" width="75" height="75"
                                 class="rounded-circle img-thumbnail object-fit-cover">
                             <span class="heading-3 fw-bold text-dark">
                                 {{ trim(($patient->f_name ?? '') . ' ' . ($patient->l_name ?? '')) }}
                             </span>
-                            <span class="badge bg-info text-dark">Patient</span>
+                            <span class="badge {{ $isDoctor ? 'bg-primary' : 'bg-info' }} text-white">
+                                {{ $isDoctor ? 'Doctor' : 'Patient' }}
+                            </span>
                             <div class="d-flex gap-1 text-3 text-muted">
                                 <span>{{ $patient->age ?? '—' }} years old</span>
                                 <span>|</span>

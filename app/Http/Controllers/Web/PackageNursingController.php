@@ -139,7 +139,7 @@ class PackageNursingController extends Controller
     public function packages_nursing_reservations()
     {
         $id            = request('id');
-        $conversations = BookingNursingProvider::with('user', 'messages')->where('package_id', $id)->paginate(10);
+        $conversations = BookingNursingProvider::with('user', 'messages')->where('package_id', $id)->orderBy('id', 'desc')->paginate(10);
         // return $conversations;
         return view('packages_nursing.reservations', compact('conversations', 'id'));
     }

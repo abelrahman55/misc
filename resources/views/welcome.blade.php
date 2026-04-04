@@ -120,7 +120,7 @@
                                             <td>{{ \Carbon\Carbon::parse($booking->date)->format('Y-m-d') }}</td>
                                             <td>
                                                 @if($booking->messages->count())
-                                                    {{ Str::limit($booking->messages->last()->message ?? '📎 Attachment', 40) }}
+                                                    {{ Str::limit($booking->messages->first()->message ?? '📎 Attachment', 40) }}
                                                 @else
                                                     <span class="text-muted">No messages</span>
                                                 @endif
@@ -143,6 +143,75 @@
                         </div>
                     @else
                         <p class="text-center text-muted">No bookings found.</p>
+                    @endif
+                </div>
+            </div>
+
+            {{-- 🔹 آخر الحجوزات (المستشفيات) --}}
+            <div class="card border-0 shadow-sm rounded-3 mt-4">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="fw-semibold mb-0">🕓 Latest Hospital/Provider Bookings</h5>
+                </div>
+
+                <div class="card-body">
+                    @if($hospital_reservations->count())
+                        <div class="table-responsive">
+                            <table class="table align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>المريض</th>
+                                        <th>التاريخ</th>
+                                        <th>اخر رساله</th>
+                                        <th>عدد الرسائل</th>
+                                        <th>المراسله</th>
+                                        <th>عرض السعر</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($hospital_reservations as $h_booking)
+                                        <tr>
+                                            <td>{{ $h_booking->id }}</td>
+                                            <td>
+                                                @if($h_booking->user)
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <img src="{{ $h_booking->user->prof_img_url ?? asset('assets/images/user.png') }}"
+                                                            alt="User" width="40" height="40" class="rounded-circle border">
+                                                        <div>
+                                                            <div class="fw-semibold">{{ $h_booking->user->f_name ?? '' }} {{ $h_booking->user->l_name ?? '' }}</div>
+                                                            <small class="text-muted">{{ $h_booking->user->email }}</small>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <span class="text-muted">No user</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($h_booking->date)->format('Y-m-d') }}</td>
+                                            <td>
+                                                @if($h_booking->messages_by_last->count())
+                                                    {{ Str::limit($h_booking->messages_by_last->first()->message ?? '📎 Attachment', 40) }}
+                                                @else
+                                                    <span class="text-muted">No messages</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $h_booking->messages_by_last->count() }}</td>
+                                            <td>
+                                                <a class="btn btn-purple text-white" href="{{ route('provider_conv_messages', ['id' => $h_booking->id]) }}">
+                                                    الرسائل
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-purple text-white" href="{{ route('make_provider_price', ['id' => $h_booking->id]) }}">
+                                                    عرض سعر
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <p class="text-center text-muted">No provider bookings found.</p>
                     @endif
                 </div>
             </div>

@@ -24,6 +24,11 @@ class PatientDashController extends Controller
         return view('patients.inde',compact('patients'));
         // return $patients;
     }
+
+    public function admin_doctors(){
+        $doctors = User::where('type','doctor')->paginate(10);
+        return view('admin.doctors', compact('doctors'));
+    }
     public function change_active(){
         $id=request('id');
         $user=User::where('id',$id)->first();
@@ -118,6 +123,7 @@ class PatientDashController extends Controller
 
   public function update_profile(Request $request)
     {
+        // return $request;
         $id      = $request->id;
         $patient = User::findOrFail($id);
 
@@ -195,6 +201,11 @@ class PatientDashController extends Controller
             'prefered_hospital','prefered_clinic','prefered_specialist',
             'p_f_name','p_m_name','p_l_name','p_phone','p_email','p_home',
         ]);
+
+        // Filter out null values to avoid integrity constraints
+        $userFields = array_filter($userFields, function($value) {
+            return !is_null($value);
+        });
 
         if ($request->hasFile('prof_img')) {
             if ($patient->prof_img && Storage::disk('public')->exists($patient->prof_img)) {

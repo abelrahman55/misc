@@ -41,13 +41,14 @@
                             <div class="tab-pane fade show active" id="nav-bookings" role="tabpanel"
                                 aria-labelledby="nav-bookings-tab">
                                 <table class="table table-borderless table-hover text-center align-middle">
-                                    <thead class="table-light">
+                                    <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Package</th>
                                             <th>Offer Price</th>
                                             <th>Date</th>
                                             <th>Created</th>
+                                            <th>Messaging</th>
                                             <th>Meetings</th>
                                             <th>Actions</th>
                                         </tr>
@@ -73,14 +74,24 @@
                                                 <td>{{ $booking->date }}</td>
                                                 <td>{{ $booking->created_at->format('Y-m-d') }}</td>
                                                 <td>
+                                                    <a class="btn btn-success"
+                                                        href="{{ route('provider_conv_messages', ['id' => $booking->id]) }}">
+                                                        Messiging
+                                                    </a>
+                                                </td>
+                                                <td>
                                                     @if ($booking?->offer && $booking?->offer?->paid == 'success')
                                                         <a class="btn btn-purple text-white btn-sm"
                                                             href="{{ route('offer_meetings', ['id' => $booking->offer->id]) }}">
                                                             Meetings
                                                         </a>
+                                                    @elseif($booking?->offer)
+                                                        <button class="btn btn-secondary btn-sm" disabled>
+                                                            Not Paid
+                                                        </button>
                                                     @else
                                                         <button class="btn btn-secondary btn-sm" disabled>
-                                                            No Offer
+                                                            No Meetings
                                                         </button>
                                                     @endif
                                                 </td>
@@ -94,7 +105,7 @@
                                                         </button>
                                                     @else
                                                         <button class="btn btn-secondary btn-sm" disabled>
-                                                            No Offer
+                                                            No Pay
                                                         </button>
                                                     @endif
                                                 </td>

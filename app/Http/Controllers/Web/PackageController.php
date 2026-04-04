@@ -44,7 +44,7 @@ class PackageController extends Controller
     public function packages_reservations()
     {
         $id            = request('id');
-        $conversations = BookingProvider::with('user', 'messages')->where('package_id', $id)->paginate(10);
+        $conversations = BookingProvider::with('user', 'messages')->where('package_id', $id)->orderBy('id', 'desc')->paginate(10);
         // return $conversations;
         return view('packages.reservations', compact('conversations', 'id'));
     }

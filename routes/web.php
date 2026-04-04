@@ -4,7 +4,7 @@ use App\Http\Controllers\Api\ArticlesController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\Api\FaqsController;
-use App\Http\Controllers\Api\ProvidersController;
+use App\Http\Controllers\Web\ProvidersController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientWelcomeController;
 use App\Http\Controllers\TreatmentServicesController;
@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AdminWelcomeController::class, 'welcome'])->name('admin_welcome')->middleware('admin');
 
 Route::get('patients', [PatientDashController::class, 'patients'])->name('patients');
+Route::get('admin_doctors', [PatientDashController::class, 'admin_doctors'])->name('admin_doctors')->middleware('admin');
 Route::get('change_active/{id}', [PatientDashController::class, 'change_active'])->name('change_active');
 Route::get('patient_profile/{id}', [PatientDashController::class, 'patient_profile'])->name('patient_profile');
 Route::post('patient_profile/update', [PatientDashController::class, 'update_profile'])->name('update_profile');
@@ -217,6 +218,7 @@ Route::group([
     Route::get('get_articles', [ArticlesController::class, 'index']);
 });
 Route::delete('delete_file/{id}', [ProvidersController::class, 'delete_file'])->name('delete_file');
+Route::get('delete_license/{id}', [ProvidersController::class, 'delete_license'])->name('delete_license');
 
 Route::get('provider_profile/update/{id}', [ProvidersController::class, 'update_provider_profile'])->name('update_provider_profile')->middleware('admin');
 

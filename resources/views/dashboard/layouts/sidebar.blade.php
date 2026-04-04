@@ -1,4 +1,4 @@
-            <aside id="aside-sidebar" class="d-none d-lg-flex col-md-2 flex-column justify-content-between p-2 bg-white shadow-sm">
+            <aside id="aside-sidebar" class="d-none d-lg-flex col-md-2 flex-column p-2 bg-white shadow-sm">
                 <div class="d-flex justify-content-between align-items-center d-lg-none mb-3 px-2">
                     <img src="{{ asset('assets/logos/logo2.png') }}" height="30">
                     <button id="closeSidebar" class="btn btn-sm btn-light border-0">
@@ -34,6 +34,14 @@
                                 <i class="bi bi-gift-fill" style="color: #347fc2;"></i>
                             </div>
                             Special Packages
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('patient_profile', ['id' => auth()->user()->id]) }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <i class="bi bi-person-fill" style="color: #347fc2;"></i>
+                            </div>
+                            Profile
                         </a>
                     </li>
                     @endcan
@@ -177,6 +185,18 @@
                                 </svg>
                             </div>
                             Patients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin_doctors') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
+                                    <path d="M6.5 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                    <path d="M4.5 0A2.5 2.5 0 0 0 2 2.5V14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2.5A2.5 2.5 0 0 0 11.5 0h-7zM3 2.5A1.5 1.5 0 0 1 4.5 1h7A1.5 1.5 0 0 1 13 2.5V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2.5z"/>
+                                    <path d="M9.5 8.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3z"/>
+                                </svg>
+                            </div>
+                            Doctors
                         </a>
                     </li>
                     @endcan

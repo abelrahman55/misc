@@ -1,8 +1,8 @@
 @foreach ($messages as $message)
     <div
-        class="msg-wrapper {{ $message?->user_id == auth()->id() || auth()->guard('web')->user()->role == 'admin' ? 'sent-box' : 'received-box' }}">
+        class="msg-wrapper {{ $message?->user_id == auth()->id() ? 'sent-box' : 'received-box' }}">
         <div
-            class="msg {{ $message?->user_id == auth()->id() || auth()->guard('web')->user()->role == 'admin' ? 'sent' : 'received' }}">
+            class="msg {{ $message?->user_id == auth()->id() ? 'sent' : 'received' }}">
             <div class="sender-name">{{ $message?->user?->name }}</div>
 
             {{-- نص الرسالة --}}

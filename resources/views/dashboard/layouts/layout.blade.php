@@ -52,7 +52,6 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         padding: 1rem;
         box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
     }
@@ -111,7 +110,8 @@
         background-color: #ffe5e5;
     }
 
-    /* ======= Responsiveness ======= */
+    /* ======= Responsiveness (Mobile & Tablet) ======= */
+    @media (max-width: 991.98px) {
         #aside-sidebar {
             display: none !important;
             position: fixed;

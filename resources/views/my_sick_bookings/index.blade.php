@@ -85,6 +85,10 @@
                                                             href="{{ route('client_package_offer_meetings', ['id' => $booking->offer->id]) }}">
                                                             Meetings
                                                         </a>
+                                                    @elseif($booking?->offer)
+                                                        <button class="btn btn-secondary btn-sm" disabled>
+                                                            Not Paid
+                                                        </button>
                                                     @else
                                                         <button class="btn btn-secondary btn-sm" disabled>
                                                             No Offer

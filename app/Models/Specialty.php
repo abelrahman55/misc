@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Specialty extends Model
 {
-    //
+    use HasTranslations;
+    
     protected $table = 'specialties';
 
     protected $fillable = [
@@ -19,6 +21,7 @@ class Specialty extends Model
     public $casts = [
         'title' => 'array',
     ];
+    public $translatable = ['title'];
     public function forums() {
     return $this->belongsToMany(Forums::class, 'forum_categories', 'speciality_id', 'forum_id');
 }

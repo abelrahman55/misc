@@ -20,9 +20,9 @@
 
 <div class="container-fluid d-flex main-content">
 
-    {{--  @include('dashboard.layouts.sidebar')  --}}
+    @include('dashboard.layouts.sidebar')
 
-    <main class="col dashboard-content p-4">
+    <main class="col-md-10 dashboard-content p-4">
 
     <div class="chat-box">
 
@@ -30,7 +30,7 @@
     <div id="loading">تحميل...</div>
     <div class="messages-area" id="messages">
         <div id="messages-list">
-            @include('packages_nursing._message_items', ['messages' => $messages])
+            @include('packages_hospital._messages_items', ['messages' => $messages])
         </div>
         <input type="hidden" id="next_page" value="{{ $messages->nextPageUrl() }}">
     </div>

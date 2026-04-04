@@ -118,13 +118,29 @@ $lang = app()->getLocale();
                                             <input type="text" name="website" class="form-control"
                                                 value="{{ old('website', $user->website) }}" placeholder="https://...">
                                         </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">User Role</label>
+                                            <input type="text" class="form-control bg-light" value="{{ $user->role }}" readonly>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Type</label>
+                                            <input type="text" class="form-control bg-light" value="{{ $user->type }}" readonly>
+                                        </div>
                                         <div class="col-12">
                                             <label class="form-label fw-semibold">Services Offered</label>
                                             <textarea name="service_offered" class="form-control" rows="3">{{ old('service_offered', $user->service_offered) }}</textarea>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label fw-semibold">Specialization</label>
-                                            <textarea name="specialization" class="form-control" rows="2">{{ old('specialization', $user->specialization) }}</textarea>
+                                            <select name="specialization_id" class="form-select">
+                                                <option value="">-- Select Specialization --</option>
+                                                @foreach($specialties as $specialty)
+                                                    <option value="{{ $specialty->id }}" 
+                                                        {{ old('specialization_id', $user->specialization_id) == $specialty->id ? 'selected' : '' }}>
+                                                        {{ $specialty->getTranslation('title', $lang) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold">Pricing Information</label>
@@ -133,6 +149,15 @@ $lang = app()->getLocale();
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold">Technology Used</label>
                                             <textarea name="technology" class="form-control" rows="2">{{ old('technology', $user->technology) }}</textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Profile Photo</label>
+                                            <div class="d-flex align-items-center gap-3 border rounded p-2">
+                                                @if($user->prof_img)
+                                                    <img src="{{ asset('storage/' . $user->prof_img) }}" alt="Current Photo" width="40" height="40" class="rounded-circle border">
+                                                @endif
+                                                <input type="file" name="prof_img" class="form-control" accept=".jpg,.jpeg,.png">
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold">Quality Standards</label>
@@ -148,7 +173,6 @@ $lang = app()->getLocale();
                                         </div>
                                     </div>
                                 </div>
-
                                 <button type="submit" class="btn btn-purple text-white px-5">
                                     <i class="bi bi-save me-2"></i>Save Facility Info
                                 </button>
@@ -159,7 +183,6 @@ $lang = app()->getLocale();
                         <div class="tab-pane fade" id="v-pills-staffs" role="tabpanel">
                             <form action="{{ route('update_profile_provider') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-
                                 <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <h3 class="header-page mb-0">Medical Staff Members</h3>
@@ -191,10 +214,17 @@ $lang = app()->getLocale();
                                                         <input type="text" name="medical_staffs[{{ $index }}][experience_years]" class="form-control"
                                                             value="{{ $staff->experience_years }}">
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-11 lg-6">
                                                         <label class="form-label fw-semibold">Specialization</label>
-                                                        <input type="text" name="medical_staffs[{{ $index }}][specialization]" class="form-control"
-                                                            value="{{ $staff->specialization }}">
+                                                        <select name="medical_staffs[{{ $index }}][specialization]" class="form-select">
+                                                            <option value="">-- Select Specialization --</option>
+                                                            @foreach($specialties as $specialty)
+                                                                <option value="{{ $specialty->id }}" 
+                                                                    {{ old("medical_staffs.{$index}.specialization", $staff->specialization) == $specialty->id ? 'selected' : '' }}>
+                                                                    {{ $specialty->getTranslation('title', $lang) }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +233,6 @@ $lang = app()->getLocale();
                                         @endforelse
                                     </div>
                                 </div>
-
                                 <button type="submit" class="btn btn-purple text-white px-5">
                                     <i class="bi bi-save me-2"></i>Save Staff Members
                                 </button>
@@ -214,7 +243,6 @@ $lang = app()->getLocale();
                         <div class="tab-pane fade" id="v-pills-licenses" role="tabpanel">
                             <form action="{{ route('update_profile_provider') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-
                                 <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
                                     <h3 class="header-page mb-4">Licenses & Certifications</h3>
 
@@ -229,16 +257,24 @@ $lang = app()->getLocale();
                                                 <span class="badge bg-secondary mb-2">{{ ucfirst($type) }}</span>
                                                 <div class="d-flex flex-wrap gap-3">
                                                     @foreach($licenses as $license)
-                                                        <a href="{{ asset('storage/' . $license->file) }}" target="_blank">
-                                                            @if(Str::endsWith($license->file, ['.jpg','.jpeg','.png']))
-                                                                <img src="{{ asset('storage/' . $license->file) }}" width="70" height="70" class="img-thumbnail"/>
-                                                            @else
-                                                                <div class="d-flex align-items-center gap-1 border rounded p-2">
-                                                                    <i class="bi bi-file-earmark-text fs-3"></i>
-                                                                    <small>{{ basename($license->file) }}</small>
-                                                                </div>
-                                                            @endif
-                                                        </a>
+                                                        <div class="position-relative">
+                                                            <a href="{{ asset('storage/' . $license->file) }}" target="_blank">
+                                                                @if(Str::endsWith($license->file, ['.jpg','.jpeg','.png']))
+                                                                    <img src="{{ asset('storage/' . $license->file) }}" width="70" height="70" class="img-thumbnail"/>
+                                                                @else
+                                                                    <div class="d-flex align-items-center gap-1 border rounded p-2 bg-light">
+                                                                        <i class="bi bi-file-earmark-text fs-3"></i>
+                                                                        <small class="text-truncate" style="max-width: 100px;">{{ basename($license->file) }}</small>
+                                                                    </div>
+                                                                @endif
+                                                            </a>
+                                                            <a href="{{ route('delete_license', $license->id) }}" 
+                                                               class="btn btn-danger btn-sm p-0 position-absolute top-0 start-100 translate-middle rounded-circle"
+                                                               style="width: 20px; height: 20px; line-height: 18px;"
+                                                               onclick="return confirm('هل أنت متأكد من حذف هذا الملف؟')">
+                                                                <i class="bi bi-x small"></i>
+                                                            </a>
+                                                        </div>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -269,11 +305,6 @@ $lang = app()->getLocale();
                                                 accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" multiple>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label fw-semibold">Profile Photo</label>
-                                            <input type="file" name="licenses[prof_photo][]" class="form-control"
-                                                accept=".jpg,.jpeg,.png" multiple>
-                                        </div>
-                                        <div class="col-md-6">
                                             <label class="form-label fw-semibold">Other Certificates</label>
                                             <input type="file" name="licenses[other_certs][]" class="form-control"
                                                 accept=".jpg,.jpeg,.png,.pdf,.doc,.docx" multiple>
@@ -300,7 +331,6 @@ $lang = app()->getLocale();
                                         </div>
                                     </div>
                                 </div>
-
                                 <button type="submit" class="btn btn-purple text-white px-5">
                                     <i class="bi bi-save me-2"></i>Upload Licenses
                                 </button>
@@ -311,7 +341,6 @@ $lang = app()->getLocale();
                         <div class="tab-pane fade" id="v-pills-social" role="tabpanel">
                             <form action="{{ route('update_profile_provider') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-
                                 <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
                                     <h3 class="header-page mb-4">Social Media & Links</h3>
                                     <div class="row g-3">
@@ -337,7 +366,6 @@ $lang = app()->getLocale();
                                         </div>
                                     </div>
                                 </div>
-
                                 <button type="submit" class="btn btn-purple text-white px-5">
                                     <i class="bi bi-save me-2"></i>Save Social Links
                                 </button>
@@ -351,7 +379,7 @@ $lang = app()->getLocale();
     </div>
 </div>
 
-@push('scripts')
+@push('script')
 <script>
     // ===== Dynamic Medical Staff Rows =====
     let staffIndex = {{ ($user->medicalStaffs ? $user->medicalStaffs->count() : 0) }};
@@ -383,7 +411,14 @@ $lang = app()->getLocale();
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Specialization</label>
-                        <input type="text" name="medical_staffs[${idx}][specialization]" class="form-control">
+                        <select name="medical_staffs[${idx}][specialization]" class="form-select">
+                            <option value="">-- Select Specialization --</option>
+                            @foreach($specialties as $specialty)
+                                <option value="{{ $specialty->id }}">
+                                    {{ $specialty->getTranslation('title', $lang) }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>`;
