@@ -112,18 +112,38 @@
     }
 
     /* ======= Responsiveness ======= */
-    @media (max-width: 991px) {
-        aside {
+        #aside-sidebar {
+            display: none !important;
             position: fixed;
-            left: -250px;
+            left: -280px;
             top: 0;
-            width: 250px;
+            width: 280px !important;
+            height: 100vh !important;
             z-index: 1050;
             transition: all 0.4s ease;
+            overflow-y: auto;
         }
 
-        aside.active {
+        #aside-sidebar.active {
+            display: flex !important;
+            left: 0 !important;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1040;
+            backdrop-filter: blur(4px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
         }
     }
 
@@ -1148,6 +1168,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // Sidebar Toggle Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('aside-sidebar');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const closeBtn = document.getElementById('closeSidebar');
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'sidebar-overlay';
+            document.body.appendChild(overlay);
+
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener('click', function() {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                });
+            }
+
+            if (closeBtn && sidebar) {
+                closeBtn.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            }
+
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+
         // Wait for 3 seconds (3000 ms) then remove the alert messages
         setTimeout(function() {
             // Remove success message if exists

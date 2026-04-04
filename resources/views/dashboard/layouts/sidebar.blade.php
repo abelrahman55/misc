@@ -1,4 +1,15 @@
-            <aside class="col-md-2 d-flex flex-column justify-content-between p-2 bg-white">
+            <aside id="aside-sidebar" class="d-none d-lg-flex col-md-2 flex-column justify-content-between p-2 bg-white shadow-sm">
+                <div class="d-flex justify-content-between align-items-center d-lg-none mb-3 px-2">
+                    <img src="{{ asset('assets/logos/logo2.png') }}" height="30">
+                    <button id="closeSidebar" class="btn btn-sm btn-light border-0">
+                        <i class="bi bi-x-lg fs-5"></i>
+                    </button>
+                </div>
+                
+                <div class="text-center d-none d-lg-block mb-4">
+                    <img src="{{ asset('assets/logos/logo2.png') }}" height="45" class="mb-2">
+                </div>
+
                 <ul class="nav-links flex-column nav position-relative ">
                     @can('patient_welcome')
                     <li class="nav-item">

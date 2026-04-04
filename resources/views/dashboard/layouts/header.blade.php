@@ -1,54 +1,60 @@
-    {{--  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('assets/logos/logo2.png') }}" alt="" width="140" height="55">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+@php
+    $user = auth()->guard('web')->user();
+@endphp
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm d-lg-none">
+    <div class="container-fluid">
+        <button class="btn border-0 p-2 me-2" id="sidebarToggle" type="button">
+            <i class="bi bi-list fs-3 text-primary"></i>
+        </button>
+        
+        <a class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2" href="#">
+            <img src="{{ asset('assets/logos/logo2.png') }}" alt="" height="35" onerror="this.style.display='none'">
+            <span>Stamperia</span>
+        </a>
+
+        <div class="ms-auto d-flex align-items-center gap-3">
+             <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown">
+                    <img src="{{ $user->prof_img ? asset('storage/'.$user->prof_img) : asset('assets/images/user.png') }}" 
+                         alt="user" width="35" height="35" class="rounded-circle border">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                    <li class="px-3 py-2 border-bottom">
+                        <div class="fw-bold">{{ $user->f_name }} {{ $user->l_name }}</div>
+                        <small class="text-muted">{{ $user->email }}</small>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
+                    <li><a class="dropdown-item py-2" href="{{ route('provider_profile') }}"><i class="bi bi-person me-2"></i> Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item py-2 text-danger" href="{{ route('log_out') }}">
+                            <i class="bi bi-box-arrow-right me-2"></i> Logout
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <div class="d-flex gap-3">
-                    <div class="dropdown">
-                        <button class="btn bg-gray" type="button" id="notificationsDropDown" data-bs-toggle="dropdown"
-                            data-bs-auto-close="true" aria-expanded="false">
-                            <i class="bi bi-bell"></i>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="notificationsDropDown">
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                        </ul>
-                    </div>
-                    <img src="{{ asset('assets/images/user.png') }}" alt="user pic" width="45px" height="auto">
-
-                </div>
             </div>
         </div>
-    </nav>  --}}
+    </div>
+</nav>
+
+{{-- Navbar for Desktop (if needed/desired, but normally sidebar is enough) --}}
+<header class="d-none d-lg-flex bg-white border-bottom px-4 py-2 justify-content-between align-items-center shadow-sm mb-0">
+    <div>
+        <h5 class="mb-0 fw-bold text-dark">Dashboard</h5>
+    </div>
+    <div class="d-flex align-items-center gap-4">
+        <div class="position-relative">
+            <i class="bi bi-bell text-muted fs-5"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 8px;">3</span>
+        </div>
+        
+        <div class="d-flex align-items-center gap-2">
+            <div class="text-end line-height-1">
+                <div class="fw-bold small">{{ $user->f_name }} {{ $user->l_name }}</div>
+                <small class="text-muted" style="font-size: 10px;">{{ ucfirst($user->type) }}</small>
+            </div>
+            <img src="{{ $user->prof_img ? asset('storage/'.$user->prof_img) : asset('assets/images/user.png') }}" 
+                 alt="user" width="40" height="40" class="rounded-circle border">
+        </div>
+    </div>
+</header>

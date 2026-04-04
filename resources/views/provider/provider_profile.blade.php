@@ -13,16 +13,16 @@ $lang = app()->getLocale();
             <div class="row h-100">
 
                 {{-- ===== Sidebar Nav ===== --}}
-                <div class="col-4 px-0 bg-white shadow-sm">
-                    <div class="p-4">
-                        <h2 class="header-page-1 mb-5">
+                <div class="col-lg-4 col-12 px-0 bg-white shadow-sm mb-lg-0 mb-4">
+                    <div class="p-3 p-lg-4">
+                        <h2 class="header-page-1 mb-3 mb-lg-5 fs-4 fs-lg-2">
                             <i class="bi bi-arrow-left-short"></i>
                             Doctor / Facility Profile
                         </h2>
 
-                        <div class="d-flex flex-column gap-1 align-items-center mb-3">
+                        <div class="d-flex flex-column gap-1 align-items-center mb-3 text-center text-lg-start px-2">
                             <span class="heading-3 fw-bold text-dark">{{ $user->legal_business_name ?? $user->email }}</span>
-                            <div class="d-flex gap-1 text-3 text-head">
+                            <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-1 text-3 text-head">
                                 <span>{{ $user->healthcare_facility_type ?? 'Healthcare Provider' }}</span>
                                 <span>|</span>
                                 <span><i class="bi bi-geo-alt"></i>
@@ -32,26 +32,26 @@ $lang = app()->getLocale();
                         </div>
                     </div>
 
-                    <div class="d-flex align-items-start">
-                        <div class="nav flex-column nav-pills nav-profile w-100 px-1" id="v-pills-tab"
-                            role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active text-start" id="v-pills-facility-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-facility" type="button" role="tab">Healthcare Facility</button>
+                    <div class="d-flex align-items-start overflow-auto">
+                        <div class="nav flex-row flex-lg-column nav-pills nav-profile w-100 px-1 pb-2 pb-lg-0" id="v-pills-tab"
+                            role="tablist" aria-orientation="horizontal">
+                            <button class="nav-link active text-nowrap mb-lg-1 me-1 me-lg-0" id="v-pills-facility-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-facility" type="button" role="tab">Facility</button>
 
-                            <button class="nav-link text-start" id="v-pills-staffs-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-staffs" type="button" role="tab">Medical Staffs</button>
+                            <button class="nav-link text-nowrap mb-lg-1 me-1 me-lg-0" id="v-pills-staffs-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-staffs" type="button" role="tab">Staffs</button>
 
-                            <button class="nav-link text-start" id="v-pills-licenses-tab" data-bs-toggle="pill"
+                            <button class="nav-link text-nowrap mb-lg-1 me-1 me-lg-0" id="v-pills-licenses-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-licenses" type="button" role="tab">Licenses</button>
 
-                            <button class="nav-link text-start" id="v-pills-social-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-social" type="button" role="tab">Social & Links</button>
+                            <button class="nav-link text-nowrap mb-lg-1 me-1 me-lg-0" id="v-pills-social-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-social" type="button" role="tab">Social</button>
                         </div>
                     </div>
                 </div>
 
                 {{-- ===== Tab Content ===== --}}
-                <div class="col p-4 h-100 overflow-auto" style="max-height: 100vh;">
+                <div class="col-lg-8 col-12 p-3 p-lg-4 h-100 overflow-auto" style="max-height: 100vh;">
                     <div class="tab-content" id="v-pills-tabContent">
 
                         {{-- Flash Messages --}}
@@ -117,16 +117,6 @@ $lang = app()->getLocale();
                                             <label class="form-label fw-semibold">Website</label>
                                             <input type="text" name="website" class="form-control"
                                                 value="{{ old('website', $user->website) }}" placeholder="https://...">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label fw-semibold">User Role</label>
-                                            <input type="text" name="role" class="form-control"
-                                                value="{{ old('role', $user->role) }}" placeholder="doctor/hospital etc..">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label fw-semibold">Type</label>
-                                            <input type="text" name="type" class="form-control"
-                                                value="{{ old('type', $user->type) }}">
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label fw-semibold">Services Offered</label>
