@@ -3,10 +3,13 @@
 
 @php
 $lang     = app()->getLocale();
+$user     = auth()->guard('web')->user();
 $isDoctor = $patient?->type == 'doctor';
-$isOwner  = auth()->guard('web')->user()?->id == $patient?->id;
+$isOwner  = $user?->id == $patient?->id;
+$isAdmin  = ($user?->role == 'admin' || $user?->role == 'Admin');
+
 // Admin can edit patients, but NOT doctors. Doctors can only be edited by themselves (owner).
-$canEdit  = $isOwner || (auth()->guard('web')->user()?->role == 'admin' && !$isDoctor);
+$canEdit  = $isOwner || ($isAdmin && !$isDoctor);
 @endphp
 
 <div class="container-fluid">
@@ -92,9 +95,11 @@ $canEdit  = $isOwner || (auth()->guard('web')->user()?->role == 'admin' && !$isD
                              TAB 1: Personal / General Info
                              ================================================== --}}
                         <div class="tab-pane fade show active" id="tab-personal">
+                            @if($canEdit)
                             <form action="{{ route('update_profile') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $patient->id }}">
+                            @endif
 
                                 <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
                                     <h3 class="header-page mb-4">Demographics</h3>
@@ -227,13 +232,19 @@ $canEdit  = $isOwner || (auth()->guard('web')->user()?->role == 'admin' && !$isD
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold">DNR Status</label>
-                                            <input type="text" name="dnr" class="form-control"
-                                                value="{{ old('dnr', $patient->dnr) }}" {{ $canEdit ? '' : 'disabled' }} placeholder="Yes / No">
+                                            <select name="dnr" class="form-select" {{ $canEdit ? '' : 'disabled' }}>
+                                                <option value="">-- Select --</option>
+                                                <option value="Yes" {{ old('dnr', $patient->dnr) == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                                <option value="No"  {{ old('dnr', $patient->dnr) == 'No'  ? 'selected' : '' }}>No</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold">Organ Donation</label>
-                                            <input type="text" name="organ_donation" class="form-control"
-                                                value="{{ old('organ_donation', $patient->organ_donation) }}" {{ $canEdit ? '' : 'disabled' }} placeholder="Yes / No">
+                                            <select name="organ_donation" class="form-select" {{ $canEdit ? '' : 'disabled' }}>
+                                                <option value="">-- Select --</option>
+                                                <option value="Yes" {{ old('organ_donation', $patient->organ_donation) == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                                <option value="No"  {{ old('organ_donation', $patient->organ_donation) == 'No'  ? 'selected' : '' }}>No</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label fw-semibold">Chronic Illnesses</label>
@@ -303,8 +314,8 @@ $canEdit  = $isOwner || (auth()->guard('web')->user()?->role == 'admin' && !$isD
                                     <button type="submit" class="btn btn-primary px-5">
                                         <i class="bi bi-save me-2"></i>Save General Info
                                     </button>
+                                </form>
                                 @endif
-                            </form>
                         </div>
 
                         {{-- ==================================================
@@ -462,22 +473,6 @@ $canEdit  = $isOwner || (auth()->guard('web')->user()?->role == 'admin' && !$isD
                             @endif
 
                             @if($canEdit)
-                                <form action="{{ route('update_profile') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $patient->id }}">
-                                    <div class="shadow-sm bg-white px-5 py-4 rounded mb-4">
-                                        <h3 class="header-page mb-4">Add New Lab Record</h3>
-                                        <div class="row g-3">
-                                            <div class="col-md-4">
-                                                <label class="form-label fw-semibold">Test Type</label>
-                                                <input type="text" name="test_type" class="form-control" placeholder="e.g. Blood Test">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label fw-semibold">Timeline</label>
-                                                <input type="text" name="timeline" class="form-control">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="form-label fw-semibold">Date of Studies</label>
                                                 <input type="date" name="date_of_studies" class="form-control">
                                             </div>
                                             <div class="col-md-6">
