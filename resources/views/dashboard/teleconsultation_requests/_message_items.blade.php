@@ -22,7 +22,7 @@
 
         @if($msg->file)
             <div class="attachment mt-2">
-                <a href="{{ asset($msg->file) }}" target="_blank" class="btn btn-xs btn-outline-primary mb-0 p-1">
+                <a href="{{ asset('public/'.$msg->file) }}" target="_blank" class="btn btn-xs btn-outline-primary mb-0 p-1">
                    <i class="bi bi-file-earmark-arrow-down"></i> View Attachment
                 </a>
             </div>
