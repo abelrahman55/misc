@@ -270,3 +270,13 @@ Route::group([
     Route::post('set_appointment', [\App\Http\Controllers\Api\DoctorConsultationsController::class, 'setAppointmentTime']);
     Route::post('{id}/complete', [\App\Http\Controllers\Api\DoctorConsultationsController::class, 'markAsCompleted']);
 });
+
+// Teleconsultation Request Routes
+Route::group([
+    'prefix' => 'teleconsultation-requests',
+    'middleware' => 'user_login',
+], function () {
+    Route::get('index', [\App\Http\Controllers\Api\TeleconsultationRequestController::class, 'index']);
+    Route::post('store', [\App\Http\Controllers\Api\TeleconsultationRequestController::class, 'store']);
+    Route::get('show/{id}', [\App\Http\Controllers\Api\TeleconsultationRequestController::class, 'show']);
+});
