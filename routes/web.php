@@ -255,3 +255,217 @@ Route::group([
 
 Route::get('my-appointments', [\App\Http\Controllers\Web\AppointmentController::class, 'myAppointments'])->name('appointments.myAppointments');
 Route::get('assigned-appointments', [\App\Http\Controllers\Web\AppointmentController::class, 'assignedAppointments'])->name('doctor.appointments.index')->middleware('web');
+Route::post('teleconsultation-requests/{id}/respond', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'respond'])->name('teleconsultation_requests.respond');
+Route::get('/feedback_review', [FeedbackReviewController::class, 'index'])->name('feedback_review');
+
+Route::post('/feedback_review', [FeedbackReviewController::class, 'store'])->name('feedback_review.store');
+
+// Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
+
+Route::resource('inquiries', InquiryController::class);
+Route::resource('packages', PackageController::class);
+Route::get('packages_reservations/{id}', [PackageController::class, 'packages_reservations'])->name('packages_reservations');
+Route::resource('packages_nursing', PackageNursingController::class);
+Route::get('packages_nursing_reservations/{id}', [PackageNursingController::class, 'packages_nursing_reservations'])->name('packages_nursing_reservations');
+Route::get('nursing_make_provider_price/{id}', [PackageNursingController::class, 'nursing_make_provider_price'])->name('nursing_make_provider_price');
+Route::post('nursing_make_offer', [PackageNursingController::class, 'nursing_make_offer'])->name('nursing_make_offer');
+Route::get('nursing_conv_messages/{id}', [PackageNursingController::class, 'nursing_conv_messages'])->name('nursing_conv_messages');
+Route::post('nursin_send_message/{id}', [PackageNursingController::class, 'nursin_send_message'])->name('nursin_send_message');
+
+Route::get('package_conv_messages/{id}', [PackageController::class, 'package_conv_messages'])->name('package_conv_messages');
+Route::post('package_send_message/{id}', [PackageController::class, 'package_send_message'])->name('package_send_message');
+Route::get('packag_make_price', [PackageController::class, 'packag_make_price'])->name('packag_make_price');
+Route::post('package_make_offer', [PackageController::class, 'package_make_offer'])->name('package_make_offer');
+
+Route::post('/document_centers', [DocumentCenterController::class, 'store'])->name('document_centers.store');
+
+Route::get('my_seekin_messages/{id}', [PackageController::class, 'my_seekin_messages'])->name('my_seekin_messages');
+Route::get('my_nursing_messages/{id}', [PackageNursingController::class, 'my_nursing_messages'])->name('my_nursing_messages');
+
+Route::get('/feedback_review', [FeedbackReviewController::class, 'index'])->name('feedback_review');
+
+Route::resource('packages_hospital', PackageHospitalController::class);
+Route::get('packages_providers_reservations/{id}', [PackageHospitalController::class, 'packages_providers_reservations'])->name('packages_providers_reservations');
+Route::post('provider_make_offer', [PackageHospitalController::class, 'provider_make_offer'])->name('provider_make_offer');
+Route::get('make_provider_price/{id}', [PackageHospitalController::class, 'make_provider_price'])->name('make_provider_price');
+Route::get('provider_conv_messages/{id}', [PackageHospitalController::class, 'provider_conv_messages'])->name('provider_conv_messages');
+Route::post('provider_send_message/{id}', [PackageHospitalController::class, 'provider_send_message'])->name('provider_send_message');
+
+Route::get('patient_schedules', [TreatmentServicesController::class, 'patient_schedules'])->name('patient_schedules');
+Route::get('messages', [ConversationsController::class, 'messages'])->name('messages');
+Route::post('reply_review/{id}', [ProvidersController::class, 'reply_review'])->name('reply_review');
+Route::get('provider_schedules', [TreatmentServicesController::class, 'provider_schedules'])->name('provider_schedules');
+Route::get('admin_patients', [PatientController::class, 'admin_patients'])->name('admin_patients');
+Route::get('log_out', [PatientController::class, 'log_out'])->name('log_out');
+Route::resource('package-options', PackageOptionController::class);
+
+Route::resource('package-options-nursing', PackageOptionNursingController::class);
+Route::get('edit_package-options-nursing/{id}', [PackageOptionNursingController::class, 'edit'])->name('edit_package-options-nursing');
+Route::delete('destroy_package-options-nursing/{id}', [PackageOptionNursingController::class, 'destroy'])->name('destroy_package-options-nursing');
+Route::resource('package-options-hospital', PackageOptionHospitalController::class);
+Route::delete('delete_package_options_hospital', [PackageOptionHospitalController::class, 'delete_package_options_hospital'])->name('delete_package_options_hospital');
+
+Route::group([], function () {
+    Route::get('/chat/{id}', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat/{conversation}', [ChatController::class, 'show'])->name('chat.show');
+    Route::post('/chat/{conversation}/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+});
+
+// Dedicated Appointment Chat Routes
+Route::group(['prefix' => 'appointment-chat', 'as' => 'appointment_chat.'], function () {
+    Route::get('/{id?}', [\App\Http\Controllers\Web\AppointmentChatController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [\App\Http\Controllers\Web\AppointmentChatController::class, 'show'])->name('show');
+    Route::post('/send/{id}', [\App\Http\Controllers\Web\AppointmentChatController::class, 'sendMessage'])->name('send');
+});
+
+Route::get('conv_messages/{id}', [ConversationsController::class, 'conv_messages'])->name('conv_messages');
+
+Route::get('my_nursing_bookings', [MyBookingsController::class, 'my_nursing_bookings'])->name('my_nursing_bookings');
+
+Route::get('coupons', [CouponsController::class, 'coupons'])->name('coupons');
+Route::get('create_coupon', [CouponsController::class, 'create_coupon'])->name('create_coupon');
+Route::delete('delete_coupon/{id}', [CouponsController::class, 'delete_coupon'])->name('delete_coupon');
+Route::get('edit_coupon/{id}', [CouponsController::class, 'edit_coupon'])->name('edit_coupon');
+Route::post('store_coupon', [CouponsController::class, 'store_coupon'])->name('store_coupon');
+
+Route::post('update_coupon/{id}', [CouponsController::class, 'update_coupon'])->name('update_coupon');
+Route::post('nursing_pay', [MyBookingsController::class, 'nursing_pay'])->name('nursing_pay');
+
+Route::get('my_provider_bookings', [MyBookingsController::class, 'my_provider_bookings'])->name('my_provider_bookings');
+Route::post('provider_pay', [MyBookingsController::class, 'provider_pay'])->name('provider_pay');
+
+Route::get('my_sick_bookings', [MyBookingsController::class, 'my_sick_bookings'])->name('my_sick_bookings');
+Route::post('package_pay', [MyBookingsController::class, 'package_pay'])->name('package_pay');
+
+Route::get('doctor_meetings/{id}', [ProviderMakeMeetingController::class, 'doctor_meetings'])->name('doctor_meetings');
+Route::post('create_package_meeting', [ProviderMakeMeetingController::class, 'create_package_meeting'])->name('create_package_meeting');
+
+Route::get('/package/meeting/join/{meeting}', [ProviderMakeMeetingController::class, 'package_meeting_join'])
+    ->name('package_meeting_join');
+
+Route::get('client_meeting_join/{meeting}', [ProviderMakeMeetingController::class, 'client_meeting_join'])->name('client_meeting_join');
+
+Route::get('/package/meeting/end_package_meeting/{meeting}', [ProviderMakeMeetingController::class, 'end_package_meeting'])
+    ->name('end_package_meeting');
+
+Route::get('offer_meetings/{id}', [ProviderMakeMeetingController::class, 'offer_meetings'])->name('offer_meetings');
+Route::get('patient_welcome', [PatientWelcomeController::class, 'patient_welcome'])->name('patient_welcome');
+Route::get('welcome_doctor', [PatientWelcomeController::class, 'welcome_doctor'])->name('welcome_doctor');
+
+Route::get('provider_offer_meetings/{id}', [ProviderMakeMeetingController::class, 'provider_offer_meetings'])->name('provider_offer_meetings');
+
+Route::get('client_package_offer_meetings/{id}', [ProviderMakeMeetingController::class, 'client_package_offer_meetings'])->name('client_package_offer_meetings');
+Route::get('provider_reservations', [ProviderReservationsController::class, 'provider_reservations'])->name('provider_reservations');
+Route::get('patient_doctors', [WebPatientController::class, 'patient_doctors'])->name('patient_doctors');
+Route::get('patient_provider', [WebPatientController::class, 'patient_provider'])->name('patient_provider');
+
+Route::group([
+    'prefix' => 'faqs',
+], function () {
+    Route::get('index', [WebFaqsController::class, 'index'])->name('get_faqs.index');
+    Route::post('store', [WebFaqsController::class, 'store'])->name('get_faqs.store');
+    Route::get('create', [WebFaqsController::class, 'create'])->middleware('web')->name('get_faqs.create');
+    Route::get('edit/{id}', [WebFaqsController::class, 'edit'])->middleware('web')->name('get_faqs.edit');
+    Route::post('updte/{id}', [WebFaqsController::class, 'update'])->name('get_faqs.update');
+    Route::delete('delete/{id}', [WebFaqsController::class, 'delete'])->name('get_faqs.delete');
+    Route::get('get_faqs', [FaqsController::class, 'get_faqs']);
+});
+
+Route::resource('specialty-questions', \App\Http\Controllers\Web\SpecialtyQuestionsController::class);
+Route::resource('specialties', \App\Http\Controllers\Web\SpecialtiesController::class);
+Route::resource('treatment-services', \App\Http\Controllers\Web\TreatmentServicesController::class);
+
+Route::group([
+    'prefix' => 'blogs',
+], function () {
+    Route::get('index', [WebBlogController::class, 'index'])->name('get_blogs.index');
+    Route::post('store', [WebBlogController::class, 'store'])->name('get_blogs.store');
+    Route::get('create', [WebBlogController::class, 'create'])->middleware('web')->name('get_blogs.create');
+    Route::get('edit/{id}', [WebBlogController::class, 'edit'])->middleware('web')->name('get_blogs.edit');
+    Route::post('/blogs/update_blog/{id}', [WebBlogController::class, 'update'])->name('update_blog');
+    Route::delete('/blogs/delete_blog/{id}', [WebBlogController::class, 'delete'])->name('delete_blog');
+
+    // Doctor Consultation Routes
+    Route::group([
+        'prefix' => 'doctor/consultations',
+        'middleware' => 'web',
+    ], function () {
+        Route::get('pricing', [\App\Http\Controllers\Web\DoctorConsultationsController::class, 'pricingSettings'])->name('doctor.consultations.pricing');
+        Route::post('pricing', [\App\Http\Controllers\Web\DoctorConsultationsController::class, 'updatePricing'])->name('doctor.consultations.pricing.update');
+        Route::get('/', [\App\Http\Controllers\Web\DoctorConsultationsController::class, 'doctorConsultations'])->name('doctor.consultations.index');
+        Route::get('{id}/set-appointment', [\App\Http\Controllers\Web\DoctorConsultationsController::class, 'setAppointmentForm'])->name('doctor.consultations.set-appointment');
+        Route::post('{id}/save-appointment', [\App\Http\Controllers\Web\DoctorConsultationsController::class, 'saveAppointment'])->name('doctor.consultations.save-appointment');
+    });
+
+    Route::get('get_blogs', [BlogController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'articles',
+], function () {
+    Route::get('index', [WebArticlesController::class, 'index'])->name('get_articles.index');
+    Route::post('store', [WebArticlesController::class, 'store'])->name('get_articles.store');
+    Route::get('create', [WebArticlesController::class, 'create'])->middleware('web')->name('get_articles.create');
+    Route::get('edit/{id}', [WebArticlesController::class, 'edit'])->middleware('web')->name('get_articles.edit');
+    Route::post('update/{id}', [WebArticlesController::class, 'update'])->name('get_articles.update');
+    Route::delete('delete/{id}', [WebArticlesController::class, 'delete'])->name('get_articles.delete');
+    Route::get('get_articles', [ArticlesController::class, 'index']);
+});
+Route::delete('delete_file/{id}', [ProvidersController::class, 'delete_file'])->name('delete_file');
+Route::get('delete_license/{id}', [ProvidersController::class, 'delete_license'])->name('delete_license');
+
+Route::get('provider_profile/update/{id}', [ProvidersController::class, 'update_provider_profile'])->name('update_provider_profile')->middleware('admin');
+
+Route::get('appointments', [\App\Http\Controllers\Web\AppointmentController::class, 'index'])->name('appointments.index');
+
+Route::group(['prefix' => 'appointment-packages', 'as' => 'appointment_packages.'], function () {
+    Route::get('chat/{appointment_id}', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'startChat'])->name('start_chat');
+    Route::get('create/{appointment_id}', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'create'])->name('create');
+    Route::post('store', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'store'])->name('store');
+    Route::get('show/{id}', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'show'])->name('show');
+    Route::post('/callback', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'callback'])->name('callback');
+
+    // Patient side
+    Route::get('my-packages', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'patientIndex'])->name('patient_index');
+    Route::post('{id}/respond', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'respond'])->name('respond');
+    Route::post('pay', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'pay'])->name('pay');
+
+    // Admin side renewal/edit
+    Route::get('edit/{id}', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [\App\Http\Controllers\Web\AppointmentPackageController::class, 'update'])->name('update');
+});
+
+// Patient Consultation Routes
+Route::group([
+    'prefix' => 'patient/consultations',
+    'middleware' => 'web',
+], function () {
+    Route::get('my-bookings', [\App\Http\Controllers\Web\PatientConsultationsController::class, 'myConsultations'])->name('patient.consultations.my-bookings');
+    Route::get('book', [\App\Http\Controllers\Web\PatientConsultationsController::class, 'bookConsultation'])->name('patient.consultations.book');
+    Route::post('book', [\App\Http\Controllers\Web\PatientConsultationsController::class, 'storeBooking'])->name('patient.consultations.store-booking');
+    Route::get('{id}/payment', [\App\Http\Controllers\Web\PatientConsultationsController::class, 'paymentForm'])->name('patient.consultations.payment');
+    Route::post('{id}/payment', [\App\Http\Controllers\Web\PatientConsultationsController::class, 'processPayment'])->name('patient.consultations.payment.process');
+});
+
+Route::get('my-appointments', [\App\Http\Controllers\Web\AppointmentController::class, 'myAppointments'])->name('appointments.myAppointments');
+Route::get('assigned-appointments', [\App\Http\Controllers\Web\AppointmentController::class, 'assignedAppointments'])->name('doctor.appointments.index')->middleware('web');
+Route::post('teleconsultation-requests/{id}/respond', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'respond'])->name('teleconsultation_requests.respond');
+Route::get('admin/teleconsultation-requests', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'index'])->name('teleconsultation_requests.index');
+Route::post('admin/teleconsultation-requests/{id}/offer', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'makeOffer'])->name('teleconsultation_requests.make_offer');
+Route::get('my-teleconsultations', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'patientIndex'])->name('teleconsultation_requests.patient_index');
+Route::get('assigned-teleconsultations', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'doctorIndex'])->name('teleconsultation_requests.doctor_index');
+Route::post('teleconsultation-requests/{id}/pay', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'pay'])->name('teleconsultation_requests.pay');
+Route::post('teleconsultation-requests/callback', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'callback'])->name('teleconsultation_requests.callback');
+Route::get('teleconsultation-requests/callback', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'callback']); // Also support GET for user redirect
+
+// Teleconsultation Chat Routes
+Route::get('teleconsultation-requests/{id}/messages', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'messages'])->name('teleconsultation_requests.messages');
+Route::get('teleconsultation-requests/load-more-messages', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'loadMoreMessages'])->name('teleconsultation_requests.load_more_messages');
+Route::post('teleconsultation-requests/{id}/send-message', [\App\Http\Controllers\Web\TeleconsultationRequestWebController::class, 'sendMessage'])->name('teleconsultation_requests.send_message');
+
+// Teleconsultation Meetings
+Route::get('teleconsultation-meetings/doctor/{id}', [\App\Http\Controllers\Web\TeleconsultationMeetingController::class, 'doctor_meetings'])->name('teleconsultation_meetings.doctor');
+Route::get('teleconsultation-meetings/patient/{id}', [\App\Http\Controllers\Web\TeleconsultationMeetingController::class, 'patient_meetings'])->name('teleconsultation_meetings.patient');
+Route::post('teleconsultation-meetings/store', [\App\Http\Controllers\Web\TeleconsultationMeetingController::class, 'create_meeting'])->name('teleconsultation_meetings.store');
+Route::get('teleconsultation-meetings/join/{meeting}', [\App\Http\Controllers\Web\TeleconsultationMeetingController::class, 'join_meeting'])->name('teleconsultation_meetings.join');
+Route::get('teleconsultation-meetings/end/{meeting}', [\App\Http\Controllers\Web\TeleconsultationMeetingController::class, 'end_meeting'])->name('teleconsultation_meetings.end');

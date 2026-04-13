@@ -30,7 +30,7 @@ class MakeAppointmentRequest extends FormRequest
             'appoint_time' => 'required',
             'urgence_level' => 'required',
             // 'doctor_id' => 'required', 
-            'files' => 'required',
+            'files' => 'nullable',
             'notes' => 'nullable',
             'specialty_id' => 'nullable|exists:specialties,id'
         ];

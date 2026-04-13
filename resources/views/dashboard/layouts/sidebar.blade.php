@@ -29,6 +29,14 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('teleconsultation_requests.patient_index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <i class="bi bi-camera-video-fill" style="color: #347fc2;"></i>
+                            </div>
+                            My Teleconsultations
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('appointment_packages.patient_index') }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <i class="bi bi-gift-fill" style="color: #347fc2;"></i>
@@ -65,6 +73,14 @@
                                 <i class="bi bi-chat-dots-fill" style="color: #347fc2;"></i>
                             </div>
                             Appointment Messages
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teleconsultation_requests.index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <i class="bi bi-camera-video-fill" style="color: #347fc2;"></i>
+                            </div>
+                            Teleconsultation Requests
                         </a>
                     </li>
                     @endcan
@@ -144,6 +160,14 @@
                                 <i class="bi bi-calendar-check-fill" style="color: #347fc2; font-size: 16px;"></i>
                             </div>
                             Assigned Appointments
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('teleconsultation_requests.doctor_index') }}" class="nav-link d-flex align-items-center gap-3">
+                            <div class="box-icon">
+                                <i class="bi bi-camera-video-fill" style="color: #347fc2; font-size: 16px;"></i>
+                            </div>
+                            Assigned Teleconsultations
                         </a>
                     </li>
                     @endif
