@@ -11,7 +11,7 @@ class SpecialtiesController{
         $specialties=Specialty::get()->map(function($specialty)use($lang){
             return [
                 'id'=>$specialty->id??0,
-                'title'=>$specialty->title[$lang]??"",
+                'title'=> (is_array($specialty->getTranslations('title')) && isset($specialty->getTranslations('title')[$lang])) ? $specialty->getTranslation('title', $lang) : ($specialty->getTranslation('title', app()->getLocale(), true) ?: ""),
             ];
         });
         return res_data($specialties,'',200);
