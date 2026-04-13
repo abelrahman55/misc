@@ -1,7 +1,11 @@
 @extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid d-flex main-content">
+    @include('dashboard.layouts.sidebar')
+
+    <main class="col dashboard-content p-4">
     <div class="row">
         <div class="col-12">
             @if(session('success'))
@@ -127,6 +131,7 @@
             </div>
         </div>
     </div>
+    </main>
 </div>
 
 {{-- Essential Modals (Brief versions for re-creation) --}}

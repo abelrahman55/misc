@@ -1,5 +1,5 @@
 @php
-    $user = auth()->guard('web')->user();
+    $user = auth()->guard('web')->user() ?? auth()->user();
 @endphp
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm d-lg-none">
@@ -16,17 +16,17 @@
         <div class="ms-auto d-flex align-items-center gap-3">
              <div class="dropdown">
                 <a href="#" class="d-flex align-items-center text-decoration-none" data-bs-toggle="dropdown">
-                    <img src="{{ $user->prof_img ? asset('storage/'.$user->prof_img) : asset('assets/images/user.png') }}" 
+                    <img src="{{ optional($user)->prof_img ? asset('storage/'.optional($user)->prof_img) : asset('assets/images/user.png') }}" 
                          alt="user" width="35" height="35" class="rounded-circle border">
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                     <li class="px-3 py-2 border-bottom">
-                        <div class="fw-bold">{{ $user->f_name }} {{ $user->l_name }}</div>
-                        <small class="text-muted">{{ $user->email }}</small>
+                        <div class="fw-bold">{{ optional($user)->f_name }} {{ optional($user)->l_name }}</div>
+                        <small class="text-muted">{{ optional($user)->email }}</small>
                     </li>
                     <li>
-                        @if($user->role == 'patient')
-                            <a class="dropdown-item py-2" href="{{ route('patient_profile', ['id' => $user->id]) }}">
+                        @if(optional($user)->role == 'patient')
+                            <a class="dropdown-item py-2" href="{{ route('patient_profile', ['id' => optional($user)->id]) }}">
                                 <i class="bi bi-person me-2"></i> Profile
                             </a>
                         @else
@@ -60,10 +60,10 @@
         
         <div class="d-flex align-items-center gap-2">
             <div class="text-end line-height-1">
-                <div class="fw-bold small">{{ $user->f_name }} {{ $user->l_name }}</div>
-                <small class="text-muted" style="font-size: 10px;">{{ ucfirst($user->type) }}</small>
+                <div class="fw-bold small">{{ optional($user)->f_name }} {{ optional($user)->l_name }}</div>
+                <small class="text-muted" style="font-size: 10px;">{{ ucfirst(optional($user)->type) }}</small>
             </div>
-            <img src="{{ $user->prof_img ? asset('storage/'.$user->prof_img) : asset('assets/images/user.png') }}" 
+            <img src="{{ optional($user)->prof_img ? asset('storage/'.optional($user)->prof_img) : asset('assets/images/user.png') }}" 
                  alt="user" width="40" height="40" class="rounded-circle border">
         </div>
     </div>

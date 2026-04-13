@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
 
 @section('content')
+<div class="container-fluid d-flex main-content">
+    @include('dashboard.layouts.sidebar')
+
+    <main class="col dashboard-content p-4">
 <style>
     .chat-container {
         height: min(700px, 80vh);
@@ -111,9 +116,8 @@
     }
 </style>
 
-<div class="container-fluid py-4">
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
+<div class="row justify-content-center w-100">
+    <div class="col-lg-10">
             <div class="chat-container">
                 <div class="chat-header">
                     <div>
@@ -152,6 +156,8 @@
             </div>
         </div>
     </div>
+</div>
+</main>
 </div>
 
 <script>

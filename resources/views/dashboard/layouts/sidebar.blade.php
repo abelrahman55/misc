@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('patient_profile', ['id' => auth()->user()->id]) }}" class="nav-link d-flex align-items-center gap-3">
+                        <a href="{{ route('patient_profile', ['id' => auth()->guard('web')->user()->id ?? '']) }}" class="nav-link d-flex align-items-center gap-3">
                             <div class="box-icon">
                                 <i class="bi bi-person-fill" style="color: #347fc2;"></i>
                             </div>

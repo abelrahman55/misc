@@ -1,7 +1,11 @@
 @extends('dashboard.layouts.layout')
+@include('dashboard.layouts.header')
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="container-fluid d-flex main-content">
+    @include('dashboard.layouts.sidebar')
+
+    <main class="col dashboard-content p-4">
     <div class="row mb-3">
         <div class="col d-flex justify-content-between align-items-center">
             <h4 class="header-page-1">My Meetings for Teleconsultation #{{ $id }}</h4>
@@ -71,5 +75,6 @@
             </div>
         </div>
     </div>
+    </main>
 </div>
 @endsection
