@@ -228,7 +228,7 @@ class TeleconsultationRequestWebController extends Controller
     {
         $request->validate([
             'message' => 'required_without:file',
-            'file'    => 'nullable|file|max:10240',
+            'file'    => 'nullable|file',
         ]);
 
         $path = null;
