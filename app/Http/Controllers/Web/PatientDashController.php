@@ -146,7 +146,7 @@ class PatientDashController extends Controller
             'occupation'          => 'nullable|string|max:255',
             'language'            => 'nullable|string',
             'relationship'        => 'nullable|string|max:100',
-            'prof_img'            => 'nullable|image|max:5120',
+            'prof_img'            => 'nullable|image',
             // Medical summary fields
             'medications'         => 'nullable|string',
             'allergies'           => 'nullable|string',

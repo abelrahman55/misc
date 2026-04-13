@@ -26,7 +26,7 @@ class StoreTeleconsultationRequest extends FormRequest
             'complaint' => 'required|string',
             'appointment_date' => 'required|date_format:Y-m-d H:i:s',
             'medical_files' => 'nullable|array',
-            'medical_files.*' => 'file|max:5120', // 5MB limit
+            'medical_files.*' => 'file', // 5MB limit
         ];
     }
 }

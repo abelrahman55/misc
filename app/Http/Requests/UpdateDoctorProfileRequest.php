@@ -66,7 +66,7 @@ class UpdateDoctorProfileRequest extends FormRequest
             'licenses.prom_content' => 'nullable|array',
             'licenses.prom_content.*' => 'file|mimes:pdf,jpg,jpeg,png|max:10240',
             'licenses.virtual_tour_video' => 'nullable|array',
-            'licenses.virtual_tour_video.*' => 'file|mimes:mp4,avi,mov|max:51200',
+            'licenses.virtual_tour_video.*' => 'file|mimes:mp4,avi,mov',
             'licenses.patient_success' => 'nullable|array',
             'licenses.patient_success.*' => 'file|mimes:pdf,jpg,jpeg,png|max:10240',
             'role'=>'required'

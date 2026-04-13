@@ -68,8 +68,8 @@ class AppointmentChatController extends Controller
     {
         $request->validate([
             'message' => 'nullable|string',
-            'file'    => 'nullable|file|max:10240', // 10MB limit
-            'voice'   => 'nullable|file|max:5120',  // 5MB limit
+            'file'    => 'nullable|file', // 10MB limit
+            'voice'   => 'nullable|file',  // 5MB limit
         ]);
 
         $currentUser = Auth::guard('web')->user();
