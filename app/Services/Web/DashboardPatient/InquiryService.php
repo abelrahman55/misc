@@ -10,6 +10,7 @@ class InquiryService
     use HasImage;
     public function __construct(public Inquiry $model)
     {}
+    
     public function index()
     {
         $query = Inquiry::query();

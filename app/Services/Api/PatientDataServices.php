@@ -23,7 +23,8 @@ class PatientDataServices
             'p_f_name', 'p_m_name', 'p_l_name', 'p_phone', 'p_email', 'p_home',
             'chro_ill_conditions', 'surgical_history', 'family_history',
             'smoking', 'alcohol', 'physical_activity', 'dietary_preferences',
-            'heart_rate', 'blood_pressure', 'temperature', 'respiratory_rate', 'oxygen_saturation',
+            'role',
+            'heart_rate', 'blood_pressure', 'temperature', 'respiratory_rate', 'oxygen_saturation','type',
             'height', 'weight', 'waist_circumference',
             'type',
             'prefered_hospital', 'prefered_clinic', 'prefered_specialist',
@@ -31,9 +32,10 @@ class PatientDataServices
 
         foreach ($userFields as $field) {
             if (isset($data[$field])) {
-                $user->$field = $data[$field] ?? null;
+                $user->$field = $data[$field]??null;
             }
         }
+        $user->is_comp = 1;
         $user->save();
 
         // Labodata

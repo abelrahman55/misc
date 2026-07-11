@@ -15,14 +15,14 @@
                         </h2>
 
                         <div class="d-flex flex-column gap-1 align-items-center mb-3">
-                            <img src="{{ asset($patient->prof_img) }}" alt="patient" width="65"
+                            <img src="{{ asset('storage/' . $patient->prof_img) }}" alt="patient" width="65"
                                 height="65" class="rounded-circle img-thumbnail">
-                            <span class="heading-3 fw-bold text-dark">{{ $patient->f_name ?? '' }}</span>
+                            <span class="heading-3 fw-bold text-dark">{{ $patient->f_name ?? '' }} Hi</span>
                             <div class="d-flex gap-1 text-3 text-head">
                                 <span>{{ $patient->age }} years old</span>
                                 <span>|</span>
                                 <span><i class="bi bi-geo-alt"></i>
-                                    {{ isset($patient->country) ? $patient->country->name['ar'] : '' }}</span>
+                                    {{ isset($patient->country) ? $patient->country->getTranslation('name', app()->getLocale()) : '' }}</span>
                             </div>
                         </div>
                     </div>
@@ -256,10 +256,10 @@
                             <div class="shadow-sm bg-white p-4 rounded">
                                 <div class="d-flex flex-wrap gap-3 mb-3">
                                     @forelse($patient->files ?? [] as $file)
-                                        <a href="{{ asset($file->file) }}" target="_blank"
+                                        <a href="{{ asset('storage/' . $file->file) }}" target="_blank"
                                             class="d-block">
                                             @if (\Illuminate\Support\Str::endsWith($file->file, ['.jpg', '.jpeg', '.png']))
-                                                <img src="{{ asset($file->file) }}" width="60"
+                                                <img src="{{ asset('storage/' . $file->file) }}" width="60"
                                                     height="60" class="img-thumbnail" />
                                             @else
                                                 <img src="{{ asset('assets/file.png') }}" width="60"

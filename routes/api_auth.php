@@ -25,3 +25,4 @@ Route::group([
     });
 
 });
+Route::get('check_data_completed',[PatientAuthController::class,'check_data_completed']);

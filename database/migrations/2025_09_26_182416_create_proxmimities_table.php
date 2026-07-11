@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable("proxmimities")){
+            return ;
+        }
         Schema::create('proxmimities', function (Blueprint $table) {
             $table->id();
             $table->json('name')->nullable();

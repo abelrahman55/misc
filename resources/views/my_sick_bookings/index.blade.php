@@ -49,6 +49,7 @@
                                             <th>Date</th>
                                             <th>Created</th>
                                             <th>Meetings</th>
+                                            <th>messging</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -72,6 +73,12 @@
                                                 </td>
                                                 <td>{{ $booking->date }}</td>
                                                 <td>{{ $booking->created_at->format('Y-m-d') }}</td>
+                                                <td>
+                                                    <a class="btn btn-success"
+                                                        href="{{ route('my_seekin_messages', ['id' => $booking->id]) }}">
+                                                        Messiging
+                                                    </a>
+                                                </td>
                                                 <td>
                                                     @if ($booking?->offer && $booking?->offer?->paid == 'success')
                                                         <a class="btn btn-purple text-white btn-sm"

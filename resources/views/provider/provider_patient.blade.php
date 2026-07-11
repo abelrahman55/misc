@@ -96,7 +96,7 @@
                             @forelse ($patients as $patient)
                                 <div class="card patient-card text-center rounded-4 py-4 px-4">
                                     <div class="mx-auto mb-3">
-                                        <img src="{{ $patient?->user?->prof_img ? asset($patient->user->prof_img) : asset('default-avatar.png') }}"
+                                        <img src="{{ $patient?->user?->prof_img ? asset('storage/' . $patient->user->prof_img) : asset('default-avatar.png') }}"
                                             alt="User Avatar" class="rounded-circle patient-avatar" width="100"
                                             height="100">
                                     </div>

@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable("package_options")){
+            return;
+        }
         Schema::create('package_options', function (Blueprint $table) {
             $table->id();
             $table->json('title');

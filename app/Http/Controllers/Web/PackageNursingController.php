@@ -17,6 +17,22 @@ class PackageNursingController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+         public function my_nursing_messages(Request $request)
+    {
+        $id      = $request->id;
+        $perPage = 20;
+
+        $messages = NursingPackageMessage::with('user')
+            ->where('book_package_id', $id)
+            ->orderBy('created_at', 'desc') // أحدث الرسائل أول
+            ->paginate($perPage);
+
+        // عكس ترتيب الرسائل
+        $messages->setCollection($messages->getCollection()->reverse());
+
+        return view('packages_nursing.my_nursing_messages', compact('messages', 'id'));
+    }
     public function index()
     {
         $packages = PackageNursing::with('optionsNursing')->latest()->paginate(10);

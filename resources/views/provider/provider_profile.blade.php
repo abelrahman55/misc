@@ -26,7 +26,7 @@ use Illuminate\Support\Str;
                             <div class="d-flex gap-1 text-3 text-head">
                                 <span>{{$user->age}} years old</span>
                                 <span>|</span>
-                                <span><i class="bi bi-geo-alt"></i> {{isset($user->country)?$user->country->name['ar']:""}}</span>
+                                <span><i class="bi bi-geo-alt"></i> {{isset($user->country)?$user->country->getTranslation('name', app()->getLocale()):""}}</span>
                             </div>
                         </div>
                     </div>

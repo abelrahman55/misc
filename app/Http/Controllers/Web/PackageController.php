@@ -17,6 +17,24 @@ class PackageController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+        public function my_seekin_messages(Request $request)
+    {
+        $id      = $request->id;
+        $perPage = 20;
+        // $user=Auth::guard('web')->user();
+
+        $messages = PackageMessage::with('user')
+            ->where('book_package_id', $id)
+            ->orderBy('created_at', 'desc') // أحدث الرسائل أول
+            ->paginate($perPage);
+
+        // عكس ترتيب الرسائل
+        $messages->setCollection($messages->getCollection()->reverse());
+
+        return view('packages.messages', compact('messages', 'id'));
+    }
+
     public function index()
     {
         $packages = Package::with('options')->latest()->paginate(10);

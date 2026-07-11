@@ -1,6 +1,34 @@
             <aside class="col-md-2 d-flex flex-column justify-content-between p-2 bg-white">
                 <ul class="nav-links flex-column nav position-relative ">
-                    @if (auth()->guard('web')->user()->type == 'hospital')
+                    @can('patient_welcome')
+                        <li class="nav-item">
+                            <a href="{{ route('patient_welcome') }}" class="nav-link d-flex align-items-center gap-3">
+                                <div class="box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-people-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                    </svg>
+                                </div>
+                                Home
+                            </a>
+                        </li>
+                    @endcan
+                    @can('admin_welcome')
+                        <li class="nav-item">
+                            <a href="{{ route('admin_welcome') }}" class="nav-link d-flex align-items-center gap-3">
+                                <div class="box-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-people-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                                    </svg>
+                                </div>
+                                Home
+                            </a>
+                        </li>
+                    @endcan
+                    @if (auth()?->guard('web')?->user()?->type == 'hospital')
                         @can('welcome_provider')
                             <li class="nav-item">
                                 <a href={{ route('welcome_provider') }} class="nav-link d-flex align-items-center gap-3">
@@ -26,7 +54,7 @@
                             </li>
                         @endcan
                     @endif
-                    @if (auth()->guard('web')->user()->type == 'doctor')
+                    @if (auth()?->guard('web')?->user()?->type == 'doctor')
                         @can('welcome_doctor')
                             <li class="nav-item">
                                 <a href={{ route('welcome_doctor') }} class="nav-link d-flex align-items-center gap-3">
@@ -52,7 +80,7 @@
                             </li>
                         @endcan
                     @endif
-                    @if (auth()->guard('web')->user()->type == 'hospital')
+                    @if (auth()?->guard('web')?->user()?->type == 'hospital')
                         @can('provider_reservations')
                             <li class="nav-item">
                                 <a href={{ route('provider_reservations') }}
@@ -162,7 +190,7 @@
                             </a>
                         </li>
                     @endcan
-                    @can('brand')
+                    {{--  @can('brand')
                         <li class="nav-item">
                             <a href="{{ route('brand.create') }}" class="nav-link d-flex align-items-center gap-3">
                                 <div class="box-icon">
@@ -175,7 +203,7 @@
                                 Brand
                             </a>
                         </li>
-                    @endcan
+                    @endcan  --}}
 
                     @can('faqs')
                         <li class="nav-item">
@@ -222,7 +250,7 @@
                         </li>
                     @endcan
 
-                    @if (auth()->guard('web')->user()->type == 'doctor')
+                    @if (auth()?->guard('web')?->user()?->type == 'doctor')
                         @can('doctor_patients')
                             <li class="nav-item">
                                 <a href="{{ route('provider_patient') }}"
@@ -257,7 +285,7 @@
                         </li>
                     @endcan
 
-                    @if (auth()->guard('web')->user()->type == 'doctor')
+                    @if (auth()?->guard('web')?->user()?->type == 'doctor')
                         @can('doctor_reviews_ratings')
                             <li class="nav-item">
                                 <a href="{{ route('provider_schedules') }}"
@@ -295,20 +323,20 @@
 
 
 
-                    @can('inquiries')
-                        <li class="nav-item">
-                            <a href="{{ route('inquiries.index') }}" class="nav-link d-flex align-items-center gap-3">
-                                <div class="box-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
-                                    </svg>
-                                </div>
-                                Inquiries
-                            </a>
-                        </li>
-                    @endcan
+                    <!--@can('inquiries')-->
+                    <!--    <li class="nav-item">-->
+                    <!--        <a href="{{ route('inquiries.index') }}" class="nav-link d-flex align-items-center gap-3">-->
+                    <!--            <div class="box-icon">-->
+                    <!--                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
+                    <!--                    fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">-->
+                    <!--                    <path-->
+                    <!--                        d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />-->
+                    <!--                </svg>-->
+                    <!--            </div>-->
+                    <!--            Inquiries-->
+                    <!--        </a>-->
+                    <!--    </li>-->
+                    <!--@endcan-->
 
                     @can('document_center')
                         <li class="nav-item">

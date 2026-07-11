@@ -27,6 +27,7 @@ class User extends Authenticatable implements JWTSubject
         'doctor_date',
         'organ_donation',
         'p_f_name',
+        'is_comp',
         'p_m_name',
         'p_l_name',
         'p_phone',
@@ -73,11 +74,36 @@ class User extends Authenticatable implements JWTSubject
         'occupation',
         'language',
         'home_number',
+        'provider',
+        'provider_id',
+
+
+        'legal_business_name',
+        'healthcare_facility_type',
+        'town_id',
+        'main_point_contact',
+        'website',
+        'content_blog',
+        'service_offered',
+        'specialization',
+        'pricing_information',
+        'technology',
+        'quality',
+        'preferred_partnership',
+        'facebook_link',
+        'twitter_link',
+        'linkedin_link',
+        'tiktok_link',
+        //files
+
     ];
     public $appends = ['prof_img_url', 'rate_avg', 'rate_count'];
     public function getProfImgUrlAttribute()
     {
         if ($this->prof_img) {
+            if (file_exists(public_path($this->prof_img))) {
+                return asset($this->prof_img);
+            }
             return asset('storage/' . $this->prof_img);
         }
         return null;

@@ -19,7 +19,8 @@ class DocumentCenterService
         $data['user_id'] = auth()->id();
 
         if (isset($data['file'])) {
-            $data['file'] = $this->saveImage($data['file'], 'document_centers');
+            $data['file']=UploadFile($data['file'],'document_centers');
+            // $data['file'] = $this->saveImage($data['file'], 'document_centers');
         }
 
         $document_centers = $this->model->create($data);

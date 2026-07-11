@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable("appointment_files")){
+            return ;
+        }
         Schema::create('appointment_files', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('appointment_id')->nullable();

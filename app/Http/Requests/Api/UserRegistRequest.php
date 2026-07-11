@@ -22,13 +22,13 @@ class UserRegistRequest extends FormRequest
     {
         return [
             //
-            'full_name' => 'required',
-            'phone'     => 'required|unique:users,phone',
-            'email'     => 'required|unique:users,email',
-            'password'  => 'required',
-            'country'   => 'required',
-            'dob'       => 'required',
-            'role'      => 'required|in:doctor,hospital,hotel,patient',
+            'full_name'=>'required',
+            'phone'=>'required|unique:users,phone',
+            'email'=>'required|unique:users,email',
+            'password'=>'required',
+            'country'=>'required',
+            'dob'=>'required',
+            // 'role'=>'required',
         ];
     }
     public function messages()

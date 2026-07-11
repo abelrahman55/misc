@@ -23,7 +23,7 @@
                             <div class="rounded shadow-sm p-4 bg-white">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="d-flex gap-2">
-                                        <img src="{{ isset($review->user) ? asset($review->user->prof_img) : asset('default-avatar.png') }}"
+                                        <img src="{{ isset($review->user) ? asset('storage/' . $review->user->prof_img) : asset('default-avatar.png') }}"
                                             alt="Avatar" class="rounded" width="50" height="50" />
 
                                         <div class="d-flex flex-column gap-1">

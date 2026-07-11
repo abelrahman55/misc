@@ -55,7 +55,7 @@
                                             <option value="">Select Country</option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                                    {{ $country->name[app()->getLocale()] }}
+                                                  {{ $country->getTranslation('name', app()->getLocale()) }}
                                                 </option>
                                             @endforeach
                                         </select>

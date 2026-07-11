@@ -1,17 +1,22 @@
 <?php
-
+use App\Http\Controllers\Api\ArticlesController;
+use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ConversationsController;
+use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PatientWelcomeController;
 use App\Http\Controllers\TreatmentServicesController;
 use App\Http\Controllers\Web\AdminsController;
 use App\Http\Controllers\Web\AdminWelcomeController;
+use App\Http\Controllers\Web\ArticlesController as WebArticlesController;
+use App\Http\Controllers\Web\BlogController as WebBlogController;
 use App\Http\Controllers\Web\ChatController;
 use App\Http\Controllers\Web\CouponsController;
 use App\Http\Controllers\Web\DashboardPatient\DocumentCenterController;
 use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
 use App\Http\Controllers\Web\DashboardPatient\InquiryController;
+use App\Http\Controllers\Web\FaqsController as WebFaqsController;
 use App\Http\Controllers\Web\MyBookingsController;
 use App\Http\Controllers\Web\PackageController;
 use App\Http\Controllers\Web\PackageHospitalController;
@@ -26,7 +31,7 @@ use App\Http\Controllers\Web\ProviderReservationsController;
 use App\Http\Controllers\Web\RolesController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AdminWelcomeController::class, 'welcome'])->middleware('admin');
+Route::get('/', [AdminWelcomeController::class, 'welcome'])->name('admin_welcome')->middleware('admin');
 
 Route::get('patients', [PatientDashController::class, 'patients'])->name('patients');
 Route::get('change_active/{id}', [PatientDashController::class, 'change_active'])->name('change_active');
@@ -40,9 +45,9 @@ Route::post('admin_regist', [AdminsController::class, 'admin_regist'])->name('ad
 Route::get('admin_logout', [AdminsController::class, 'admin_logout'])->name('admin_logout');
 
 Route::resource('roles', RolesController::class);
-Route::get('profile', [ProvidersController::class, 'provider_profile'])->name('provider_profile')->middleware('admin');
-
+Route::get('provider_profile', [ProvidersController::class, 'provider_profile'])->name('provider_profile')->middleware('admin');
 Route::post('update_profile_provider', [ProvidersController::class, 'update_profile'])->name('update_profile_provider');
+
 Route::post('upload_file', [ProvidersController::class, 'upload_file'])->name('upload_file');
 Route::post('add_note', [ProvidersController::class, 'add_note'])->name('add_note');
 Route::get('provider_patient', [ProvidersController::class, 'provider_patient'])->name('provider_patient');
@@ -75,6 +80,13 @@ Route::get('package_conv_messages/{id}', [PackageController::class, 'package_con
 Route::post('package_send_message/{id}', [PackageController::class, 'package_send_message'])->name('package_send_message');
 Route::get('packag_make_price', [PackageController::class, 'packag_make_price'])->name('packag_make_price');
 Route::post('package_make_offer', [PackageController::class, 'package_make_offer'])->name('package_make_offer');
+
+Route::post('/document_centers', [DocumentCenterController::class, 'store'])->name('document_centers.store');
+
+Route::get('my_seekin_messages/{id}', [PackageController::class, 'my_seekin_messages'])->name('my_seekin_messages');
+Route::get('my_nursing_messages/{id}', [PackageNursingController::class, 'my_nursing_messages'])->name('my_nursing_messages');
+
+Route::get('/feedback_review', [FeedbackReviewController::class, 'index'])->name('feedback_review');
 
 Route::resource('packages_hospital', PackageHospitalController::class);
 Route::get('packages_providers_reservations/{id}', [PackageHospitalController::class, 'packages_providers_reservations'])->name('packages_providers_reservations');
@@ -143,3 +155,42 @@ Route::get('client_package_offer_meetings/{id}', [ProviderMakeMeetingController:
 Route::get('provider_reservations', [ProviderReservationsController::class, 'provider_reservations'])->name('provider_reservations');
 Route::get('patient_doctors', [WebPatientController::class, 'patient_doctors'])->name('patient_doctors');
 Route::get('patient_provider', [WebPatientController::class, 'patient_provider'])->name('patient_provider');
+
+Route::group([
+    'prefix' => 'faqs',
+], function () {
+    Route::get('index', [WebFaqsController::class, 'index'])->name('faqs.index');
+    Route::post('store', [WebFaqsController::class, 'store'])->name('faqs.store');
+    Route::get('create', [WebFaqsController::class, 'create'])->middleware('web')->name('faqs.create');
+    Route::get('edit/{id}', [WebFaqsController::class, 'edit'])->middleware('web')->name('faqs.edit');
+    Route::post('updte/{id}', [WebFaqsController::class, 'update'])->name('faqs.update');
+    Route::delete('delete/{id}', [WebFaqsController::class, 'delete'])->name('faqs.delete');
+    Route::get('get_faqs', [FaqsController::class, 'get_faqs']);
+});
+
+Route::group([
+    'prefix' => 'blogs',
+], function () {
+    Route::get('index', [WebBlogController::class, 'index'])->name('blogs.index');
+    Route::post('store', [WebBlogController::class, 'store'])->name('blogs.store');
+    Route::get('create', [WebBlogController::class, 'create'])->middleware('web')->name('blogs.create');
+    Route::get('edit/{id}', [WebBlogController::class, 'edit'])->middleware('web')->name('blogs.edit');
+    Route::post('updte/{id}', [WebBlogController::class, 'update'])->name('blogs.update');
+    Route::delete('delete/{id}', [WebBlogController::class, 'delete'])->name('blogs.delete');
+    Route::get('get_blogs', [BlogController::class, 'index']);
+});
+
+Route::group([
+    'prefix' => 'articles',
+], function () {
+    Route::get('index', [WebArticlesController::class, 'index'])->name('articles.index');
+    Route::post('store', [WebArticlesController::class, 'store'])->name('articles.store');
+    Route::get('create', [WebArticlesController::class, 'create'])->middleware('web')->name('articles.create');
+    Route::get('edit/{id}', [WebArticlesController::class, 'edit'])->middleware('web')->name('articles.edit');
+    Route::post('update/{id}', [WebArticlesController::class, 'update'])->name('articles.update');
+    Route::delete('delete/{id}', [WebArticlesController::class, 'delete'])->name('articles.delete');
+    Route::get('get_articles', [ArticlesController::class, 'index']);
+});
+Route::delete('delete_file/{id}', [ProvidersController::class, 'delete_file'])->name('delete_file');
+
+Route::get('provider_profile/update/{id}', [ProvidersController::class, 'update_provider_profile'])->name('update_provider_profile')->middleware('admin');

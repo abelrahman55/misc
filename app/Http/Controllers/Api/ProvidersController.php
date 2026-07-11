@@ -22,6 +22,15 @@ class ProvidersController extends Controller
         $top = ProviderService::BestProviders();
         return $top;
     }
+    public function hospitals()
+    {
+        $hospitals = User::where('type', 'hospital')
+            ->where('ban', 0)
+            ->where('active', 1)
+            ->get();
+
+        return res_data($hospitals, '', 200);
+    }
     public function welcome_provider()
     {
         $user = Auth::guard('web')->user();
@@ -47,6 +56,10 @@ class ProvidersController extends Controller
         $user = User::with('country', 'usernotes', 'files')->where('id', $user->id)->first();
         // return $user;
         return view('provider.provider_profile', compact('user'));
+    }
+        public function delete_file(){
+        $del=DoctorFile::where('id',request('id'))->delete();
+        return redirect()->back()->with('success','تم المسح');
     }
     // public function upload_file(Request $request)
     // {
@@ -101,27 +114,20 @@ class ProvidersController extends Controller
 
         $data = $validator->validated();
 
-        // if ($request->hasFile('prof_img')) {
-        //     if ($user->prof_img && file_exists(public_path('storage/' . $user->prof_img))) {
-        //         unlink(public_path('storage/' . $user->prof_img));
-        //     }
-        //     $path             = $request->file('prof_img')->store('profile_images', 'public');
-        //     $data['prof_img'] = $path;
-        // }
-
         if ($request->hasFile('prof_img')) {
-
             if ($user->prof_img && file_exists(public_path($user->prof_img))) {
                 unlink(public_path($user->prof_img));
             }
 
-            $image    = $request->file('prof_img');
-            $fileName = time() . '_' . $image->getClientOriginalName();
-            $savePath = 'works/' . $fileName;
+            $image            = $request->file('prof_img');
+            $destinationPath  = public_path('profile_images');
+            if (! file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $imageName);
 
-            $image->move(public_path('/works'), $fileName);
-
-            $data['prof_img'] = $savePath;
+            $data['prof_img'] = 'profile_images/' . $imageName;
         }
 
         $user->update($data);

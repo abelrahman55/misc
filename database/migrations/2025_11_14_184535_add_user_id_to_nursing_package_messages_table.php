@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::table('nursing_package_messages', function (Blueprint $table) {
             //
-            $table->bigInteger('user_id')->nullable();
-            $table->string('user_type')->nullable();
-            $table->string('file')->nullable();
+            // $table->bigInteger('user_id')->nullable();
+            // $table->string('user_type')->nullable();
+            // $table->string('file')->nullable();
         });
     }
 
