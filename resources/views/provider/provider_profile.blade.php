@@ -5,6 +5,7 @@
 use Illuminate\Support\Str;
 @endphp
 
+@section('content')
 <div class="container-fluid">
     <div class="row">
         @include('dashboard.layouts.sidebar')
@@ -259,3 +260,4 @@ use Illuminate\Support\Str;
         </main>
     </div>
 </div>
+@endsection
