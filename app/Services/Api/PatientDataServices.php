@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Services\Api;
 
 use App\Models\User;
@@ -8,11 +7,10 @@ use App\Models\UserLabol;
 use App\Models\UserMedication;
 use App\Models\UserNote;
 use App\Models\UserSergical;
-use App\Models\UserSurgery;
-use App\Models\UserSurgeryType;
 use Illuminate\Support\Facades\Auth;
 
-class PatientDataServices{
+class PatientDataServices
+{
     public static function CompleteData($data)
     {
         $user = Auth::guard('users')->user();
@@ -25,25 +23,28 @@ class PatientDataServices{
             'p_f_name', 'p_m_name', 'p_l_name', 'p_phone', 'p_email', 'p_home',
             'chro_ill_conditions', 'surgical_history', 'family_history',
             'smoking', 'alcohol', 'physical_activity', 'dietary_preferences',
-            'heart_rate', 'blood_pressure', 'temperature', 'respiratory_rate', 'oxygen_saturation',
+            'role',
+            'heart_rate', 'blood_pressure', 'temperature', 'respiratory_rate', 'oxygen_saturation','type',
             'height', 'weight', 'waist_circumference',
+            'type',
             'prefered_hospital', 'prefered_clinic', 'prefered_specialist',
         ];
 
         foreach ($userFields as $field) {
             if (isset($data[$field])) {
-                $user->$field = $data[$field];
+                $user->$field = $data[$field]??null;
             }
         }
+        $user->is_comp = 1;
         $user->save();
 
         // Labodata
         if ($data['test_type'] ?? null || $data['file_test'] ?? null || $data['timeline'] ?? null || $data['date_of_studies'] ?? null || $data['file_imaging'] ?? null) {
-            if(request()->hasFile('file_test')) {
+            if (request()->hasFile('file_test')) {
                 $data['file_test'] = PatientDataServices::UploadFile(request()->file('file_test'));
             }
 
-            if(request()->hasFile('file_imaging')) {
+            if (request()->hasFile('file_imaging')) {
                 $data['file_imaging'] = PatientDataServices::UploadFile(request()->file('file_imaging'));
             }
 
@@ -59,7 +60,7 @@ class PatientDataServices{
 
         // Medications
         if ($data['medication'] ?? null) {
-            if(request()->hasFile('file_meds')) {
+            if (request()->hasFile('file_meds')) {
                 $data['file_meds'] = PatientDataServices::UploadFile(request()->file('file_meds'));
             }
             UserMedication::firstOrCreate([
@@ -75,21 +76,21 @@ class PatientDataServices{
 
         // Surgeries
         if ($data['current_treatment'] ?? null) {
-            if(request()->hasFile('file_surgery')) {
+            if (request()->hasFile('file_surgery')) {
                 $data['file_surgery'] = PatientDataServices::UploadFile(request()->file('file_surgery'));
             }
             UserSergical::firstOrCreate([
-                'user_id'            => $user->id,
-                'current_treatment'  => $data['current_treatment'],
-                'start_date'         => $data['start_date'] ?? null,
-                'duration'           => $data['duration'] ?? null,
-                'past_procedures'    => $data['past_procedures'] ?? null,
-                'surg_date'          => $data['surg_date'] ?? null,
-                'surgeon'            => $data['surgeon'] ?? null,
-                'outcomes'           => $data['outcomes'] ?? null,
-                'reason_for_referral'=> $data['reason_for_referral'] ?? null,
-                'recommendation'     => $data['recommendation'] ?? null,
-                'file_surgery'       => $data['file_surgery'] ?? null,
+                'user_id'             => $user->id,
+                'current_treatment'   => $data['current_treatment'],
+                'start_date'          => $data['start_date'] ?? null,
+                'duration'            => $data['duration'] ?? null,
+                'past_procedures'     => $data['past_procedures'] ?? null,
+                'surg_date'           => $data['surg_date'] ?? null,
+                'surgeon'             => $data['surgeon'] ?? null,
+                'outcomes'            => $data['outcomes'] ?? null,
+                'reason_for_referral' => $data['reason_for_referral'] ?? null,
+                'recommendation'      => $data['recommendation'] ?? null,
+                'file_surgery'        => $data['file_surgery'] ?? null,
             ]);
         }
 
@@ -102,8 +103,8 @@ class PatientDataServices{
                 'infor_environment' => $data['infor_environment'] ?? null,
                 'specific_food'     => $data['specific_food'] ?? null,
                 'insur_address'     => $data['insur_address'] ?? null,
-                'insur_policy'     => $data['insur_policy'] ?? null,
-                'insur_coverage'     => $data['insur_coverage'] ?? null,
+                'insur_policy'      => $data['insur_policy'] ?? null,
+                'insur_coverage'    => $data['insur_coverage'] ?? null,
                 'bill_street_name'  => $data['bill_street_name'] ?? null,
                 'bill_town'         => $data['bill_town'] ?? null,
                 'bill_number'       => $data['bill_number'] ?? null,
@@ -112,7 +113,7 @@ class PatientDataServices{
         }
 
         // Notes
-        if (!empty($data['note'])) {
+        if (! empty($data['note'])) {
             UserNote::create([
                 'user_id' => $user->id,
                 'note'    => $data['note'],
@@ -122,7 +123,8 @@ class PatientDataServices{
         return res_data([], __('تم التحديث بنجاح'), 200);
     }
 
-    static function UploadFile($file){
+    public static function UploadFile($file)
+    {
         $file_name = time() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('files'), $file_name);
         return $file_name;

@@ -62,7 +62,7 @@
                                             @foreach ($countries as $country)
                                                 <option value="{{ $country->id }}"
                                                     {{ $inquiry->country_id == $country->id ? 'selected' : '' }}>
-                                                    {{ $country->name }}
+                                                    {{ $country->getTranslation('name', app()->getLocale()) }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -74,7 +74,7 @@
                                             @foreach ($specialties as $specialty)
                                                 <option value="{{ $specialty->id }}"
                                                     {{ $inquiry->specialty_id == $specialty->id ? 'selected' : '' }}>
-                                                    {{ $specialty->name }}
+                                                    {{ $specialty->title[app()->getLocale()] }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -143,8 +143,10 @@
                                                     </div>
                                                     <div class="d-flex flex-column">
                                                         <span class="file-name">{{ basename($file->file) }}</span>
-                                                        <a href="{{ asset('storage/' . $file->file) }}" target="_blank"
-                                                            class="file-link">Click to view</a>
+                                                        <a href="{{ asset('storage/app/public/' . $file->file) }}" target="_blank">
+    Click to view
+</a>
+
                                                     </div>
                                                 </div>
                                             </div>

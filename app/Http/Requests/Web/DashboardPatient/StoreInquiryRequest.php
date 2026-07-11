@@ -21,6 +21,14 @@ class StoreInquiryRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // 'date' => 'required|string',
+            // 'treatment_type' => 'required|string',
+            // 'assigned_coordintor' => 'nullable|string',
+            // // 'status' => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
+            // 'files' => 'required|array',
+            // 'files.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Adjust file types and size as needed
+
+
             'date'                => 'required|string',
             'treatment_type'      => 'required|string',
             'assigned_coordintor' => 'nullable|string',
@@ -34,7 +42,7 @@ class StoreInquiryRequest extends FormRequest
             'symptoms'            => 'nullable|string',
             'status'              => 'nullable|in:pending,confirmed,in_progress,awaiting_reply,completed',
             'files'               => 'required|array',
-            'files.*'             => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048', // Adjust file types and size as needed
+            'files.*'             => 'file|mimes:jpg,jpeg,png,pdf,doc,docx|max:2048',
         ];
     }
 }

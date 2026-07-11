@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        @include('dashboard_patient.layouts.sidebar')
+        @include('dashboard.layouts.sidebar')
 
         <main class="col dashboard-content p-4">
             <div class="d-flex gap-5">
@@ -67,10 +67,10 @@
 
                                                     <div class="d-flex align-items-center gap-1">
                                                         <div class="text-center">
-                                                            <img src="{{ asset('assets/images/user.png') }}" class="rounded"
+                                                            <img src="{{ asset($feedback->patient->prof_img) }}" class="rounded"
                                                                 alt="user avatar" width="45" height="45">
                                                         </div>
-                                                        <span class="username">{{ $feedback->user->name ?? 'Unknown' }}</span>
+                                                        <span class="username">{{ $feedback->patient->f_name ?? 'Unknown' }}</span>
                                                     </div>
                                                     <p class="feedback-txt">{{ $feedback->description }}</p>
                                                 </div>

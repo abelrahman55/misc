@@ -65,7 +65,7 @@
                                                 <td class="text-muted">{{ $articles->description[app()->getLocale()] }}
                                                 </td>
                                                 <td class="text-muted">
-                                                    <img src="{{ $articles->image }}" alt="Blog Image" width="50"
+                                                    <img src="{{ asset('storage/app/public/' . $articles->image ) }}" alt="Blog Image" width="50"
                                                         height="50" class="img-thumbnail">
                                                 </td>
                                                 <td class="text-muted">

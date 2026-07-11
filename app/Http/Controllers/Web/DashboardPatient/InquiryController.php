@@ -19,8 +19,8 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        // return 'erre';
         $data = $this->inquiryService->index();
+        // return $data;
         return view('dashboard_patient.inquiries.index',compact('data'));
     }
 

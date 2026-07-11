@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+# deployment/backup artifacts, not source
+*.zip
+/index.php
+/php.ini
+/.user.ini
+/invoices.misc-medical.com

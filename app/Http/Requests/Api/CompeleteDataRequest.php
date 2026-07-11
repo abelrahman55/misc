@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -51,6 +50,8 @@ class CompeleteDataRequest extends FormRequest
             'family_history'=>'nullable',
             'smoking'=>'nullable',
             'alcohol'=>'nullable',
+                        'type'                => 'nullable|in:doctor,hospital,hotel,patient',
+
             'physical_activity'=>'nullable',
             'dietary_preferences'=>'nullable',
             'heart_rate'=>'nullable',
@@ -66,47 +67,51 @@ class CompeleteDataRequest extends FormRequest
             'prefered_specialist'=>'nullable',
 
             //labodata
-            'test_type'=>'nullable',
-            'file_test'=>'nullable',
-            'timeline'=>'nullable',
-            'date_of_studies'=>'nullable',
-            'file_imaging'=>'nullable',
+            'test_type'           => 'nullable',
+            'file_test'           => 'nullable',
+            'timeline'            => 'nullable',
+            'date_of_studies'     => 'nullable',
+            'file_imaging'        => 'nullable',
+
+            // 'type'=>'nullable'
 
             //current medications
-            'medication'=>'nullable',
-            'dosage'=>'nullable',
-            'frequency'=>'nullable',
-            'pres_provider'=>'nullable',
-            'adverse_reactions'=>'nullable',
-            'file_meds'=>'nullable',
+            'medication'          => 'nullable',
+            'dosage'              => 'nullable',
+            'frequency'           => 'nullable',
+            'pres_provider'       => 'nullable',
+            'adverse_reactions'   => 'nullable',
+            'file_meds'           => 'nullable',
+
+            'role'=>'required',
 
             //surgeries
-            'current_treatment'=>'nullable',
-            'start_date'=>'nullable',
-            'duration'=>'nullable',
-            'past_procedures'=>'nullable',
-            'surg_date'=>'nullable',
-            'surgeon'=>'nullable',
-            'outcomes'=>'nullable',
-            'reason_for_referral'=>'nullable',
-            'recommendation'=>'nullable',
-            'file_surgery'=>'nullable',
+            'current_treatment'   => 'nullable',
+            'start_date'          => 'nullable',
+            'duration'            => 'nullable',
+            'past_procedures'     => 'nullable',
+            'surg_date'           => 'nullable',
+            'surgeon'             => 'nullable',
+            'outcomes'            => 'nullable',
+            'reason_for_referral' => 'nullable',
+            'recommendation'      => 'nullable',
+            'file_surgery'        => 'nullable',
 
             //allergies
-            'specific_drug'=>'nullable',
-            'reaction_details'=>'nullable',
-            'infor_environment'=>'nullable',
-            'specific_food'=>'nullable',
-            'insur_address'=>'nullable',
-            'insur_policy'=>'nullable',
-            'insur_coverage'=>'nullable',
-            'bill_street_name'=>'nullable',
-            'bill_town'=>'nullable',
-            'bill_number'=>'nullable',
-            'preferred_payment'=>'nullable',
+            'specific_drug'       => 'nullable',
+            'reaction_details'    => 'nullable',
+            'infor_environment'   => 'nullable',
+            'specific_food'       => 'nullable',
+            'insur_address'       => 'nullable',
+            'insur_policy'        => 'nullable',
+            'insur_coverage'      => 'nullable',
+            'bill_street_name'    => 'nullable',
+            'bill_town'           => 'nullable',
+            'bill_number'         => 'nullable',
+            'preferred_payment'   => 'nullable',
 
             //notes
-            'note'=>'nullable',
+            'note'                => 'nullable',
         ];
     }
 }

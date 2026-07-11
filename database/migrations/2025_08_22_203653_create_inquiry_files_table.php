@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (!Schema::hasTable("inquiry_files")) {
         Schema::create('inquiry_files', function (Blueprint $table) {
             $table->id();
             $table->foreignId('inquiry_id')->constrained('inquiries','id')->cascadeOnDelete();
             $table->string('file');
             $table->timestamps();
-        });
+        });}
     }
 
     /**

@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if(Schema::hasTable("booking_provider_options")){
+            return ;
+        }
         Schema::create('booking_provider_options', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('booking_id')->nullable();

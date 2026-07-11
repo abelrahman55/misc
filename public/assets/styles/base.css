@@ -61,6 +61,19 @@ body {
     border-color: var(--bs-primary) !important;
 }
 
+/* لون بنفسجي مخصص للأزرار */
+.btn-purple {
+    background-color: #6f42c1 !important; /* بنفسجي Bootstrap-like */
+    border-color: #6f42c1 !important;
+    color: #fff !important;
+}
+
+.btn-purple:hover {
+    background-color: #59309e !important;
+    border-color: #59309e !important;
+    color: #fff !important;
+}
+
 .btn-outline-primary {
   color: var(--bs-primary);
   border-color: var(--bs-primary);

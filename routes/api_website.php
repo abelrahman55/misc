@@ -4,19 +4,25 @@ use App\Http\Controllers\Api\AboutUsController;
 use App\Http\Controllers\Api\AppointmentsController;
 use App\Http\Controllers\Api\ArticlesController;
 use App\Http\Controllers\Api\BlogController;
+use App\Http\Controllers\Api\BookingHospitalController;
+use App\Http\Controllers\Api\BookingNursingProviderController;
 use App\Http\Controllers\Api\BookingProviderController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\ConversationsController;
 use App\Http\Controllers\Api\CountriesController;
+use App\Http\Controllers\Api\DocumentCenterController;
 use App\Http\Controllers\Api\FaqsController;
 use App\Http\Controllers\Api\FeedBackController;
 use App\Http\Controllers\Api\InqueriesController;
 use App\Http\Controllers\Api\PackagesController;
+use App\Http\Controllers\Api\PackagesHospitalController;
+use App\Http\Controllers\Api\PackagesNursingController;
 use App\Http\Controllers\Api\ProvidersController;
 use App\Http\Controllers\Api\RateSystemController;
 use App\Http\Controllers\Api\RateUserController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ServicesController;
+use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\SpecialistsController;
 use App\Http\Controllers\Api\SpecialtiesController;
 use App\Http\Controllers\Api\WhatWeWorkController;
@@ -41,7 +47,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'faqs',
 ], function () {
-   Route::get('index', [WebFaqsController::class, 'index'])->name('faqs.index');
+    Route::get('index', [WebFaqsController::class, 'index'])->name('faqs.index');
     Route::post('store', [WebFaqsController::class, 'store'])->name('faqs.store');
     Route::get('create', [WebFaqsController::class, 'create'])->middleware('web')->name('faqs.create');
     Route::get('edit/{id}', [WebFaqsController::class, 'edit'])->middleware('web')->name('faqs.edit');
@@ -75,7 +81,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix'     => 'aboutus',
+    'prefix' => 'aboutus',
 ], function () {
     Route::get('aboutus', [WebAboutUsController::class, 'index'])->name('aboutus.index');
     Route::post('aboutus', [WebAboutUsController::class, 'store'])->name('aboutus.store');
@@ -97,7 +103,7 @@ Route::group([
 ], function () {
     Route::get('services', [WebServiceController::class, 'index'])->name('services.index');
     Route::post('services', [WebServiceController::class, 'store'])->name('services.store');
-     Route::get('create', [WebServiceController::class, 'create'])->middleware('web')->name('services.create');
+    Route::get('create', [WebServiceController::class, 'create'])->middleware('web')->name('services.create');
     Route::get('edit/{id}', [WebServiceController::class, 'edit'])->middleware('web')->name('services.edit');
     Route::post('services/{id}', [WebServiceController::class, 'update'])->name('services.update');
     Route::delete('services', [WebServiceController::class, 'delete'])->name('services.delete');
@@ -133,8 +139,8 @@ Route::group([
 ], function () {
     Route::post('make_rate', [RateUserController::class, 'make_rate']);
     Route::post('rate_system', [RateSystemController::class, 'rate_system']);
-    Route::get('clients_rates', [RateSystemController::class, 'clients_rates']);
 });
+    Route::get('rates/clients_rates', [RateSystemController::class, 'clients_rates']);
 
 Route::group([
     'prefix'     => 'patient',
@@ -147,6 +153,8 @@ Route::group([
 ], function () {
     Route::get('best_providers', [ProvidersController::class, 'best_providers']);
 });
+
+Route::get('hospitals', [ProvidersController::class, 'hospitals']);
 
 Route::group([
     'prefix'     => 'forums',
@@ -189,19 +197,37 @@ Route::group([
 
 Route::get('get_works', [WhatWeWorkController::class, 'get_works']);
 Route::get('get_services', [ServicesController::class, 'get_services']);
-Route::get('get_treatment_service',[TreatmentServicesController::class,'get_treatment_service']);
-Route::post('make_appointment',[AppointmentsController::class,'make_appointment'])->middleware('user_login');
+Route::get('get_treatment_service', [TreatmentServicesController::class, 'get_treatment_service']);
+Route::post('make_appointment', [AppointmentsController::class, 'make_appointment'])->middleware('user_login');
 
 Route::group([
-    'prefix'=>'conversations',
-    'middleware'=>'user_login'
-],function(){
-    Route::get('make_conversation',[ConversationsController::class,'make_conversation']);
-    Route::get('get_conversation',[ConversationsController::class,'get_conversation']);
-    Route::post('send_message',[ConversationsController::class,'send_message']);
+    'prefix'     => 'conversations',
+    'middleware' => 'user_login',
+], function () {
+    Route::get('make_conversation', [ConversationsController::class, 'make_conversation']);
+    Route::get('get_conversation', [ConversationsController::class, 'get_conversation']);
+    Route::post('send_message', [ConversationsController::class, 'send_message']);
 });
 
 Route::post('make_inquery',[InqueriesController::class,'make_inquery'])->middleware('user_login');
-Route::get('book_packages',[PackagesController::class,'book_packages'])->middleware('user_login');
+Route::get('book_packages',[PackagesController::class,'book_packages']);
 Route::get('other_options/{id}',[PackagesController::class,'other_options'])->middleware('user_login');
 Route::post('booking_provider',[BookingProviderController::class,'booking_provider'])->middleware('user_login');
+
+
+
+
+Route::get('book_packages_nursing', [PackagesNursingController::class, 'book_packages']);
+Route::get('other_options_nursing/{id}', [PackagesNursingController::class, 'other_options']);
+Route::post('booking_nursing_provider', [BookingNursingProviderController::class, 'booking_provider'])->middleware('user_login');
+
+Route::get('book_packages_hospital', [PackagesHospitalController::class, 'book_packages']);
+Route::get('other_options_hospital/{id}', [PackagesHospitalController::class, 'other_options']);
+Route::post('booking_hospital', [BookingHospitalController::class, 'booking_provider'])->middleware('user_login');
+Route::get('my_documents',[DocumentCenterController::class, 'my_documents'])->middleware('user_login');
+Route::post('add_new_document',[DocumentCenterController::class, 'add_new_document'])->middleware('user_login');
+Route::delete('delete_document/{id}',[DocumentCenterController::class, 'delete_document'])->middleware('user_login');
+Route::post('update_document/{id}',[DocumentCenterController::class, 'update_document'])->middleware('user_login');
+
+Route::get('settings',[SettingsController::class,'settings']);
+Route::post('update_physical_data',[PatientController::class,'update_physical_data'])->middleware('user_login');
