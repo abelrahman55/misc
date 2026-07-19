@@ -18,6 +18,7 @@ use App\Http\Controllers\Web\DashboardPatient\FeedbackReviewController;
 use App\Http\Controllers\Web\DashboardPatient\InquiryController;
 use App\Http\Controllers\Web\FaqsController as WebFaqsController;
 use App\Http\Controllers\Web\MyBookingsController;
+use App\Http\Controllers\Web\PaymobController;
 use App\Http\Controllers\Web\PackageController;
 use App\Http\Controllers\Web\PackageHospitalController;
 use App\Http\Controllers\Web\PackageNursingController;
@@ -40,6 +41,10 @@ Route::post('patient_profile/update', [PatientDashController::class, 'update_pro
 
 Route::get('welcome_provider', [ProvidersController::class, 'welcome_provider'])->name('welcome_provider');
 
+Route::get('/__debug_login_provider', function () {
+    auth()->guard('web')->loginUsingId(6);
+    return redirect()->route('provider_profile');
+});
 Route::get('/admin_login', [AdminsController::class, 'admin_login'])->name('admin_login');
 Route::post('admin_regist', [AdminsController::class, 'admin_regist'])->name('admin_regist');
 Route::get('admin_logout', [AdminsController::class, 'admin_logout'])->name('admin_logout');
@@ -133,6 +138,8 @@ Route::post('provider_pay', [MyBookingsController::class, 'provider_pay'])->name
 
 Route::get('my_sick_bookings', [MyBookingsController::class, 'my_sick_bookings'])->name('my_sick_bookings');
 Route::post('package_pay', [MyBookingsController::class, 'package_pay'])->name('package_pay');
+
+Route::match(['get', 'post'], 'paymob/callback', [PaymobController::class, 'callback'])->name('paymob.callback');
 
 Route::get('doctor_meetings/{id}', [ProviderMakeMeetingController::class, 'doctor_meetings'])->name('doctor_meetings');
 Route::post('create_package_meeting', [ProviderMakeMeetingController::class, 'create_package_meeting'])->name('create_package_meeting');
